@@ -19,7 +19,35 @@ class WechatController extends Controller {
         $type = $this->weObj->getRev()->getRevType();
         switch($type) {
         case \Org\Wechat\Wechat::MSGTYPE_TEXT:
-            $this->weObj->text("hello, I'm wechat")->reply();
+            if(strstr($this->weObj->getRevContent(), "更换果切"))
+            {
+                $user = M('User');
+                $where['openId'] = $this->weObj->getRevFrom();
+                $u = $user->where($where)->find();
+                if($u !== null)
+                {
+                    $group = M('Group');
+                    $g = $group->where('qrScene='.$u['qrScene'])->find();
+                    if($g !== null)
+                    {
+                        $p_g = M('ProductGroup');
+                        $product = M('Product');
+                        $products = $p_g->where('groupId='.$g['id'])->select();
+                        $msg = "";
+                        $count = 1;
+                        foreach($products as $p)
+                        {
+                            $msg = $msg.$count.':'.$product->where('id='.$p['productId'])->getField('name')."\r\n";
+                            $count = $count + 1;
+                        }
+                        $this->weObj->text("请选择果盘种类:\r\n".trim($msg))->reply();
+                    }
+                }
+            }
+            else
+            {
+                $this->weObj->text("您好，欢迎使用果大侠微信服务，可发送命令：更换果切")->reply();
+            }
             exit;
             break;
         case \Org\Wechat\Wechat::MSGTYPE_EVENT:
@@ -170,21 +198,6 @@ class WechatController extends Controller {
         echo $result;
     }
 
-    public function getMenu() {
-        $result = $this->weObj->getMenu();
-        var_dump($result);
-    }
-
-    public function createGroup() {
-        $result = $this->weObj->createGroup($_GET["name"]);
-        echo $result;
-    }
-
-    public function getGroup() {
-        $result = $this->weObj->getGroup();
-        var_dump($result);
-    }
-
     public function getQrcode() {
         $ticket = $this->weObj->getQRCode($_GET["scene_id"]);
         redirect($this->weObj->getQRUrl($ticket["ticket"]));
@@ -198,23 +211,6 @@ class WechatController extends Controller {
     public function getToken() {
         $result = $this->weObj->checkAuth();
         var_dump($result);
-    }
-
-    public function testDB() {
-        $message = "你好！欢迎关注果大侠官方微信！";
-        $user = M('User');
-        $user_data['openId'] = "hello123";
-        $u = $user->where($user_data)->find();
-        if($u !== null)
-        {
-            $u['subscribe'] = 1;
-            $user->save($u);
-            $message = "你好！欢迎回来继续关注果大侠官方微信！";
-        } else {
-            $user_data['subscribe'] = 1;
-            $user_data['id'] = $user->data($user_data)->add();
-        }
-        echo $message;
     }
 
     public function test() {
