@@ -7,9 +7,9 @@ class WechatController extends Controller {
     public function __construct()
     {
         $options = array(
-	    'token'=>'meirixianguo',
-	    'appid'=>'wx5a89b696654c4d57',
-	    'appsecret'=>'07ca0ceb25d5303254434db6c1c7541e',
+            'token'=>'meirixianguo',
+            'appid'=>'wx5a89b696654c4d57',
+            'appsecret'=>'07ca0ceb25d5303254434db6c1c7541e',
         );
         $this->weObj = new \Org\Wechat\Wechat($options);
     }
@@ -50,15 +50,15 @@ class WechatController extends Controller {
                         }
                         $user_data['id'] = $user->data($user_data)->add();
                     }
-		if($this->weObj->getRevSceneId() !== false)
-		{
-                    $group = M('Group');
-                    $g = $group->where('qrScene='.$this->weObj->getRevSceneId())->find();
-                    if($g !== null)
+                    if($this->weObj->getRevSceneId() !== false)
                     {
-                        $this->weObj->updateGroupMembers($g['groupId'], $this->weObj->getRevFrom());
+                        $group = M('Group');
+                        $g = $group->where('qrScene='.$this->weObj->getRevSceneId())->find();
+                        if($g !== null)
+                        {
+                            $this->weObj->updateGroupMembers($g['groupId'], $this->weObj->getRevFrom());
+                        }
                     }
-		}
                     $this->weObj->text($message)->reply();
                     break;
                 case 'unsubscribe':
@@ -68,38 +68,64 @@ class WechatController extends Controller {
                     $user->where($where)->save();
                     break;
                 case 'scan':
-                    $r = rand(1, 100) / 100;
-                    $this->weObj->text("你好！欢迎扫描二维码赢取奖品！"."幸运概率：".$r)->reply();
+                    $time = time();
+                    $user = M('User');
+                    $where['openId'] = $this->weObj->getRevFrom();
+                    $u = $user->where($where)->find();
+                    if($u !== null)
+                    {
+                        $scan = M('ScanAction');
+                        $s = $scan->where('userId='.$u['id'].' and score<>0')->order('ctime desc')->find();
+                        if($s !== null)
+                        {
+                            $interval = $time - $s['ctime'];
+                            if($interval < 60 * 60 * 12)
+                            {
+                                $this->weObj->text("你好！欢迎扫描二维码赢取奖品！")->reply();
+                                $data['userId'] = $u['id'];
+                                $data['score'] = 0;
+                                $data['ctime'] = $time;
+                                $scan->data($data)->add();
+                                return;
+                            }
+                        }
+                        $data['userId'] = $u['id'];
+                        $data['score'] = 10;
+                        $data['ctime'] = $time;
+                        $scan->data($data)->add();
+                        $r = rand(1, 100) / 100;
+                        $this->weObj->text("你好！欢迎扫描二维码赢取奖品！"."幸运概率=".$r)->reply();
+                    }
                     break;
                 case 'click':
-		    switch($event['key'])
-			{
-			case 'MENU_KEY_PRODUCT':
-			    $news = array(
-				"0"=>array(
-				    'Title'=>'产品介绍',
-				    'Description'=>'鲜果切具有100%即开即食，水果种类一次多样搭配等特点，非常适合繁忙的工作之余享用，想吃多少吃多少，完全省去',
-				    'PicUrl'=>'http://meirixianguo.com/heroesguo/Public/images/img1.jpg',
-				    'Url'=>'http://mp.weixin.qq.com/s?__biz=MzAwODAzMTAwMg==&mid=200662061&idx=1&sn=7c7dd1f7da9b127bb477561fd5808bc0#rd'
-				)
-			    );
-			    $this->weObj->news($news)->reply();
-			break;
-			case 'MENU_KEY_COMPANY':
-			$this->weObj->text("你好！公司介绍！")->reply();
-			break;
-			case 'MENU_KEY_ORDER':
-			$this->weObj->text("你好！在线下单！")->reply();
-			break;
-			case 'MENU_KEY_PRIZE':
-			$this->weObj->text("你好！领取奖品！")->reply();
-			break;
-			case 'MENU_KEY_SERVICE':
-			$this->weObj->text("你好！联系客服！")->reply();
-			break;
-			default:
-			$this->weObj->text("你好！未知消息！")->reply();
-			}
+                    switch($event['key'])
+                    {
+                    case 'MENU_KEY_PRODUCT':
+                        $news = array(
+                            "0"=>array(
+                                'Title'=>'产品介绍',
+                                'Description'=>'鲜果切具有100%即开即食，水果种类一次多样搭配等特点，非常适合繁忙的工作之余享用，想吃多少吃多少，完全省去',
+                                'PicUrl'=>'http://meirixianguo.com/heroesguo/Public/images/img1.jpg',
+                                'Url'=>'http://mp.weixin.qq.com/s?__biz=MzAwODAzMTAwMg==&mid=200662061&idx=1&sn=7c7dd1f7da9b127bb477561fd5808bc0#rd'
+                            )
+                        );
+                        $this->weObj->news($news)->reply();
+                        break;
+                    case 'MENU_KEY_COMPANY':
+                        $this->weObj->text("你好！公司介绍！")->reply();
+                        break;
+                    case 'MENU_KEY_ORDER':
+                        $this->weObj->text("你好！在线下单！")->reply();
+                        break;
+                    case 'MENU_KEY_PRIZE':
+                        $this->weObj->text("你好！领取奖品！")->reply();
+                        break;
+                    case 'MENU_KEY_SERVICE':
+                        $this->weObj->text("你好！联系客服！")->reply();
+                        break;
+                    default:
+                        $this->weObj->text("你好！未知消息！")->reply();
+                    }
                     break;
                 default:
                 }
@@ -124,19 +150,19 @@ class WechatController extends Controller {
     public function createMenu() {
         $newmenu = array(
             "button" => array(
-		array('name'=>'产品介绍', 'sub_button'=>array(
-			array('type'=>'click', 'name'=>'产品介绍', 'key'=>'MENU_KEY_PRODUCT'),
-			array('type'=>'click', 'name'=>'公司介绍', 'key'=>'MENU_KEY_COMPANY')
-		)
-		),
-                array('type'=>'click','name'=>'在线预订','key'=>'MENU_KEY_ORDER'),
-		array('name'=>'优惠活动', 'sub_button'=>array(
-			array('type'=>'click', 'name'=>'领取奖品', 'key'=>'MENU_KEY_PRIZE'),
-			array('type'=>'click', 'name'=>'联系客服', 'key'=>'MENU_KEY_SERVICE')
-		)
-		)
+                array('name'=>'产品介绍', 'sub_button'=>array(
+                    array('type'=>'click', 'name'=>'产品介绍', 'key'=>'MENU_KEY_PRODUCT'),
+                    array('type'=>'click', 'name'=>'公司介绍', 'key'=>'MENU_KEY_COMPANY')
+                )
+            ),
+            array('type'=>'click','name'=>'在线预订','key'=>'MENU_KEY_ORDER'),
+            array('name'=>'优惠活动', 'sub_button'=>array(
+                array('type'=>'click', 'name'=>'领取奖品', 'key'=>'MENU_KEY_PRIZE'),
+                array('type'=>'click', 'name'=>'联系客服', 'key'=>'MENU_KEY_SERVICE')
             )
-        );
+        )
+    )
+);
         $result = $this->weObj->createMenu($newmenu);
         echo $result;
     }
@@ -189,7 +215,10 @@ class WechatController extends Controller {
     }
 
     public function test() {
-        Log::write("hello", 'ERR');
-        //error_log("hello", 3, '/var/www/heroesguo/Application/Runtime/Logs/Home/ee');
+        $user = M('User');
+        $u = $user->where('id=1')->find();
+
+        $data = array('touser' => $u['openId'], 'msgtype' => 'text', 'text' => array('content' => 'hello world'));
+        $this->weObj->sendCustomMessage($data);
     }
 }
