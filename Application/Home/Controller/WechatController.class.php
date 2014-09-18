@@ -121,7 +121,10 @@ class WechatController extends Controller {
                         $this->weObj->text("你好！领取奖品！")->reply();
                         break;
                     case 'MENU_KEY_SERVICE':
-                        $this->weObj->text("你好！联系客服！")->reply();
+                        $this->weObj->reply(array('ToUserName' => $this->weObj->getRevFrom(),
+                                                    'FromUserName' => $this->weObj->getRevTo(),
+                                                    'CreateTime' => time(),
+                                                    'MsgType' => 'transfer_customer_service'));
                         break;
                     default:
                         $this->weObj->text("你好！未知消息！")->reply();
