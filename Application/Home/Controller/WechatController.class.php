@@ -199,7 +199,7 @@ class WechatController extends Controller {
     }
 
     public function getQrcode() {
-        $ticket = $this->weObj->getQRCode($_GET["scene_id"]);
+        $ticket = $this->weObj->getQRCode($_GET["scene_id"], 1);
         redirect($this->weObj->getQRUrl($ticket["ticket"]));
     }
 
