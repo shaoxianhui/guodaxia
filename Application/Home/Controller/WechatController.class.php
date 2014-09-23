@@ -21,27 +21,17 @@ class WechatController extends Controller {
         case \Org\Wechat\Wechat::MSGTYPE_TEXT:
             if(strstr($this->weObj->getRevContent(), "更换果切"))
             {
-                $user = M('User');
-                $where['openId'] = $this->weObj->getRevFrom();
-                $u = $user->where($where)->find();
-                if($u !== null)
+                $products = D('Product')->getProductOfUser($this->weObj->getRevFrom());
+                if($products !== null)
                 {
-                    $group = M('Group');
-                    $g = $group->where('qrScene='.$u['qrScene'])->find();
-                    if($g !== null)
+                    $msg = "";
+                    $count = 1;
+                    foreach($products as $p)
                     {
-                        $p_g = M('ProductGroup');
-                        $product = M('Product');
-                        $products = $p_g->where('groupId='.$g['id'])->select();
-                        $msg = "";
-                        $count = 1;
-                        foreach($products as $p)
-                        {
-                            $msg = $msg.$count.':'.$product->where('id='.$p['productId'])->getField('name')."\r\n";
-                            $count = $count + 1;
-                        }
-                        $this->weObj->text("请选择果盘种类:\r\n".trim($msg))->reply();
+                        $msg = $msg.$count.':'.$p['name']."\r\n";
+                        $count = $count + 1;
                     }
+                    $this->weObj->text("请选择果盘种类:\r\n".trim($msg))->reply();
                 }
             }
             else
@@ -133,7 +123,13 @@ class WechatController extends Controller {
                             "0"=>array(
                                 'Title'=>'产品介绍',
                                 'Description'=>'鲜果切具有100%即开即食，水果种类一次多样搭配等特点，非常适合繁忙的工作之余享用，想吃多少吃多少，完全省去',
-                                'PicUrl'=>'http://meirixianguo.com/heroesguo/Public/images/img1.jpg',
+                                'PicUrl'=>getWeChatImageUrl('cup.jpg'),
+                                'Url'=>'http://mp.weixin.qq.com/s?__biz=MzAwODAzMTAwMg==&mid=200662061&idx=1&sn=7c7dd1f7da9b127bb477561fd5808bc0#rd'
+                            ),
+                            "1"=>array(
+                                'Title'=>'产品介绍',
+                                'Description'=>'鲜果切具有100%即开即食，水果种类一次多样搭配等特点，非常适合繁忙的工作之余享用，想吃多少吃多少，完全省去',
+                                'PicUrl'=>getWeChatImageUrl('cup.jpg'),
                                 'Url'=>'http://mp.weixin.qq.com/s?__biz=MzAwODAzMTAwMg==&mid=200662061&idx=1&sn=7c7dd1f7da9b127bb477561fd5808bc0#rd'
                             )
                         );
@@ -146,7 +142,19 @@ class WechatController extends Controller {
                         $this->weObj->text("你好！在线下单！")->reply();
                         break;
                     case 'MENU_KEY_PRIZE':
-                        $this->weObj->text("你好！领取奖品！")->reply();
+                        $prizes = D('Prize')->getPrizeOfUser($this->weObj->getRevFrom());
+                        if($prizes !== null)
+                        {
+                            $prize_news = array();
+                            $count = 0;
+                            foreach($prizes as $p)
+                            {
+                                $prize_news[$count] = array('Title' => $p['description'],
+                                                            'PicUrl' => getWeChatImageUrl($p['picture']));
+                                $count = $count + 1;
+                            }
+                            $this->weObj->news($prize_news)->reply();
+                        }
                         break;
                     case 'MENU_KEY_SERVICE':
                         $this->weObj->reply(array('ToUserName' => $this->weObj->getRevFrom(),
@@ -188,7 +196,7 @@ class WechatController extends Controller {
             ),
             array('type'=>'click','name'=>'在线预订','key'=>'MENU_KEY_ORDER'),
             array('name'=>'优惠活动', 'sub_button'=>array(
-                array('type'=>'click', 'name'=>'领取奖品', 'key'=>'MENU_KEY_PRIZE'),
+                array('type'=>'click', 'name'=>'本期奖品', 'key'=>'MENU_KEY_PRIZE'),
                 array('type'=>'click', 'name'=>'联系客服', 'key'=>'MENU_KEY_SERVICE')
             )
         )
@@ -214,10 +222,7 @@ class WechatController extends Controller {
     }
 
     public function test() {
-        $user = M('User');
-        $u = $user->where('id=1')->find();
-
-        $data = array('touser' => $u['openId'], 'msgtype' => 'text', 'text' => array('content' => 'hello world'));
-        $this->weObj->sendCustomMessage($data);
+        $d = D('Prize')->getPrizeOfUser($_GET['id']);
+        var_dump($d);
     }
 }
