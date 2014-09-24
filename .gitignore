@@ -1,2 +1,4 @@
 # 忽略Runtime目录
 Application/Runtime
+# 忽略临时备份文件
+*.backup

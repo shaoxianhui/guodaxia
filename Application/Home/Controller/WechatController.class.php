@@ -38,7 +38,6 @@ class WechatController extends Controller {
             {
                 $this->weObj->text("您好，欢迎使用果大侠微信服务，可发送命令：更换果切")->reply();
             }
-            exit;
             break;
         case \Org\Wechat\Wechat::MSGTYPE_EVENT:
             $event = $this->weObj->getRevEvent();
@@ -47,27 +46,7 @@ class WechatController extends Controller {
                 switch(strtolower($event['event']))
                 {
                 case 'subscribe':
-                    $message = "你好！欢迎关注果大侠官方微信！";
-                    $user = M('User');
-                    $user_data['openId'] = $this->weObj->getRevFrom();
-                    $u = $user->where($user_data)->find();
-                    if($u !== null)
-                    {
-                        $u['subscribe'] = 1;
-                        if($this->weObj->getRevSceneId() !== false)
-                        {
-                            $u['qrScene'] = $this->weObj->getRevSceneId();
-                        }
-                        $user->save($u);
-                        $message = "你好！欢迎回来继续关注果大侠官方微信！";
-                    } else {
-                        $user_data['subscribe'] = 1;
-                        if($this->weObj->getRevSceneId() !== false)
-                        {
-                            $user_data['qrScene'] = $this->weObj->getRevSceneId();
-                        }
-                        $user_data['id'] = $user->data($user_data)->add();
-                    }
+                    $add_or_update = D('User')->addUser($this->weObj->getRevFrom(), $this->weObj->getRevSceneId());
                     if($this->weObj->getRevSceneId() !== false)
                     {
                         $group = M('Group');
@@ -77,7 +56,12 @@ class WechatController extends Controller {
                             $this->weObj->updateGroupMembers($g['groupId'], $this->weObj->getRevFrom());
                         }
                     }
-                    $this->weObj->text($message)->reply();
+                    if($add_or_update)
+                    {
+                        $this->weObj->text("您好，欢迎关注果大侠官方微信！")->reply();
+                    } else {
+                        $this->weObj->text("您好！欢迎回来继续关注果大侠官方微信！")->reply();
+                    }
                     break;
                 case 'unsubscribe':
                     $where['openId'] = $this->weObj->getRevFrom();
@@ -86,57 +70,31 @@ class WechatController extends Controller {
                     $user->where($where)->save();
                     break;
                 case 'scan':
-                    $time = time();
-                    $user = M('User');
-                    $where['openId'] = $this->weObj->getRevFrom();
-                    $u = $user->where($where)->find();
-                    if($u !== null)
+                    $score = D('ScanAction')->addRecord($this->weObj->getRevFrom());
+                    if($score !== 0)
                     {
-                        $scan = M('ScanAction');
-                        $s = $scan->where('userId='.$u['id'].' and score<>0')->order('ctime desc')->find();
-                        if($s !== null)
-                        {
-                            $interval = $time - $s['ctime'];
-                            if($interval < 60 * 60 * 12)
-                            {
-                                $this->weObj->text("你好！欢迎扫描二维码赢取奖品！")->reply();
-                                $data['userId'] = $u['id'];
-                                $data['score'] = 0;
-                                $data['ctime'] = $time;
-                                $scan->data($data)->add();
-                                return;
-                            }
-                        }
-                        $data['userId'] = $u['id'];
-                        $data['score'] = 10;
-                        $data['ctime'] = $time;
-                        $scan->data($data)->add();
                         $r = rand(1, 100) / 100;
-                        $this->weObj->text("你好！欢迎扫描二维码赢取奖品！"."幸运概率=".$r)->reply();
+                        $prize = D('Prize')->isPrize($this->weObj->getRevFrom(), $r);
+                        if($prize !== null)
+                        {
+                            $this->weObj->text("您好，扫描二维码获得奖品！")->reply();
+                        } else {
+                            $this->weObj->text("您好，扫描二维码获得积分！")->reply();
+                        }
+                    } else {
+                        $this->weObj->text("您好，感谢您的关注！")->reply();
                     }
                     break;
                 case 'click':
                     switch($event['key'])
                     {
                     case 'MENU_KEY_PRODUCT':
-                        $news = array(
-                            "0"=>array(
-                                'Title'=>'产品介绍',
-                                'Description'=>'鲜果切具有100%即开即食，水果种类一次多样搭配等特点，非常适合繁忙的工作之余享用，想吃多少吃多少，完全省去',
-                                'PicUrl'=>getWeChatImageUrl('cup.jpg'),
-                                'Url'=>'http://mp.weixin.qq.com/s?__biz=MzAwODAzMTAwMg==&mid=200662061&idx=1&sn=7c7dd1f7da9b127bb477561fd5808bc0#rd'
-                            ),
-                            "1"=>array(
-                                'Title'=>'产品介绍',
-                                'Description'=>'鲜果切具有100%即开即食，水果种类一次多样搭配等特点，非常适合繁忙的工作之余享用，想吃多少吃多少，完全省去',
-                                'PicUrl'=>getWeChatImageUrl('cup.jpg'),
-                                'Url'=>'http://mp.weixin.qq.com/s?__biz=MzAwODAzMTAwMg==&mid=200662061&idx=1&sn=7c7dd1f7da9b127bb477561fd5808bc0#rd'
-                            )
-                        );
+                        $news = D('News')->getNews(array(1, 2));
                         $this->weObj->news($news)->reply();
                         break;
                     case 'MENU_KEY_COMPANY':
-                        $this->weObj->text("你好！公司介绍！")->reply();
+                        $news = D('News')->getNews(array(1, 2));
+                        $this->weObj->news($news)->reply();
                         break;
                     case 'MENU_KEY_ORDER':
                         $this->weObj->text("你好！在线下单！")->reply();
@@ -171,15 +129,6 @@ class WechatController extends Controller {
             }
             break;
         case \Org\Wechat\Wechat::MSGTYPE_IMAGE:
-            $news = array(
-                "0"=>array(
-                    'Title'=>'msg title',
-                    'Description'=>'summary text',
-                    'PicUrl'=>'http://182.92.163.69/mrxg/Public/test.jpg',
-                    'Url'=>'http://182.92.163.69'
-                )
-            );
-            $this->weObj->news($news)->reply();
             break;
         default:
             $this->weObj->text("help info")->reply();
@@ -222,7 +171,5 @@ class WechatController extends Controller {
     }
 
     public function test() {
-        $d = D('Prize')->getPrizeOfUser($_GET['id']);
-        var_dump($d);
     }
 }
