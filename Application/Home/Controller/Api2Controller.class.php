@@ -1,8 +1,8 @@
 <?php
 namespace Home\Controller;
-use Think\Controller\RpcController;
-class ApiController extends RpcController {
-    public function login($username, $password) {
+use Think\Controller\HproseController;
+class Api2Controller extends HproseController {
+    public function test1($text) {
         $admin = D('Admin/Admin')->getAdmin($username, $password);
         if($admin !== false) {
             return true;
