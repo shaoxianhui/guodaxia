@@ -13,4 +13,11 @@ class FruitPriceModel extends Model {
         $data['cdate'] = $cdate;
         return $this->data($data)->add();
     }
+
+    public function updateFruitPrice($fruitPriceId, $minPrice, $maxPrice, $cdate) {
+        $data['minPrice'] = $minPrice;
+        $data['maxPrice'] = $maxPrice;
+        $data['cdate'] = $cdate;
+        return $this->where('id='.$fruitPriceId)->data($data)->save();
+    }
 }
