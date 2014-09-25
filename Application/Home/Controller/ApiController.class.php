@@ -10,4 +10,40 @@ class ApiController extends RpcController {
             return false;
         }
     }
+
+    public function getFruitType() {
+        $fruitType = D('FruitType')->getFruitType();
+        return $fruitType;
+    }
+
+    public function getFruit($fruitTypeId) {
+        $fruits = D('Fruit')->getFruit($fruitTypeId);
+        if($fruits === null) {
+            return array();
+        }
+        return $fruits;
+    }
+
+    public function getFruitPrice($fruitId) {
+        $fruitPrice = D('FruitPrice')->getFruitPrice($fruitId);
+        if($fruitPrice === null) {
+            return array();
+        }
+        return $fruitPrice;
+    }
+
+    public function addFruitType($name) {
+        $id = D('FruitType')->addFruitType($name);
+        return $id;
+    }
+
+    public function addFruit($fruitTypeId, $name, $level, $area, $unit, $description, $loss) {
+        $id = D('Fruit')->addFruit($fruitTypeId, $name, $level, $area, $unit, $description, $loss);
+        return $id;
+    }
+
+    public function addFruitPrice($fruitId, $minPrice, $maxPrice, $cdate) {
+        $id = D('FruitPrice')->addFruitPrice($fruitId, $minPrice, $maxPrice, $cdate);
+        return $id;
+    }
 }

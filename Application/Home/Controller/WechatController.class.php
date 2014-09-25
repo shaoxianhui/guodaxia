@@ -171,5 +171,10 @@ class WechatController extends Controller {
     }
 
     public function test() {
+        $data['fruitId'] = 1;
+        $data['minPrice'] = 4;
+        $data['maxPrice'] = 5;
+        $data['cdate'] = '2014-9-5';
+        M('FruitPrice')->add($data);
     }
 }
