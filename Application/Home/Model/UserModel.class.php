@@ -27,4 +27,17 @@ class UserModel extends Model {
         }
         return $add_or_update;
     }
+
+    public function changeSceneOfUser($openId, $scene)
+    {
+        if($scene >= 100)
+        {
+            $user = $this->getUser($openId);
+            if($user['qrScene'] !== $scene)
+            {
+                $user['qrScene'] = $scene;
+                $this->save($user);
+            }
+        }
+    }
 }

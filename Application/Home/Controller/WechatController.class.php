@@ -36,7 +36,7 @@ class WechatController extends Controller {
             }
             else
             {
-                $this->weObj->text("您好，欢迎使用果大侠微信服务，可发送命令：更换果切")->reply();
+                $this->weObj->text(D('Text')->getText(3))->reply();
             }
             break;
         case \Org\Wechat\Wechat::MSGTYPE_EVENT:
@@ -58,9 +58,9 @@ class WechatController extends Controller {
                     }
                     if($add_or_update)
                     {
-                        $this->weObj->text("您好，欢迎关注果大侠官方微信！")->reply();
+                        $this->weObj->text(D('Text')->getText(1))->reply();
                     } else {
-                        $this->weObj->text("您好！欢迎回来继续关注果大侠官方微信！")->reply();
+                        $this->weObj->text(D('Text')->getText(2))->reply();
                     }
                     break;
                 case 'unsubscribe':
@@ -70,6 +70,7 @@ class WechatController extends Controller {
                     $user->where($where)->save();
                     break;
                 case 'scan':
+                    D('User')->changeSceneOfUser($this->weObj->getRevFrom(), $this->weObj->getRevSceneId());
                     $score = D('ScanAction')->addRecord($this->weObj->getRevFrom());
                     if($score !== 0)
                     {
@@ -77,12 +78,12 @@ class WechatController extends Controller {
                         $prize = D('Prize')->isPrize($this->weObj->getRevFrom(), $r);
                         if($prize !== null)
                         {
-                            $this->weObj->text("您好，扫描二维码获得奖品！")->reply();
+                            $this->weObj->text(D('Text')->getText(5))->reply();
                         } else {
-                            $this->weObj->text("您好，扫描二维码获得积分！")->reply();
+                            $this->weObj->text(D('Text')->getText(6))->reply();
                         }
                     } else {
-                        $this->weObj->text("您好，感谢您的关注！")->reply();
+                        $this->weObj->text(D('Text')->getText(4))->reply();
                     }
                     break;
                 case 'click':
@@ -131,27 +132,28 @@ class WechatController extends Controller {
         case \Org\Wechat\Wechat::MSGTYPE_IMAGE:
             break;
         default:
-            $this->weObj->text("help info")->reply();
+            $this->weObj->text(D('Text')->getText(3))->reply();
         }
     }
 
     public function createMenu() {
-        $newmenu = array(
-            "button" => array(
-                array('name'=>'产品介绍', 'sub_button'=>array(
-                    array('type'=>'click', 'name'=>'产品介绍', 'key'=>'MENU_KEY_PRODUCT'),
-                    array('type'=>'click', 'name'=>'公司介绍', 'key'=>'MENU_KEY_COMPANY')
-                )
-            ),
-            array('type'=>'click','name'=>'在线预订','key'=>'MENU_KEY_ORDER'),
-            array('name'=>'优惠活动', 'sub_button'=>array(
-                array('type'=>'click', 'name'=>'本期奖品', 'key'=>'MENU_KEY_PRIZE'),
-                array('type'=>'click', 'name'=>'联系客服', 'key'=>'MENU_KEY_SERVICE')
-            )
-        )
-    )
-);
-        $result = $this->weObj->createMenu($newmenu);
+        /* $newmenu = array( */
+        /*     "button" => array( */
+        /*         array('name'=>'产品介绍', 'sub_button'=>array( */
+        /*             array('type'=>'click', 'name'=>'产品介绍', 'key'=>'MENU_KEY_PRODUCT'), */
+        /*             array('type'=>'click', 'name'=>'公司介绍', 'key'=>'MENU_KEY_COMPANY') */
+        /*         ) */
+        /*     ), */
+        /*     array('type'=>'click','name'=>'在线预订','key'=>'MENU_KEY_ORDER'), */
+        /*     array('name'=>'优惠活动', 'sub_button'=>array( */
+        /*         array('type'=>'click', 'name'=>'本期奖品', 'key'=>'MENU_KEY_PRIZE'), */
+        /*         array('type'=>'click', 'name'=>'联系客服', 'key'=>'MENU_KEY_SERVICE') */
+        /*     ) */
+        /* ) */
+    /* ) */
+/* ); */
+
+        $result = $this->weObj->createMenu(D('Menu')->getMenus());
         echo $result;
     }
 
@@ -171,10 +173,6 @@ class WechatController extends Controller {
     }
 
     public function test() {
-        $data['fruitId'] = 1;
-        $data['minPrice'] = 4;
-        $data['maxPrice'] = 5;
-        $data['cdate'] = '2014-9-5';
-        M('FruitPrice')->add($data);
+        echo D('Text')->getText(1);
     }
 }
