@@ -6,6 +6,7 @@ class WechatController extends Controller {
     private $weObj;
     public function __construct()
     {
+        parent::__construct();
         $options = array(
             'token'=>'meirixianguo',
             'appid'=>'wx5a89b696654c4d57',
