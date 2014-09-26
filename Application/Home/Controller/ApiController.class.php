@@ -46,4 +46,19 @@ class ApiController extends RpcController {
         $id = D('FruitPrice')->addFruitPrice($fruitId, $minPrice, $maxPrice, $cdate);
         return $id;
     }
+
+    public function updateFruitType($fruitTypeId, $name) {
+        $id = D('FruitType')->updateFruitType($fruitTypeId, $name);
+        return $id;
+    }
+
+    public function updateFruit($fruitId, $name, $level, $area, $unit, $description, $loss) {
+        $id = D('Fruit')->updateFruit($fruitId, $name, $level, $area, $unit, $description, $loss);
+        return $id;
+    }
+
+    public function updateFruitPrice($fruitPriceId, $minPrice, $maxPrice, $cdate) {
+        $id = D('FruitPrice')->updateFruitPrice($fruitPriceId, $minPrice, $maxPrice, $cdate);
+        return $id;
+    }
 }

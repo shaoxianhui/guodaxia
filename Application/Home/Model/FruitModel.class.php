@@ -17,4 +17,13 @@ class FruitModel extends Model {
         return $this->data($data)->add();
     }
 
+    public function updateFruit($fruitId, $name, $level, $area, $unit, $description, $loss) {
+        $data['name'] = $name;
+        $data['level'] = $level;
+        $data['area'] = $area;
+        $data['unit'] = $unit;
+        $data['description'] = $description;
+        $data['loss'] = $loss;
+        return $this->where('id='.$fruitId)->data($data)->save();
+    }
 }
