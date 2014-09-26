@@ -20,45 +20,40 @@ class WechatController extends Controller {
         $type = $this->weObj->getRev()->getRevType();
         switch($type) {
         case \Org\Wechat\Wechat::MSGTYPE_TEXT:
-            if(strstr($this->weObj->getRevContent(), "更换果切"))
-            {
+            if(preg_match('/^GQ$/i', $this->weObj->getRevContent())) {
                 $products = D('Product')->getProductOfUser($this->weObj->getRevFrom());
                 if($products !== null)
                 {
                     $msg = "";
-                    $count = 1;
-                    foreach($products as $p)
-                    {
-                        $msg = $msg.$count.':'.$p['name']."\r\n";
-                        $count = $count + 1;
+                    foreach($products as $p) {
+                        $msg = $msg.$p['id'].':'.$p['name']."\r\n";
                     }
                     $this->weObj->text("请选择果盘种类:\r\n".trim($msg))->reply();
                 }
-            }
-            else
-            {
+                else {
+                    $this->weObj->text(D('Text')->getText(8))->reply();
+                }
+            } else if(preg_match('/^GQ\+(\d+)$/i', $this->weObj->getRevContent(), $m)) {
+                D('ProductUser')->addProductOfUser($this->weObj->getRevFrom(), $m[1]);
+                $this->weObj->text(D('Text')->getText(7))->reply();
+            } else {
                 $this->weObj->text(D('Text')->getText(3))->reply();
             }
             break;
         case \Org\Wechat\Wechat::MSGTYPE_EVENT:
             $event = $this->weObj->getRevEvent();
-            if($event !== false)
-            {
-                switch(strtolower($event['event']))
-                {
+            if($event !== false) {
+                switch(strtolower($event['event'])) {
                 case 'subscribe':
                     $add_or_update = D('User')->addUser($this->weObj->getRevFrom(), $this->weObj->getRevSceneId());
-                    if($this->weObj->getRevSceneId() !== false)
-                    {
+                    if($this->weObj->getRevSceneId() !== false) {
                         $group = M('Group');
                         $g = $group->where('qrScene='.$this->weObj->getRevSceneId())->find();
-                        if($g !== null)
-                        {
+                        if($g !== null) {
                             $this->weObj->updateGroupMembers($g['groupId'], $this->weObj->getRevFrom());
                         }
                     }
-                    if($add_or_update)
-                    {
+                    if($add_or_update) {
                         $this->weObj->text(D('Text')->getText(1))->reply();
                     } else {
                         $this->weObj->text(D('Text')->getText(2))->reply();
@@ -73,12 +68,10 @@ class WechatController extends Controller {
                 case 'scan':
                     D('User')->changeSceneOfUser($this->weObj->getRevFrom(), $this->weObj->getRevSceneId());
                     $score = D('ScanAction')->addRecord($this->weObj->getRevFrom());
-                    if($score !== 0)
-                    {
+                    if($score !== 0) {
                         $r = rand(1, 100) / 100;
                         $prize = D('Prize')->isPrize($this->weObj->getRevFrom(), $r);
-                        if($prize !== null)
-                        {
+                        if($prize !== null) {
                             $this->weObj->text(D('Text')->getText(5))->reply();
                         } else {
                             $this->weObj->text(D('Text')->getText(6))->reply();
@@ -88,8 +81,7 @@ class WechatController extends Controller {
                     }
                     break;
                 case 'click':
-                    switch($event['key'])
-                    {
+                    switch($event['key']) {
                     case 'MENU_KEY_PRODUCT':
                         $news = D('News')->getNews(array(1, 2));
                         $this->weObj->news($news)->reply();
@@ -103,12 +95,10 @@ class WechatController extends Controller {
                         break;
                     case 'MENU_KEY_PRIZE':
                         $prizes = D('Prize')->getPrizeOfUser($this->weObj->getRevFrom());
-                        if($prizes !== null)
-                        {
+                        if($prizes !== null) {
                             $prize_news = array();
                             $count = 0;
-                            foreach($prizes as $p)
-                            {
+                            foreach($prizes as $p) {
                                 $prize_news[$count] = array('Title' => $p['description'],
                                                             'PicUrl' => getWeChatImageUrl($p['picture']));
                                 $count = $count + 1;
@@ -138,22 +128,6 @@ class WechatController extends Controller {
     }
 
     public function createMenu() {
-        /* $newmenu = array( */
-        /*     "button" => array( */
-        /*         array('name'=>'产品介绍', 'sub_button'=>array( */
-        /*             array('type'=>'click', 'name'=>'产品介绍', 'key'=>'MENU_KEY_PRODUCT'), */
-        /*             array('type'=>'click', 'name'=>'公司介绍', 'key'=>'MENU_KEY_COMPANY') */
-        /*         ) */
-        /*     ), */
-        /*     array('type'=>'click','name'=>'在线预订','key'=>'MENU_KEY_ORDER'), */
-        /*     array('name'=>'优惠活动', 'sub_button'=>array( */
-        /*         array('type'=>'click', 'name'=>'本期奖品', 'key'=>'MENU_KEY_PRIZE'), */
-        /*         array('type'=>'click', 'name'=>'联系客服', 'key'=>'MENU_KEY_SERVICE') */
-        /*     ) */
-        /* ) */
-    /* ) */
-/* ); */
-
         $result = $this->weObj->createMenu(D('Menu')->getMenus());
         echo $result;
     }
@@ -174,6 +148,5 @@ class WechatController extends Controller {
     }
 
     public function test() {
-        echo D('Text')->getText(1);
     }
 }

@@ -2,7 +2,7 @@
 namespace Home\Model;
 use Think\Model;
 class ProductUserModel extends Model {
-    public function addRecord($openId, $productId) {
+    public function addProductOfUser($openId, $productId) {
         $user = D('User')->getUser($openId);
         if($user !== null) {
             $data['userId'] = $user['id'];

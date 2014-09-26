@@ -23,6 +23,8 @@ class ScanActionModel extends Model {
             $data['score'] = 10;
             $data['ctime'] = $time;
             $this->data($data)->add();
+            $u['score'] = $u['score'] + 10;
+            $user->save($u);
         }
         return 10;
     }
