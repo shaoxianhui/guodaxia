@@ -61,4 +61,9 @@ class ApiController extends RpcController {
         $id = D('FruitPrice')->updateFruitPrice($fruitPriceId, $minPrice, $maxPrice, $cdate);
         return $id;
     }
+
+    public function getUserForPrize($page) {
+        $result = D('PrizeUser')->getUserForPrize($page);
+        return $result;
+    }
 }
