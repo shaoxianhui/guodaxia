@@ -10,7 +10,7 @@ class NewsModel extends Model {
             $news[$count] = array(
                 'Title' => $n['title'],
                 'Description'=> $n['description'],
-                'PicUrl'=>getWeChatImageUrl($n['picUrl']),
+                'PicUrl'=> getWeChatImageUrl($n['picUrl']),
                 'Url'=> $n['url']
             );
             $count = $count + 1;

@@ -19,4 +19,23 @@ class ProductModel extends Model {
         }
         return null;
     }
+
+    public function getProductNewsOfUser($openId) {
+        $products = $this->getProductOfUser($openId);
+        if($products !== null) {
+            $product_news = array();
+            $count = 0;
+            foreach($products as $p) {
+                $product_news[$count] = array(
+                    'Title' => $p['name'],
+                    'Description'=> $p['description'],
+                    'PicUrl'=> getWeChatImageUrl($p['picUrl']),
+                    'Url'=> $p['url']
+                );
+                $count = $count + 1;
+            }
+            return $product_news;
+        }
+        return null;
+    }
 }

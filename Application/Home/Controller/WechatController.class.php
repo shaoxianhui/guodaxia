@@ -21,16 +21,10 @@ class WechatController extends Controller {
         switch($type) {
         case \Org\Wechat\Wechat::MSGTYPE_TEXT:
             if(preg_match('/^gdx$/i', $this->weObj->getRevContent())) {
-                $products = D('Product')->getProductOfUser($this->weObj->getRevFrom());
-                if($products !== null)
-                {
-                    $msg = "";
-                    foreach($products as $p) {
-                        $msg = $msg.$p['id'].':'.$p['name']."\r\n";
-                    }
-                    $this->weObj->text("请选择果盘种类:\r\n".trim($msg))->reply();
-                }
-                else {
+                $products_news = D('Product')->getProductNewsOfUser($this->weObj->getRevFrom());
+                if($products_news !== null) {
+                    $this->weObj->news($product_news)->reply();
+                } else {
                     $this->weObj->text(D('Text')->getText(8))->reply();
                 }
             } else if(preg_match('/^gdx\+(\d+)$/i', $this->weObj->getRevContent(), $m)) {
