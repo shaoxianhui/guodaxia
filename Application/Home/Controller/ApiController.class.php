@@ -66,4 +66,9 @@ class ApiController extends RpcController {
         $result = D('PrizeUser')->getUserForPrize($page);
         return $result;
     }
+
+    public function updateReceived($id, $received) {
+        $result = M('PrizeUser')->where('id='.$id)->setField('received', $received);
+        return $result;
+    }
 }
