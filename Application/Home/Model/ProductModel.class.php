@@ -27,7 +27,7 @@ class ProductModel extends Model {
             $count = 0;
             foreach($products as $p) {
                 $product_news[$count] = array(
-                    'Title' => $p['name'],
+                    'Title' => $p['id'].':'.$p['name'],
                     'Description'=> $p['description'],
                     'PicUrl'=> getWeChatImageUrl($p['picUrl']),
                     'Url'=> $p['url']
