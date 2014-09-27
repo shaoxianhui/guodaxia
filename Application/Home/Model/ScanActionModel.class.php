@@ -2,7 +2,7 @@
 namespace Home\Model;
 use Think\Model;
 class ScanActionModel extends Model {
-    public function addRecord($openId) {
+    public function addScanAction($openId) {
         $time = time();
         $user = M('User');
         $where['openId'] = $openId;

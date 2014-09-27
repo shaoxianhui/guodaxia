@@ -26,7 +26,7 @@ class PrizeModel extends Model {
                     if($prize['quantity'] > 0) {
                         $prize['quantity'] = $prize['quantity'] - 1;
                         $this->save($prize);
-                        D('PrizeUser')->addRecord($openId, $p['prizeId']);
+                        D('PrizeUser')->addPrizeOfUser($openId, $p['prizeId']);
                         return $prize;
                     } else {
                         continue;

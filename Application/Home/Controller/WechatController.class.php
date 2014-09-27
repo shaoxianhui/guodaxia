@@ -20,7 +20,7 @@ class WechatController extends Controller {
         $type = $this->weObj->getRev()->getRevType();
         switch($type) {
         case \Org\Wechat\Wechat::MSGTYPE_TEXT:
-            if(preg_match('/^GQ$/i', $this->weObj->getRevContent())) {
+            if(preg_match('/^gdx$/i', $this->weObj->getRevContent())) {
                 $products = D('Product')->getProductOfUser($this->weObj->getRevFrom());
                 if($products !== null)
                 {
@@ -33,9 +33,15 @@ class WechatController extends Controller {
                 else {
                     $this->weObj->text(D('Text')->getText(8))->reply();
                 }
-            } else if(preg_match('/^GQ\+(\d+)$/i', $this->weObj->getRevContent(), $m)) {
+            } else if(preg_match('/^gdx\+(\d+)$/i', $this->weObj->getRevContent(), $m)) {
                 D('ProductUser')->addProductOfUser($this->weObj->getRevFrom(), $m[1]);
                 $this->weObj->text(D('Text')->getText(7))->reply();
+            } else if(preg_match('/^gdx\+(.+)\+(\d+)$/i', $this->weObj->getRevContent(), $m)) {
+                D('PrizeUser')->addLocationAndPhone($this->weObj->getRevFrom(), $m[1], $m[2]);
+                $message = D('Text')->getText(9);
+                $message = preg_replace('/\{1\}/i', $m[1], $message);
+                $message = preg_replace('/\{2\}/i', $m[2], $message);
+                $this->weObj->text($message)->reply();
             } else {
                 $this->weObj->text(D('Text')->getText(3))->reply();
             }
@@ -67,7 +73,7 @@ class WechatController extends Controller {
                     break;
                 case 'scan':
                     D('User')->changeSceneOfUser($this->weObj->getRevFrom(), $this->weObj->getRevSceneId());
-                    $score = D('ScanAction')->addRecord($this->weObj->getRevFrom());
+                    $score = D('ScanAction')->addScanAction($this->weObj->getRevFrom());
                     if($score !== 0) {
                         $r = rand(1, 100) / 100;
                         $prize = D('Prize')->isPrize($this->weObj->getRevFrom(), $r);
@@ -147,6 +153,6 @@ class WechatController extends Controller {
         var_dump($result);
     }
 
-    public function test() {
+    public function test($openId = 'oGulKs0s3IAdDEF9sd0Nki7MoYp8') {
     }
 }
