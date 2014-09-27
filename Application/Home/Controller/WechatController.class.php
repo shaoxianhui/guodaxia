@@ -21,9 +21,9 @@ class WechatController extends Controller {
         switch($type) {
         case \Org\Wechat\Wechat::MSGTYPE_TEXT:
             if(preg_match('/^gdx$/i', $this->weObj->getRevContent())) {
-                $products_news = D('Product')->getProductNewsOfUser($this->weObj->getRevFrom());
-                if($products_news !== null) {
-                    $this->weObj->news($product_news)->reply();
+                $products = D('Product')->getProductNewsOfUser($this->weObj->getRevFrom());
+                if($products !== null) {
+                    $this->weObj->news($products)->reply();
                 } else {
                     $this->weObj->text(D('Text')->getText(8))->reply();
                 }
