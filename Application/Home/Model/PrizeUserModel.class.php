@@ -16,15 +16,21 @@ class PrizeUserModel extends Model {
         $this->where('userId='.$userId)->order('ctime desc')->limit(1)->setField('received', 1);
     }
 
-    public function addLocationAndPhone($openId, $location, $phone) {
+    public function addLocationAndPhone($openId, $name, $company, $location, $phone, $advice) {
         $user = D('User')->getUser($openId);
         if($user !== null) {
-            $prizeOfUser = $this->where('userId='.$user['id'])->order('ctime desc')->find();
-            if($prizeOfUser !== null) {
-                $prizeOfUser['location'] = $location;
-                $prizeOfUser['phone'] = $phone;
-                $this->data($prizeOfUser)->save();
-            }
+            /* $prizeOfUser = $this->where('userId='.$user['id'])->order('ctime desc')->find(); */
+            /* if($prizeOfUser !== null) { */
+            $prizeOfUser['userId'] = $user['id'];
+            $prizeOfUser['prizeId'] = 1;
+            $prizeOfUser['location'] = $location;
+            $prizeOfUser['phone'] = $phone;
+            $prizeOfUser['name'] = $name;
+            $prizeOfUser['company'] = $company;
+            $prizeOfUser['advice'] = $advice;
+            $prizeOfUser['ctime'] = time();
+            $this->data($prizeOfUser)->add();
+            /* } */
         }
     }
 

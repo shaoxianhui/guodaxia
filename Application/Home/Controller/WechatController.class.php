@@ -30,14 +30,34 @@ class WechatController extends Controller {
             } else if(preg_match('/^gdx\+(\d+)$/i', $this->weObj->getRevContent(), $m)) {
                 D('ProductUser')->addProductOfUser($this->weObj->getRevFrom(), $m[1]);
                 $this->weObj->text(D('Text')->getText(7))->reply();
-            } else if(preg_match('/^gdx\+(.+)\+(\d+)$/i', $this->weObj->getRevContent(), $m)) {
-                D('PrizeUser')->addLocationAndPhone($this->weObj->getRevFrom(), $m[1], $m[2]);
-                $message = D('Text')->getText(9);
-                $message = preg_replace('/\{1\}/i', $m[1], $message);
-                $message = preg_replace('/\{2\}/i', $m[2], $message);
-                $this->weObj->text($message)->reply();
+            } else if(preg_match('/^领奖\+.*$/i', $this->weObj->getRevContent(), $m)) {
+                $list = explode('+', $m[0]);
+                if(count($list) == 6) {
+                    D('PrizeUser')->addLocationAndPhone($this->weObj->getRevFrom(), $list[3], $list[1], $list[2], $list[4], $list[5]);
+                    $message = D('Text')->getText(9);
+                    /* $message = preg_replace('/\{1\}/i', $list[2], $message); */
+                    /* $message = preg_replace('/\{2\}/i', $list[4], $message); */
+                    $this->weObj->text($message)->reply();
+                } else {
+                    $this->weObj->text(D('Text')->getText(12))->reply();
+                }
+            } else if(preg_match('/^我来兑奖$/i', $this->weObj->getRevContent())) {
+                $prizes = D('Prize')->getPrizeOfUser($this->weObj->getRevFrom());
+                if($prizes !== null) {
+                    $prize_news = array();
+                    $count = 0;
+                    foreach($prizes as $p) {
+                        $des = explode('</br>', $p['description']);
+                        $prize_news[$count] = array('Title' => $p['name'],
+                                                    'PicUrl' => getWeChatImageUrl($p['picUrl']),
+                                                    'Description' => $des[0],
+                                                    'Url' => $p['url'] == null ? getWeChatDetailUrl($p['id'], 'prize') : $p['url']);
+                        $count = $count + 1;
+                    }
+                    $this->weObj->news($prize_news)->reply();
+                }
             } else {
-                $this->weObj->text(D('Text')->getText(3))->reply();
+                $this->weObj->text(D('Text')->getText(1))->reply();
             }
             break;
         case \Org\Wechat\Wechat::MSGTYPE_EVENT:
@@ -83,15 +103,15 @@ class WechatController extends Controller {
                 case 'click':
                     switch($event['key']) {
                     case 'MENU_KEY_PRODUCT':
-                        $news = D('News')->getNews(array(1, 2));
+                        $news = D('News')->getNews(array(1));
                         $this->weObj->news($news)->reply();
                         break;
                     case 'MENU_KEY_COMPANY':
-                        $news = D('News')->getNews(array(1, 2));
+                        $news = D('News')->getNews(array(2));
                         $this->weObj->news($news)->reply();
                         break;
                     case 'MENU_KEY_ORDER':
-                        $this->weObj->text("你好！在线下单！")->reply();
+                        $this->weObj->text(D('Text')->getText(11))->reply();
                         break;
                     case 'MENU_KEY_PRIZE':
                         $prizes = D('Prize')->getPrizeOfUser($this->weObj->getRevFrom());
@@ -99,8 +119,10 @@ class WechatController extends Controller {
                             $prize_news = array();
                             $count = 0;
                             foreach($prizes as $p) {
-                                $prize_news[$count] = array('Title' => $p['description'],
+                                $des = explode('</br>', $p['description']);
+                                $prize_news[$count] = array('Title' => $p['name'],
                                                             'PicUrl' => getWeChatImageUrl($p['picUrl']),
+                                                            'Description' => $des[0],
                                                             'Url' => $p['url'] == null ? getWeChatDetailUrl($p['id'], 'prize') : $p['url']);
                                 $count = $count + 1;
                             }
@@ -186,5 +208,12 @@ class WechatController extends Controller {
     }
 
     public function test($openId = 'oGulKs0s3IAdDEF9sd0Nki7MoYp8') {
+        $prize = M('Prize')->find(1);
+        if($prize !== null) {
+            $content['title'] = $prize['name'];
+            $content['picUrl'] = getWeChatImageUrl($prize['picUrl']);
+            $content['description'] = $prize['description'];
+            dump(explode('</br>', $prize['description']));
+        }
     }
 }
