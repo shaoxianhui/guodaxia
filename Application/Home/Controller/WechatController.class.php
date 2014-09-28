@@ -112,6 +112,10 @@ class WechatController extends Controller {
                                                     'FromUserName' => $this->weObj->getRevTo(),
                                                     'CreateTime' => time(),
                                                     'MsgType' => 'transfer_customer_service'));
+                        $data['touser'] = $this->weObj->getRevFrom();
+                        $data['msgtype'] = 'text';
+                        $data['text'] = array('content' => D('Text')->getText(10));
+                        $this->weObj->sendCustomMessage($data);
                         break;
                     default:
                         $this->weObj->text("你好！未知消息！")->reply();
