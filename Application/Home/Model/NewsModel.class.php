@@ -11,7 +11,7 @@ class NewsModel extends Model {
                 'Title' => $n['title'],
                 'Description'=> $n['description'],
                 'PicUrl'=> getWeChatImageUrl($n['picUrl']),
-                'Url'=> $n['url']
+                'Url'=> $n['url'] == null ? getWeChatDetailUrl($n['id'], 'news') : $n['url']
             );
             $count = $count + 1;
         }

@@ -7,27 +7,27 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="format-detection" content="telephone=no">
-<title>产品介绍</title>
+<title>{$content.title}</title>
 <link rel="stylesheet" type="text/css" href="http://res.wx.qq.com/mmbizwap/zh_CN/htmledition/style/page/page_mp_article20910f.css"/>
 </head>
 <body id="activity-detail" class="zh_CN ">
 <div class="rich_media">
     <div class="rich_media_inner">
         <h2 class="rich_media_title" id="activity-name">
-            产品介绍 
+            {$content.title} 
         </h2>
         <div class="rich_media_meta_list">
-            <em id="post-date" class="rich_media_meta text">2014-08-26</em>
+            <em id="post-date" class="rich_media_meta text">{:date('Y-m-d')}</em>
 
             <a class="rich_media_meta link nickname" href="javascript:void(0);" id="post-user">每日开心科技-果大侠</a>
         </div>
         <div id="page-content">
             <div id="img-content">
                 <div class="rich_media_thumb" id="media">
-                    <img src="http://mmbiz.qpic.cn/mmbiz/yF0IoTnNFNicm1iaESxSNgMnauN9kjsyurLvRMEoKzkyK0qQ2ibl2QiaKyOjeIGIzs4vObl3eRdzUgDxdKmZ2mWqJg/0" />
+                    <img src="{$content.picUrl}" />
                 </div>
                 <div class="rich_media_content" id="js_content">
-                    <p>即开即食，水果种类一次多样搭配等特点，非常适合繁忙的工作之余享用，想吃多少吃多少，完全省去了处理的时间和精力，在补充营养的同时，高效完成工作！</p>
+                    <p>{$content.description}</p>
                 </div>
             </div>
         </div>

@@ -100,7 +100,8 @@ class WechatController extends Controller {
                             $count = 0;
                             foreach($prizes as $p) {
                                 $prize_news[$count] = array('Title' => $p['description'],
-                                                            'PicUrl' => getWeChatImageUrl($p['picture']));
+                                                            'PicUrl' => getWeChatImageUrl($p['picUrl']),
+                                                            'Url' => $p['url'] == null ? getWeChatDetailUrl($p['id'], 'prize') : $p['url']);
                                 $count = $count + 1;
                             }
                             $this->weObj->news($prize_news)->reply();
@@ -145,6 +146,39 @@ class WechatController extends Controller {
     public function getToken() {
         $result = $this->weObj->checkAuth();
         var_dump($result);
+    }
+
+    public function detail($id = 1, $type = 'product') {
+        switch($type) {
+        case 'product':
+            $product = M('Product')->find($id);
+            if($product !== null) {
+                $content['title'] = $product['name'];
+                $content['picUrl'] = getWeChatImageUrl($product['picUrl']);
+                $content['description'] = $product['description'];
+            }
+            break;
+        case 'prize':
+            $prize = M('Prize')->find($id);
+            if($prize !== null) {
+                $content['title'] = $prize['name'];
+                $content['picUrl'] = getWeChatImageUrl($prize['picUrl']);
+                $content['description'] = $prize['description'];
+            }
+            break;
+        case 'news':
+            $news = M('News')->find($id);
+            if($news !== null) {
+                $content['title'] = $news['title'];
+                $content['picUrl'] = getWeChatImageUrl($news['picUrl']);
+                $content['description'] = $news['description'];
+            }
+            break;
+        default:
+            break;
+        }
+        $this->assign('content', $content);
+        $this->display();
     }
 
     public function test($openId = 'oGulKs0s3IAdDEF9sd0Nki7MoYp8') {

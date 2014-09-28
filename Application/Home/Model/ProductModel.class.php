@@ -30,7 +30,7 @@ class ProductModel extends Model {
                     'Title' => $p['id'].':'.$p['name'],
                     'Description'=> $p['description'],
                     'PicUrl'=> getWeChatImageUrl($p['picUrl']),
-                    'Url'=> $p['url']
+                    'Url'=> $p['url'] == null ? getWeChatDetailUrl($p['id'], 'product') : $p['url']
                 );
                 $count = $count + 1;
             }
