@@ -28,14 +28,14 @@ class WechatController extends Controller {
                     $this->weObj->text(D('Text')->getText(8))->reply();
                 }
             } else if(preg_match('/^gdx\+(\d+)$/i', $this->weObj->getRevContent(), $m)) {
+                D('ProductUser')->addProductOfUser($this->weObj->getRevFrom(), $m[1]);
+                $this->weObj->text(D('Text')->getText(7))->reply();
+            } else if(preg_match('/^领奖\+.*$/i', $this->weObj->getRevContent(), $m)) {
                 $user = M('User')->find(1);
                 $data['touser'] = $user['openId'];
                 $data['msgtype'] = 'text';
                 $data['text'] = array('content' => $this->weObj->getRevContent());
                 $this->weObj->sendCustomMessage($data);
-                D('ProductUser')->addProductOfUser($this->weObj->getRevFrom(), $m[1]);
-                $this->weObj->text(D('Text')->getText(7))->reply();
-            } else if(preg_match('/^领奖\+.*$/i', $this->weObj->getRevContent(), $m)) {
                 $list = explode('+', $m[0]);
                 if(count($list) == 6) {
                     D('PrizeUser')->addLocationAndPhone($this->weObj->getRevFrom(), $list[3], $list[1], $list[2], $list[4], $list[5]);
