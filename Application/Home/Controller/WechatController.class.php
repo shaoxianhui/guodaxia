@@ -20,6 +20,7 @@ class WechatController extends Controller {
         $type = $this->weObj->getRev()->getRevType();
         switch($type) {
         case \Org\Wechat\Wechat::MSGTYPE_TEXT:
+            D('Command')->executeAll($this->weObj->getRevContent(), $this);
             if(preg_match('/^gdx$/i', $this->weObj->getRevContent())) {
                 $products = D('Product')->getProductNewsOfUser($this->weObj->getRevFrom());
                 if($products !== null) {
@@ -212,13 +213,16 @@ class WechatController extends Controller {
         $this->display();
     }
 
-    public function test($openId = 'oGulKs0s3IAdDEF9sd0Nki7MoYp8') {
-        $prize = M('Prize')->find(1);
-        if($prize !== null) {
-            $content['title'] = $prize['name'];
-            $content['picUrl'] = getWeChatImageUrl($prize['picUrl']);
-            $content['description'] = $prize['description'];
-            dump(explode('</br>', $prize['description']));
+    public function sendCustomMessage($userId) {
+        $user = M('User')->find($userId);
+        if($user !== null) {
+            $data['touser'] = $user['openId'];
+            $data['msgtype'] = 'text';
+            $data['text'] = array('content' => $this->weObj->getRevContent());
+            $this->weObj->sendCustomMessage($data);
         }
+    }
+
+    public function test($openId = 'oGulKs0s3IAdDEF9sd0Nki7MoYp8') {
     }
 }
