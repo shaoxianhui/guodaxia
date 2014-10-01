@@ -1,7 +1,27 @@
 <?php
 namespace Home\Model;
-use Think\Model;
-class UserModel extends Model {
+use Think\Model\RelationModel;
+class UserModel extends RelationModel {
+
+    protected $_link = array(
+        'Product' => array(
+            'mapping_type' => self::MANY_TO_MANY,
+            'class_name' => 'Product',
+            'foreign_key' => 'userId',
+            'relation_foreign_key' => 'ProductId',
+            'mapping_name' => 'products',
+            'relation_table' => 'gdx_product_user'
+        ),
+        'Prize' => array(
+            'mapping_type' => self::MANY_TO_MANY,
+            'class_name' => 'Prize',
+            'foreign_key' => 'userId',
+            'relation_foreign_key' => 'PrizeId',
+            'mapping_name' => 'prizes',
+            'relation_table' => 'gdx_prize_user'
+        )
+    );
+
     public function getUser($openId) {
         $where['openId'] = $openId;
         return $this->where($where)->find();

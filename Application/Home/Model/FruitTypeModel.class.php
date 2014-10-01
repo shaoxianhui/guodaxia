@@ -1,7 +1,18 @@
 <?php
 namespace Home\Model;
-use Think\Model;
-class FruitTypeModel extends Model {
+use Think\Model\RelationModel;
+class FruitTypeModel extends RelationModel {
+
+    protected $_link = array(
+        'Fruit' => array(
+            'mapping_type' => self::HAS_MANY,
+            'class_name' => 'Fruit',
+            'foreign_key' => 'type',
+            'mapping_name' => 'fruits',
+            'mapping_order' => 'id'
+        )
+    );
+
     public function getFruitType() {
         return $this->select();
     }

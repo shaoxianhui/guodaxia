@@ -1,7 +1,17 @@
 <?php
 namespace Home\Model;
-use Think\Model;
-class FruitPriceModel extends Model {
+use Think\Model\RelationModel;
+class FruitPriceModel extends RelationModel {
+
+    protected $_link = array(
+        'Fruit' => array(
+            'mapping_type' => self::BELONGS_TO,
+            'class_name' => 'Fruit',
+            'foreign_key' => 'fruitId',
+            'mapping_name' => 'fruit'
+        )
+    );
+
     public function getFruitPrice($fruitId) {
         return $this->where('fruitId='.$fruitId)->select();
     }

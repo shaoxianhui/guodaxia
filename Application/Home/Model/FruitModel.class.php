@@ -1,7 +1,24 @@
 <?php
 namespace Home\Model;
-use Think\Model;
-class FruitModel extends Model {
+use Think\Model\RelationModel;
+class FruitModel extends RelationModel {
+
+    protected $_link = array(
+        'FruitType' => array(
+            'mapping_type' => self::BELONGS_TO,
+            'class_name' => 'FruitType',
+            'foreign_key' => 'type',
+            'mapping_name' => 'fruitType'
+        ),
+        'FruitPrice' => array(
+            'mapping_type' => self::HAS_MANY,
+            'class_name' => 'FruitPrice',
+            'foreign_key' => 'fruitId',
+            'mapping_name' => 'fruitPrices',
+            'mapping_order' => 'cdate desc'
+        )
+    );
+
     public function getFruit($fruitTypeId) {
         return $this->where('type='.$fruitTypeId)->select();
     }
