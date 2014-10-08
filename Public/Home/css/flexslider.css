@@ -19,7 +19,7 @@
 	height: 62px;
 	margin: -20px 0 0;
 	display: block;
-	background: url(../images/p-but.png) no-repeat 0 0;
+	background: url(../img/p-but.png) no-repeat 0 0;
 	position: absolute; 
 	top:45%; z-index: 10; 
 	cursor: pointer;

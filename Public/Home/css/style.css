@@ -501,7 +501,7 @@ p.paragraph a:hover{
 	top: 55px;
 	width: 30px;
 	height: 28px;
-	background: url(../images/quotes1.png) no-repeat;
+	background: url(../img/quotes1.png) no-repeat;
 }
 .testimonials p {
 	font-size: 13px;
@@ -539,7 +539,7 @@ p.paragraph a:hover{
 	float: left;
 	margin: 0% 0 0% 3.6%;
 }
-.images_3_of_1 {
+.img_3_of_1 {
 	width: 35.2%;
 }
 .grid {
@@ -671,7 +671,7 @@ span.item_title_part0:hover {
 	margin-bottom: 27px;
 }
 .list-1 li {
-	background: url(../images/bg-li-list.png) 0 11px no-repeat;
+	background: url(../img/bg-li-list.png) 0 11px no-repeat;
 	padding: 4px 0 5px 11px;
 	font-size: 14px;
 	overflow: hidden;
@@ -751,7 +751,7 @@ span.item_title_part0:hover {
 	color: #5D5252;
 	font-size: 0.815em;
 	padding: 6px 0 6px 20px;
-	background: url(../images/marker.png) no-repeat 0;
+	background: url(../img/marker.png) no-repeat 0;
 	cursor: pointer;
 }
 .read_more a {
@@ -760,7 +760,7 @@ span.item_title_part0:hover {
 	text-transform: uppercase;
 	color: #333;
 	padding-left: 25px;
-	background: url(../images/read_more.png) no-repeat 0 0;
+	background: url(../img/read_more.png) no-repeat 0 0;
 	-webkit-transition: all 0.5s ease-in-out;
 	-moz-transition: all 0.5s ease-in-out;
 	-o-transition: all 0.5s ease-in-out;
@@ -847,7 +847,7 @@ span.item_title_part0:hover {
 	background: -moz-linear-gradient(top, #f0755f, #c74e3b);
 	background: -ms-linear-gradient(top, #f0755f, #c74e3b);
 	background: -o-linear-gradient(top, #f0755f, #c74e3b);
-	background-image: -ms-linear-gradient(top, #f0755f 0%, #c74e3b 100%) url(../images/large-button-overlay.png);
+	background-image: -ms-linear-gradient(top, #f0755f 0%, #c74e3b 100%) url(../img/large-button-overlay.png);
 	border: 1px solid rgba(0, 0, 0, 0.25);
 	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
 	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.50);
@@ -858,10 +858,10 @@ span.item_title_part0:hover {
     right:0;
 }
 .contact-form input[type="submit"]:hover{
-	background:#333 url(../images/large-button-overlay.png);
+	background:#333 url(../img/large-button-overlay.png);
 }
 .contact-form input[type="submit"]:active{
-	background:#333 url(../images/large-button-overlay.png);  
+	background:#333 url(../img/large-button-overlay.png);  
 }
 .company_address{
 	padding-top:26px;
