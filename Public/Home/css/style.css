@@ -40,7 +40,7 @@ body{
 	-ms-transition:all .2s linear;
 }
 .header-box{
-	border-top:10px solid #F0745F;
+	border-top:10px solid #00FF00;
 }
 .search-bar {
 	float: right;
@@ -94,7 +94,7 @@ body{
 }
 .top-nav ul li a {
 	color: #000;
-	font-size:13px;
+	font-size:16px;
 	font-family: 'Merriweather Sans', sans-serif;
 	padding: 17px 19px;
 	-webkit-transition: all 0.3s ease;
@@ -104,13 +104,13 @@ body{
 }
 .top-nav li.active> a, .top-nav li> a:hover {
 	color: #FFF;
-	background: #C74E3B;
-	background: -webkit-gradient(linear, left top, left bottom, from(#F0755F), to(#C74E3B));
-	background: -webkit-linear-gradient(top, #F0755F, #C74E3B);
-	background: -moz-linear-gradient(top, #f0755f, #c74e3b);
-	background: -ms-linear-gradient(top, #f0755f, #c74e3b);
-	background: -o-linear-gradient(top, #f0755f, #c74e3b);
-	background-image: -ms-linear-gradient(top, #f0755f 0%, #c74e3b 100%);
+	background: #00FF00;
+	background: -webkit-gradient(linear, left top, left bottom, from(#55FF55), to(#00BF00));
+	background: -webkit-linear-gradient(top, #55FF55, #00BF00);
+	background: -moz-linear-gradient(top, #55FF55, #00BF00);
+	background: -ms-linear-gradient(top, #55FF55, #00BF00);
+	background: -o-linear-gradient(top, #55FF55, #00BF00);
+	background-image: -ms-linear-gradient(top, #55FF55 0%, #00BF00 100%);
 	-webkit-transition: all 0.3s ease;
 	-moz-transition: all 0.3s ease;
 	-o-transition: all 0.3s ease;
@@ -120,7 +120,7 @@ body{
 	padding: 2% 0;
 }
 .banner{
-	border-bottom:5px solid #F0745F;
+	border-bottom:5px solid #00FF00;
 }
 .logo{
 	float:left;
@@ -184,8 +184,8 @@ body{
 	}
 }
 .desc{
-	border-bottom: 5px solid #F0745F;
-	padding-bottom:40px;
+	border-bottom: 5px solid #00FF00;
+	padding-bottom:10px;
 }
 .left-text h5 {
 	font-size: 10px;
@@ -193,12 +193,12 @@ body{
 	margin: 4px 0 0 0;
 	float: left;
 }
-.left-text h5 a {
+.left-text h3 a {
 	color:#999;
 	text-decoration:underline;
 }
-.left-text h5 a:hover{
-	color:#DD3942;
+.left-text h3 a:hover{
+	color:#00BF00;
 }
 span.price {
 	color: #3D3D3D;
@@ -209,7 +209,7 @@ span.price {
 	padding-bottom:6%;
 }
 .active-grid {
-	background:#F0745F;
+	background:#00BF00;
 	color: #FFF;
 }
 .left-text h6 {
@@ -231,7 +231,7 @@ span.price-last {
 	float: right;
 }
 .last-desc{
-	border-bottom: 5px solid #F0745F;
+	border-bottom: 5px solid #00BF00;
 	padding-bottom:40px;
 	margin: 0 10px;
 }
@@ -252,7 +252,7 @@ span.price-last {
 	display: block;
 	float:left;
 	margin: 1% 0 1% 0;
-	background:#F0745F;
+	background:#00BF00;
 }
 .lsidebar{
 	display: block;
@@ -373,11 +373,11 @@ p.paragraph a:hover{
 	text-transform: uppercase;
 }
 .bottom-grid1 span, .bottom-grid2 span {
-	color: #F0745F;
-	font-size: 15px;
+	color: #00BF00;
+	font-size: 19px;
 }
 .bottom-grid1 p, .bottom-grid2 p {
-	font-size:13px;
+	font-size:19px;
 	color: rgba(85, 85, 85, 0.53);
 	line-height: 1.5em;
 	font-family: Arial, Helvetica, sans-serif;
@@ -386,7 +386,7 @@ p.paragraph a:hover{
 .bottom-grid1 ul li a {
 	color: #777;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size:13px;
+	font-size:22px;
 	line-height: 2.5em;
 	transition: 0.5s ease;
 	-o-transition: 0.5s ease;
@@ -407,19 +407,19 @@ p.paragraph a:hover{
 }
 .button {
   font-family: 'Merriweather Sans', sans-serif;
-   background: #c74e3b;
-   background: -webkit-gradient(linear, left top, left bottom, from(#f0755f), to(#c74e3b));
-   background: -webkit-linear-gradient(top, #f0755f, #c74e3b);
-   background: -moz-linear-gradient(top, #f0755f, #c74e3b);
-   background: -ms-linear-gradient(top, #f0755f, #c74e3b);
-   background: -o-linear-gradient(top, #f0755f, #c74e3b);
-   background-image: -ms-linear-gradient(top, #f0755f 0%, #c74e3b 100%);
+   background: #00FF00;
+   background: -webkit-gradient(linear, left top, left bottom, from(#55FF55), to(#00BF00));
+   background: -webkit-linear-gradient(top, #55FF55, #00BF00);
+   background: -moz-linear-gradient(top, #55FF55, #00BF00);
+   background: -ms-linear-gradient(top, #55FF55, #00BF00);
+   background: -o-linear-gradient(top, #55FF55, #00BF00);
+   background-image: -ms-linear-gradient(top, #55FF55 0%, #00BF00 100%);
    padding:8.5px 15px;
   	-webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
    -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
    box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
    color: #fff;
-   font-size: 13px;
+   font-size: 19px;
    text-decoration: none;
    vertical-align: middle;
 }
@@ -437,7 +437,7 @@ p.paragraph a:hover{
 	font-size:13px;
 }
 .copy p a{
-	color:#F0745F;
+	color:#00BF00;
 }
 .copy p a:hover{
 	text-decoration:underline;
@@ -476,7 +476,7 @@ p.paragraph a:hover{
 	position: relative;
 }
 .testimonials h3, .sidebar h3 {
-	color:#F0745F;
+	color:#00BF00;
 	margin-bottom: 0.5em;
 	font-size: 0.9em;
 	font-weight: bold;
@@ -525,7 +525,7 @@ p.paragraph a:hover{
 .about_desc p span {
 	font-size: 14px;
 	padding: 5px 0;
-	color:#F0745F;
+	color:#00BF00;
 	line-height: 1.8em;
 }
 .image {
@@ -583,7 +583,7 @@ p.paragraph a:hover{
 	font-family: 'Merriweather Sans', sans-serif;
 }
 span.item_title_part0 {
-	color:#F0745F;
+	color:#00BF00;
 	font-size: 15px;
 	cursor: pointer;
 }
@@ -597,7 +597,7 @@ span.item_title_part0:hover {
 	line-height: 1.5em;
 }
 span.item_title_part0 {
-	color:#F0745F;
+	color:#00BF00;
 	font-size: 15px;
 	cursor: pointer;
 }
@@ -616,7 +616,7 @@ span.item_title_part0:hover {
 	width: 30.2%;
 }
 .span_1_of_menu  h3{
-	color:#F0745F;
+	color:#00BF00;
 	margin-bottom:0.5em;
 	font-size:1.2em;
 	line-height: 1.2;
@@ -686,7 +686,7 @@ span.item_title_part0:hover {
 	font-size: 13px;
 }
 .list-1 li a:hover {
-	color: #F0745F;
+	color: #00BF00;
 }
 .list-1 li span {
 	float: right;
@@ -728,11 +728,11 @@ span.item_title_part0:hover {
 }
 .services_desc p span {
 	font-family: 'Merriweather Sans', sans-serif;
-	color:#F0745F;	
+	color:#00BF00;	
 }
 .span_2_of_1 h3 {
 	font-size:13px;
-	color:#F0745F;
+	color:#00BF00;
 	font-family: 'Merriweather Sans', sans-serif;
 	text-transform: uppercase;
 }
@@ -767,7 +767,7 @@ span.item_title_part0:hover {
 	transition: all 0.5s ease-in-out;
 }
 .read_more a:hover {
-	color: #F0745F;
+	color: #00BF00;
 }
 .archives {
 	margin-top: 30px;
@@ -841,13 +841,13 @@ span.item_title_part0:hover {
 	color:#FFF;
 	cursor:pointer;
 	color: #FFF;
-	background: #C74E3B;
-	background: -webkit-gradient(linear, left top, left bottom, from(#F0755F), to(#C74E3B));
-	background: -webkit-linear-gradient(top, #F0755F, #C74E3B);
-	background: -moz-linear-gradient(top, #f0755f, #c74e3b);
-	background: -ms-linear-gradient(top, #f0755f, #c74e3b);
-	background: -o-linear-gradient(top, #f0755f, #c74e3b);
-	background-image: -ms-linear-gradient(top, #f0755f 0%, #c74e3b 100%) url(../img/large-button-overlay.png);
+	background: #00FF00;
+	background: -webkit-gradient(linear, left top, left bottom, from(#55FF55), to(#00BF00));
+	background: -webkit-linear-gradient(top, #55FF55, #00BF00);
+	background: -moz-linear-gradient(top, #55FF55, #00BF00);
+	background: -ms-linear-gradient(top, #55FF55, #00BF00);
+	background: -o-linear-gradient(top, #55FF55, #00BF00);
+	background-image: -ms-linear-gradient(top, #55FF55 0%, #00FF00 100%) url(../img/large-button-overlay.png);
 	border: 1px solid rgba(0, 0, 0, 0.25);
 	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
 	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.50);
