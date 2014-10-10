@@ -51,19 +51,19 @@
                             <form method="post" action="feedback">
                                 <div>
                                     <span><label>姓名</label></span>
-                                    <span><input name="userName" type="text" class="textbox"></span>
+                                    <span><input name="name" type="text" class="textbox"></span>
                                 </div>
                                 <div>
                                     <span><label>邮箱</label></span>
-                                    <span><input name="userEmail" type="text" class="textbox"></span>
+                                    <span><input name="email" type="text" class="textbox"></span>
                                 </div>
                                 <div>
                                     <span><label>电话</label></span>
-                                    <span><input name="userPhone" type="text" class="textbox"></span>
+                                    <span><input name="phone" type="text" class="textbox"></span>
                                 </div>
                                 <div>
                                     <span><label>主题</label></span>
-                                    <span><textarea name="userMsg"> </textarea></span>
+                                    <span><textarea name="content"> </textarea></span>
                                 </div>
                                 <div>
                                     <span><input type="submit" value="Submit"></span>
@@ -81,10 +81,10 @@
                             <p>北京市石景山区古城西路113号</p>
                             <p>景山财富中心金融商业楼450</p>
 
-                            <p>电话:(010) 222 666 444</p>
-                            <p>传真:(010) 000 000 000</p>
-                            <p>E-Mail: <span>guodaxia@163.com</span></p>
-                            <p>关注: <span>微信</span>, <span>新浪微博</span></p>
+                            <p>电话: 010-52609594</p>
+                            <p>E-Mail: <span>guodaxiahezuo@163.com</span></p>
+                            <p>微信: <span>每日开心果大侠</span></p>
+                            <p>微博: <span><a href="http://weibo.com/5318865419" target="_blank">新浪微博</a></span></p>
                         </div>
                     </div>
                     <div class="clear"></div> 
@@ -99,8 +99,8 @@
                             <h6 class="item_title">
                                 <span class="item_title_part0">张洪彬</span></h6>
                             <div class="item_text"><p>CEO</p></div>
-                            <div class="item_text"><p>电话:800-000000</p></div>
-                            <span class="item_title_part0">E-Mail:zhanghongbin@163.com </span>
+                            <div class="item_text"><p>电话:18610276120</p></div>
+                            <span class="item_title_part0">E-Mail:18610276120@163.com </span>
                         </div>
                     </div>
                     <div class="col_1_of_4 span_1_of_4">
@@ -110,7 +110,7 @@
                                 <span class="item_title_part0">邵宪辉</span></h6>
                             <div class="item_text"><p>CIO CTO</p></div>
                             <div class="item_text"><p>电话:18045473092</p></div>
-                            <span class="item_title_part0">E-Mail:huihui6007@163.com </span>
+                            <span class="item_title_part0">E-Mail:18045473092@163.com </span>
                         </div>
                     </div>
                     <div class="col_1_of_4 span_1_of_4">
@@ -118,19 +118,19 @@
                         <div class="item_content">
                             <h6 class="item_title">
                                 <span class="item_title_part0">张喆</span></h6>
-                            <div class="item_text"><p>CFO</p></div>
-                            <div class="item_text"><p>电话:800-000000</p></div>
-                            <span class="item_title_part0">E-Mail:zhangzhe@163.com </span>
+                            <div class="item_text"><p>生产主管</p></div>
+                            <div class="item_text"><p>电话:18621059522</p></div>
+                            <span class="item_title_part0">E-Mail:18621059522@163.com </span>
                         </div>
                     </div>
                     <div class="col_1_of_4 span_1_of_4">
                         <img src="__PUBLIC__/Home/img/pic20.jpg" alt=""/>
                         <div class="item_content">
                             <h6 class="item_title">
-                                <span class="item_title_part0">阿峰</span></h6>
-                            <div class="item_text"><p>COO</p></div>
-                            <div class="item_text"><p>电话:800-000000</p></div>
-                            <span class="item_title_part0">E-Mail:afeng@163.com </span>
+                                <span class="item_title_part0">岳崇峰</span></h6>
+                            <div class="item_text"><p>交付主管</p></div>
+                            <div class="item_text"><p>电话:18910310117</p></div>
+                            <span class="item_title_part0">E-Mail:18910310117@163.com </span>
                         </div>
                     </div>
                     <div class="clear"></div> 		
@@ -159,8 +159,8 @@
     //创建地图函数：
     function createMap(){
         var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
-        var point = new BMap.Point(116.412627,39.898469);//定义一个中心点坐标
-        map.centerAndZoom(point,18);//设定地图的中心点和坐标并将地图显示在地图容器中
+        var point = new BMap.Point(116.184657,39.920999);//定义一个中心点坐标
+        map.centerAndZoom(point,17);//设定地图的中心点和坐标并将地图显示在地图容器中
         window.map = map;//将map变量存储在全局
     }
     
@@ -180,7 +180,7 @@
     }
     
     //标注点数组
-    var markerArr = [{title:"果大侠",content:"Add:珠市口东大街120号<br/>Tel:18045473092",point:"116.41265|39.89849",isOpen:0,icon:{w:21,h:21,l:0,t:0,x:6,lb:5}}
+    var markerArr = [{title:"果大侠",content:"电话：010-52609594<br/>地址：古城西路113号景山财富中心金融商业楼450<br/>上班、会议吃水果，就找果大侠！",point:"116.184468|39.92102",isOpen:0,icon:{w:21,h:21,l:0,t:0,x:6,lb:5}}
 		 ];
     //创建marker
     function addMarker(){
