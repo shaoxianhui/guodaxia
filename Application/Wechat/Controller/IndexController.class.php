@@ -10,7 +10,7 @@ class IndexController extends Controller {
         $options = array(
             'token'=>'meirixianguo',
             'appid'=>'wx5a89b696654c4d57',
-            'appsecret'=>'07ca0ceb25d5303254434db6c1c7541e',
+            'appsecret'=>'d7e8b0a65784d18a4e4cd3d437818fec',
         );
         $this->weObj = new \Org\Wechat\Wechat($options);
     }
