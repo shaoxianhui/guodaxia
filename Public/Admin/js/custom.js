@@ -203,10 +203,23 @@ $(document).ready(function() {
 				center: 'title',
 				right: 'month,agendaWeek,agendaDay'
 			},
-			buttonText:{
-				today:'Jump to current day'
-			},
 			editable: true,
+            selectable: true,
+			selectHelper: true,
+			select: function(start, end) {
+				var title = prompt('Event Title:');
+				var eventData;
+				if (title) {
+					eventData = {
+						title: title,
+						start: start,
+						end: end
+					};
+					$('.calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+				}
+				$('.calendar').fullCalendar('unselect');
+			},
+            lang: 'zh-cn',
 			events: [
 			{
 				title: 'All Day Event',

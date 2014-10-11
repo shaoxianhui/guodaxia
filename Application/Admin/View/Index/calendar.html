@@ -1,7 +1,7 @@
 <extend name="base" />
 <block name="css">
-<link rel="stylesheet" href="__PUBLIC__/Admin/css/fullcalendar.css">
-<link rel="stylesheet" href="__PUBLIC__/Admin/css/fullcalendar.print.css" media='print'>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.1.1/fullcalendar.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.1.1/fullcalendar.print.css" media='print'>
 </block>
 <block name="content">
 	<div class="content">
@@ -20,7 +20,10 @@
 	</div>	
 </block>
 <block name='script'>
-<script src="__PUBLIC__/Admin/js/fullcalendar.min.js"></script>
+<script src="__PUBLIC__/Admin/js/jquery-ui-1.8.22.custom.min.js"></script>
+<script src="__PUBLIC__/Admin/js/moment.min.js"></script>
+<script src="__PUBLIC__/Admin/js/zh-cn.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.1.1/fullcalendar.min.js"></script>
 <script type="text/javascript">
 $('#calendar').addClass('active');
 </script>
