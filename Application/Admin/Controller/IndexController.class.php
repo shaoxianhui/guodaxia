@@ -6,23 +6,23 @@ class IndexController extends Controller {
     {
         if(D('AdminManager')->isLogged())
         {
-            $this->display();
+            $this->redirect('Admin/Index/dashboard');
         }
         else
         {
-            $this->redirect('Admin/Index/signin');
+            $this->redirect('Admin/Index/login');
         }
     }
 
-    public function doLogin()
+    public function doLogin($adminName, $password, $remember = false)
     {
-        if(D('AdminManager')->login($_POST['adminName'], $_POST['password'], $_POST['remember']))
+        if(D('AdminManager')->login($adminName, $password, $remember))
         {
-            $this->success('登陆成功', 'index', 3);
+            $this->success('登陆成功', 'dashboard');
         }
         else
         {
-            $this->error('登陆失败', 'signin', 3);
+            $this->error('登陆失败', 'login', 3);
         }
     }
 }
