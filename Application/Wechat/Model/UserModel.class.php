@@ -27,6 +27,10 @@ class UserModel extends RelationModel {
         return $this->where($where)->find();
     }
 
+    public function getUsers() {
+        return $this->select();
+    }
+
     public function addUser($openId, $qrScene) {
         $add_or_update = true;
         $user_data['openId'] = $openId;
