@@ -34,8 +34,9 @@ class PrizeUserModel extends Model {
         }
     }
 
-    public function getUserForPrize($page) {
-        $prizeOfUser = $this->order('ctime desc')->page($page.',10')->select();
+    public function getUserForPrize($start = 0, $length = 10, $order = 'ctime asc') {
+        $page = $start / $length + 1;
+        $prizeOfUser = $this->order($order)->page($page.','.$length)->select();
         if($prizeOfUser === null)
             return array();
         for($i = 0; $i < count($prizeOfUser); $i++) {
@@ -43,5 +44,9 @@ class PrizeUserModel extends Model {
             $prizeOfUser[$i]['prizeName'] = $prize['name'];
         }
         return $prizeOfUser;
+    }
+
+    public function getCount() {
+        return $this->count();
     }
 }

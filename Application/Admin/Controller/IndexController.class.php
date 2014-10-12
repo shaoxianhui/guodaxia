@@ -18,15 +18,27 @@ class IndexController extends Controller {
         }
     }
 
-    public function user_table() {
-        $users = D('Wechat/User')->getUsers();
-        $this->assign('users', $users);
-        $this->display();
+    public function users() {
+        $column = $_GET['order'][0]['column'];
+        $order = $_GET['columns'][$column]['data'];
+        $dir = $_GET['order'][0]['dir'];
+        $users = D('Wechat/User')->getUsers($_GET['start'], $_GET['length'], $order.' '.$dir);
+        $data['draw'] = $GET['draw'];
+        $data['recordsTotal'] = D('Wechat/User')->getCount();
+        $data['recordsFiltered'] = $data['recordsTotal'];
+        $data['data'] = $users;
+        $this->ajaxReturn($data);
     }
 
-    public function prize_of_user_table($page = 1) {
+    public function prize_of_user() {
+        $column = $_GET['order'][0]['column'];
+        $order = $_GET['columns'][$column]['data'];
+        $dir = $_GET['order'][0]['dir'];
         $users = D('Wechat/PrizeUser')->getUserForPrize($page);
-        $this->assign('users', $users);
-        $this->display();
+        $data['draw'] = $GET['draw'];
+        $data['recordsTotal'] = D('Wechat/PrizeUser')->getCount();
+        $data['recordsFiltered'] = $data['recordsTotal'];
+        $data['data'] = $users;
+        $this->ajaxReturn($data);
     }
 }

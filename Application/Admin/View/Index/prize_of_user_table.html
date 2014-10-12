@@ -1,4 +1,7 @@
 <extend name="base" />
+<block name="css">
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.3/css/jquery.dataTables.min.css">
+</block>
 <block name="content">
 <div class="row-fluid">
     <div class="span12">
@@ -7,7 +10,7 @@
                 <h3>中奖用户</h3>
             </div>
             <div class="box-content box-nomargin">
-                <table class='table table-striped dataTable dataTable-noheader dataTable-nofooter table-bordered'>
+                <table id="table" class="display">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -22,22 +25,6 @@
                             <th>ctime</th>
                         </tr>
                     </thead>
-                    <tbody>
-                    <volist name="users" id="user">
-                    <tr>
-                        <td>{$user.id}</td>
-                        <td>{$user.userId}</td>
-                        <td>{$user.name}</td>
-                        <td>{$user.prizeName}</td>
-                        <td>{$user.company}</td>
-                        <td>{$user.location}</td>
-                        <td>{$user.phone}</td>
-                        <td>{$user.advice}</td>
-                        <td>{$user.received}</td>
-                        <td>{$user.ctime}</td>
-                    </tr>
-                    </volist>
-                    </tbody>
                 </table>
             </div>
         </div>
@@ -47,8 +34,28 @@
 <block name='script'>
 <script src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
+$(document).ready(function() {
 $('#data').addClass('active');
 $('#prize_of_user').addClass('active');
 $('#prize_of_user').parent().removeClass('closed');
+$('#table').dataTable({
+    searching: false,
+    lengthChange: false,
+    order: [[ 9, "desc" ]],
+    ajax: "prize_of_user",
+    columns: [
+                { "data": "id" , "orderable": true },
+                { "data": "userId" , "orderable": true },
+                { "data": "name" , "orderable": true },
+                { "data": "prizeName" , "orderable": false },
+                { "data": "company" , "orderable": true },
+                { "data": "location" , "orderable": true },
+                { "data": "phone" , "orderable": true },
+                { "data": "advice" , "orderable": true },
+                { "data": "received" , "orderable": true },
+                { "data": "ctime" , "orderable": true }
+            ]
+        });
+});
 </script>
 </block>

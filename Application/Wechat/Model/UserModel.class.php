@@ -27,8 +27,13 @@ class UserModel extends RelationModel {
         return $this->where($where)->find();
     }
 
-    public function getUsers() {
-        return $this->select();
+    public function getUsers($start = 0, $length = 10, $order = 'id asc') {
+        $page = $start / $length + 1;
+        return $this->order($order)->page($page.','.$length)->select();
+    }
+
+    public function getCount() {
+        return $this->count();
     }
 
     public function addUser($openId, $qrScene) {

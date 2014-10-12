@@ -1,6 +1,10 @@
 $(document).ready(function() {
   // ------ ONLY FOR DEMONSTRATION ------- //
 	function layout(){
+        var skin = $.cookie("skin");
+        if(skin) {
+            $('body').removeClass().addClass(skin);
+        }
 		if($.cookie('fixed') == 'true'){
 			$('.container-fluid').removeClass('container-fluid').addClass('container');
 		} else {
@@ -76,6 +80,7 @@ $(document).ready(function() {
 	});
 	$(".style-switcher .pattern a").click(function(e){
 		$('body').removeClass().addClass($(this).attr("class"));
+        $.cookie("skin", $(this).attr("class"), {path: '/', expires: 10});
 	});
 	$("input[type=submit], button[type=submit]").click(function(e){
 		if(!$(this).parents('form').hasClass("wizard")){

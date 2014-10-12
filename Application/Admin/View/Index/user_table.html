@@ -1,4 +1,7 @@
 <extend name="base" />
+<block name="css">
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.3/css/jquery.dataTables.min.css">
+</block>
 <block name="content">
 <div class="row-fluid">
     <div class="span12">
@@ -7,7 +10,7 @@
                 <h3>用户列表</h3>
             </div>
             <div class="box-content box-nomargin">
-                <table class='table table-striped dataTable dataTable-noheader dataTable-nofooter table-bordered'>
+                <table id="table" class="display">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -17,17 +20,6 @@
                             <th>subscribe</th>
                         </tr>
                     </thead>
-                    <tbody>
-                    <volist name="users" id="user">
-                    <tr>
-                        <td>{$user.id}</td>
-                        <td>{$user.openId}</td>
-                        <td>{$user.qrScene}</td>
-                        <td>{$user.score}</td>
-                        <td>{$user.subscribe}</td>
-                    </tr>
-                    </volist>
-                    </tbody>
                 </table>
             </div>
         </div>
@@ -37,8 +29,24 @@
 <block name='script'>
 <script src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
+$(document).ready(function() {
 $('#data').addClass('active');
 $('#user').addClass('active');
 $('#user').parent().removeClass('closed');
+$('#table').dataTable({
+    searching: false,
+    lengthChange: false,
+    processing: true,
+    serverSide: true,
+    ajax: "users",
+    columns: [
+                { "data": "id" },
+                { "data": "openId" },
+                { "data": "qrScene" },
+                { "data": "score" },
+                { "data": "subscribe" }
+            ]
+        });
+});
 </script>
 </block>
