@@ -10,6 +10,54 @@ class IndexController extends Controller {
         }
     }
 
+    public function dashboard() {
+        if(D('AdminManager')->isLogged()) {
+            $this->display();
+        } else {
+            $this->redirect('Admin/Index/login');
+        }
+    }
+
+    public function user_table() {
+        if(D('AdminManager')->isLogged()) {
+            $this->display();
+        } else {
+            $this->redirect('Admin/Index/login');
+        }
+    }
+
+    public function prize_of_user_table() {
+        if(D('AdminManager')->isLogged()) {
+            $this->display();
+        } else {
+            $this->redirect('Admin/Index/login');
+        }
+    }
+
+    public function statistics() {
+        if(D('AdminManager')->isLogged()) {
+            $this->display();
+        } else {
+            $this->redirect('Admin/Index/login');
+        }
+    }
+
+    public function calendar() {
+        if(D('AdminManager')->isLogged()) {
+            $this->display();
+        } else {
+            $this->redirect('Admin/Index/login');
+        }
+    }
+
+    public function profile() {
+        if(D('AdminManager')->isLogged()) {
+            $this->display();
+        } else {
+            $this->redirect('Admin/Index/login');
+        }
+    }
+
     public function doLogin($adminName, $password, $remember = false) {
         if(D('AdminManager')->login($adminName, $password, $remember)) {
             $this->success('登陆成功', 'dashboard');
