@@ -66,6 +66,11 @@ class IndexController extends Controller {
         }
     }
 
+    public function doLogout() {
+        D('AdminManager')->logout();
+        $this->success('退出成功', 'login');
+    }
+
     public function users() {
         $column = $_GET['order'][0]['column'];
         $order = $_GET['columns'][$column]['data'];
