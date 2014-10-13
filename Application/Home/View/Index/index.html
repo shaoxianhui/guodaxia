@@ -8,21 +8,13 @@
         <!--slider-->
         <css href="__PUBLIC__/Common/flexslider/css/flexslider.css" media="all" />
         <!-- jQuery -->
-        <js href="__PUBLIC__/Common/jQuery/js/jquery-1.11.1.js" />
+        <js href="__PUBLIC__/Common/jQuery/js/jquery-1.11.1.min.js" />
         <!-- FlexSlider -->
-        <js href="__PUBLIC__/Common/flexslider/js/modernizr.js" />
-        <script defer="defer" src="__PUBLIC__/Common/flexslider/js/jquery.flexslider.js" /></script>
+        <!-- <js href="__PUBLIC__/Common/flexslider/js/modernizr.js" /> -->
+        <script defer="defer" src="__PUBLIC__/Common/flexslider/js/jquery.flexslider-min.js" /></script>
         <script type="text/javascript">
-            $(function(){
-                    SyntaxHighlighter.all();
-                    });
-$(window).load(function(){
-        $('.flexslider').flexslider({
-animation: "slide",
-start: function(slider){
-$('body').removeClass('loading');
-}
-});
+        $(window).load(function(){
+            $('.flexslider').flexslider();
         });
 </script>
 </head>

@@ -168,21 +168,21 @@ $(document).ready(function() {
 			marginLeft: '0'
 		}, 100);
 	});
-	// $('a.preview').live('mouseover mouseout mousemove click',function(e){
-	// 		if(e.type === 'mouseover'){
-	// 			$('body').append('<div id="image_preview"><img src="'+$(this).attr('href')+'" width="150"></div>');
-	// 			$("#image_preview").fadeIn();
-	// 		} else if(e.type === 'mouseout') {
-	// 			$("#image_preview").remove();
-	// 		} else if(e.type === 'mousemove'){
-	// 			$("#image_preview").css({
-	// 				top:e.pageY+10+"px",
-	// 				left:e.pageX+10+"px"
-	// 			});
-	// 		} else if(e.type === 'click'){
-	// 			$("#image_preview").remove();
-	// 		}
-	// 	});
+	$('a.preview').on('mouseover mouseout mousemove click',function(e){
+			if(e.type === 'mouseover'){
+				$('body').append('<div id="image_preview"><img src="'+$(this).attr('href')+'" width="150"></div>');
+				$("#image_preview").fadeIn();
+			} else if(e.type === 'mouseout') {
+				$("#image_preview").remove();
+			} else if(e.type === 'mousemove'){
+				$("#image_preview").css({
+					top:e.pageY+10+"px",
+					left:e.pageX+10+"px"
+				});
+			} else if(e.type === 'click'){
+				$("#image_preview").remove();
+			}
+		});
 
 	$('.sel_all').click(function(){
 		$(this).parents('table').find('.selectable-checkbox').attr('checked', this.checked);
@@ -353,9 +353,9 @@ $(document).ready(function() {
 			$(this).popover('toggle');
 		}
 	});
-	// $(".table-has-pover").live('mouseenter', function(){
-	// 	$('.pover').popover();
-	// });
+	$(".table-has-pover").on('mouseenter', function(){
+		$('.pover').popover();
+	});
 	// - growl-like notification
 	if($('.opengrowl').length > 0){
 		$(".opengrowl").click(function(e){
@@ -370,11 +370,11 @@ $(document).ready(function() {
 		});
 	}
 	// - fancybox
-	// if($('.fancy').length > 0){
-	// 	$('.fancy').live('mouseenter',function(){
-	// 		$('.fancy').fancybox();
-	// 	});
-	// }
+	if($('.fancy').length > 0){
+		$('.fancy').on('mouseenter',function(){
+			$('.fancy').fancybox();
+		});
+	}
 	// - quickstats
 	if($('.small-chart').length > 0){
 		$('.small-chart').each(function(){
