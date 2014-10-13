@@ -135,11 +135,11 @@ $(document).ready(function() {
 			$(this).parent().hover(function(){
 				$(this).addClass("open");
 				$(this).find('.collapsed-nav').slideDown();
-				$(this).find('img').attr("src", '/Public/Admin/img/toggle-subnav-up-white.png');
+				$(this).find('img').attr("src", '/Public/Admin/images/toggle-subnav-up-white.png');
 			}, function(){
 				$(this).removeClass("open");
 				$(this).find('.collapsed-nav').slideUp();
-				$(this).find('img').attr("src", '/Public/Admin/img/toggle-subnav-down.png');
+				$(this).find('img').attr("src", '/Public/Admin/images/toggle-subnav-down.png');
 			});
 		} else {
 			$(this).click(function(e){
@@ -147,11 +147,11 @@ $(document).ready(function() {
 				if($(this).parent().find('.collapsed-nav').is(":visible")){
 					$(this).parent().removeClass("open");
 					$(this).parent().find('.collapsed-nav').slideUp();
-					$(this).find('img').attr("src", '/Public/Admin/img/toggle-subnav-down.png');
+					$(this).find('img').attr("src", '/Public/Admin/images/toggle-subnav-down.png');
 				} else {
 					$(this).parent().addClass("open");
 					$(this).parent().find('.collapsed-nav').slideDown();
-					$(this).find('img').attr("src", '/Public/Admin/img/toggle-subnav-up-white.png');
+					$(this).find('img').attr("src", '/Public/Admin/images/toggle-subnav-up-white.png');
 				}
 			});
 		}
