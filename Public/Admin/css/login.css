@@ -1319,7 +1319,7 @@
   *zoom: 1;
 }
 .login_body .wrap .login .remember {
-  margin: 15px 0 0 105px;
+  margin: 0 0 0 25px;
 }
 .login_body .wrap .login:before,
 .login_body .wrap .login:after {

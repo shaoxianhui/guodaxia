@@ -51,14 +51,14 @@ $(document).ready(function() {
 	$(".style-toggler").click(function(e){
 		if($('.style-switcher').position().left < -1){
 			$(this).animate({
-				left:'+=211'
+				left:'+=195'
 			});
 			$('.style-switcher').animate({
 				left:'-1px'
 			},400);
 		} else {
 			$(this).animate({
-					left:'-=211'
+					left:'-=195'
 				});
 				$('.style-switcher').animate({
 					left:'-230px'

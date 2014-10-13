@@ -1510,7 +1510,7 @@ body.paper {
 .topbar input {
   color: #888888;
   margin-left: 25px;
-  background: url('../images/magnifier_grey.png') no-repeat 182px 6px #272727;
+  background: url('../images/magnifier_grey.png') no-repeat 176px 9px #272727;
   border: 0;
   margin-top: 12px;
   width: 195px;
@@ -1831,7 +1831,7 @@ body.paper {
   clear: both;
 }
 .content .box {
-  margin-top: 20px;
+  margin-top: 10px;
   border: 1px solid #a6a6a6;
   -webkit-border-radius: 3px 3px 3px 3px;
   -moz-border-radius: 3px 3px 3px 3px;
@@ -1943,9 +1943,9 @@ body.paper {
   padding: 6px 8px 0 6px;
 }
 .content .box .box-head h3 {
-  font-size: 14px;
+  font-size: 18px;
   float: left;
-  line-height: 27px;
+  line-height: 0px;
 }
 .content .box .box-head .actions {
   position: relative;
@@ -2050,8 +2050,8 @@ body.paper {
   margin: 0;
 }
 .quickstats li {
-  width: 180px;
-  height: 40px;
+  width: 220px;
+  height: 60px;
   margin: 5px;
   float: left;
   color: #333333;
