@@ -2050,6 +2050,8 @@ body.paper {
   margin: 0;
 }
 .quickstats li {
+  width: 180px;
+  height: 40px;
   margin: 5px;
   float: left;
   color: #333333;
@@ -2078,7 +2080,7 @@ body.paper {
 }
 .quickstats li .chart-detail {
   margin-left: 10px;
-  float: left;
+  float: right;
 }
 .quickstats li .chart-detail .amount {
   font-weight: bold;
