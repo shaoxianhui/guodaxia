@@ -12,7 +12,7 @@
                 <h3>中奖用户</h3>
             </div>
             <div class="box-content box-nomargin">
-                <table id="table" class="display">
+                <table id="table" class="display" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -38,12 +38,48 @@
 <script src="__PUBLIC__/Common/dataTables/extensions/tableTools/js/dataTables.tableTools.min.js"></script>
 <script src="__PUBLIC__/Common/dataTables/extensions/editor/js/dataTables.editor.min.js"></script>
 <script type="text/javascript">
+var editor;
 $(document).ready(function() {
 $('#data').addClass('active');
 $('#prize_of_user').addClass('active');
 $('#prize_of_user').parent().removeClass('closed');
+editor = new $.fn.dataTable.Editor( {
+        ajax: "../php/staff.php",
+        table: "#table",
+        fields: [ {
+                label: "userId",
+                name: "userId"
+            }, {
+                label: "name",
+                name: "name"
+            }, {
+                label: "prizeName",
+                name: "prizeName"
+            }, {
+                label: "company",
+                name: "nacompany"
+            }, {
+                label: "location",
+                name: "location"
+            }, {
+                label: "phone",
+                name: "phone"
+            }, {
+                label: "advice",
+                name: "advice"
+            }, {
+                label: "received",
+                name: "received"
+            }, {
+                label: "ctime",
+                name: "ctime"
+            }
+        ]
+    } );
+$.fn.dataTable.TableTools.defaults.sSwfPath='__PUBLIC__/Common/dataTables/extensions/tableTools/swf/copy_csv_xls_pdf.swf';
 $('#table').dataTable({
-    searching: false,
+    dom: "Tfrtip",
+    searching: true,
     lengthChange: false,
     order: [[ 9, "desc" ]],
     ajax: "prize_of_user",
@@ -58,7 +94,22 @@ $('#table').dataTable({
                 { "data": "advice" , "orderable": true },
                 { "data": "received" , "orderable": true },
                 { "data": "ctime" , "orderable": true }
-            ]
+            ],
+    tableTools: {
+        sRowSelect: "os",
+        aButtons: [
+            "copy",
+            "print",
+            {
+                "sExtends":    "collection",
+                "sButtonText": "Save",
+                "aButtons":    [ "csv", "xls", "pdf" ]
+            },
+            { sExtends: "editor_create", editor: editor },
+            { sExtends: "editor_edit",   editor: editor },
+            { sExtends: "editor_remove", editor: editor }
+        ]
+        }
         });
 });
 </script>
