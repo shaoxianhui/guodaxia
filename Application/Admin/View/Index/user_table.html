@@ -1,6 +1,8 @@
 <extend name="base" />
 <block name="css">
-<link rel="stylesheet" href="//cdn.datatables.net/1.10.3/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="__PUBLIC__/Common/dataTables/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="__PUBLIC__/Common/dataTables/extensions/tableTools/css/dataTables.tableTools.min.css">
+<link rel="stylesheet" href="__PUBLIC__/Common/dataTables/extensions/editor/css/dataTables.editor.min.css">
 </block>
 <block name="content">
 <div class="row-fluid">
@@ -27,13 +29,38 @@
 </div>
 </block>
 <block name='script'>
-<script src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>
+<script src="__PUBLIC__/Common/dataTables/js/jquery.dataTables.js"></script>
+<script src="__PUBLIC__/Common/dataTables/extensions/tableTools/js/dataTables.tableTools.min.js"></script>
+<script src="__PUBLIC__/Common/dataTables/extensions/editor/js/dataTables.editor.min.js"></script>
 <script type="text/javascript">
+var editor;
 $(document).ready(function() {
 $('#data').addClass('active');
 $('#user').addClass('active');
 $('#user').parent().removeClass('closed');
+editor = new $.fn.dataTable.Editor( {
+        ajax: "../php/staff.php",
+        table: "#table",
+        fields: [ {
+                label: "ID",
+                name: "id"
+            }, {
+                label: "openId",
+                name: "openId"
+            }, {
+                label: "qrScene",
+                name: "qrScene"
+            }, {
+                label: "score",
+                name: "score"
+            }, {
+                label: "subscribe",
+                name: "subscribe"
+            }
+        ]
+    } );
 $('#table').dataTable({
+    dom: "Tfrtip",
     searching: false,
     lengthChange: false,
     processing: true,
@@ -45,7 +72,15 @@ $('#table').dataTable({
                 { "data": "qrScene" },
                 { "data": "score" },
                 { "data": "subscribe" }
+            ],
+    tableTools: {
+            sRowSelect: "os",
+            aButtons: [
+                { sExtends: "editor_create", editor: editor },
+                { sExtends: "editor_edit",   editor: editor },
+                { sExtends: "editor_remove", editor: editor }
             ]
+        }
         });
 });
 </script>

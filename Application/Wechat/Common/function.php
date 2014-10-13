@@ -7,7 +7,7 @@ function getWeChatImageUrl($image)
     {
         return $image; 
     }
-    return 'http://www.meirixianguo.com/Public/Wechat/img/'.$image;
+    return 'http://www.meirixianguo.com/Public/Wechat/images/'.$image;
 }
 
 

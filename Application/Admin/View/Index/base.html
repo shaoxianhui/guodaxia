@@ -6,9 +6,9 @@
 <title>果大侠后台管理</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.css">
-<link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap-responsive.css">
-<link rel="stylesheet" href="__PUBLIC__/Admin/css/jquery.fancybox.css">
+<link rel="stylesheet" href="__PUBLIC__/Common/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="__PUBLIC__/Common/bootstrap/css/bootstrap-responsive.css">
+<link rel="stylesheet" href="__PUBLIC__/Common/fancybox/css/jquery.fancybox.css">
 <link rel="stylesheet" href="__PUBLIC__/Admin/css/style.css">
 <block name="css"></block>
 </head>
@@ -16,7 +16,7 @@
 <body>
 
 <div class="style-toggler">
-    <img src="__PUBLIC__/Admin/img/icons/fugue/color.png" alt="" class='tip' title="Toggle style-switcher" data-placement="right">
+    <img src="__PUBLIC__/Admin/images/icons/fugue/color.png" alt="" class='tip' title="Toggle style-switcher" data-placement="right">
 </div>					
 <div class="style-switcher">
     <h3>Style-switcher</h3>
@@ -58,7 +58,7 @@
         <ul class='mini'>
             <li class='dropdown messageContainer'>
             <a href="#" class='dropdown-toggle' data-toggle='dropdown'>
-                <img src="__PUBLIC__/Admin/img/icons/fugue/balloons-white.png" alt="">
+                <img src="__PUBLIC__/Admin/images/icons/fugue/balloons-white.png" alt="">
                 消息
                 <span class="label label-info">3</span>
             </a>
@@ -70,8 +70,8 @@
                 </div>
                 <div class="action">
                     <div class="btn-group">
-                        <a href="#" class='tip btn btn-mini' title="Show message"><img src="__PUBLIC__/Admin/img/icons/fugue/magnifier.png" alt=""></a>
-                        <a href="#" class='tip btn btn-mini' title="Reply message"><img src="__PUBLIC__/Admin/img/icons/fugue/mail-reply.png" alt=""></a>
+                        <a href="#" class='tip btn btn-mini' title="Show message"><img src="__PUBLIC__/Admin/images/icons/fugue/magnifier.png" alt=""></a>
+                        <a href="#" class='tip btn btn-mini' title="Reply message"><img src="__PUBLIC__/Admin/images/icons/fugue/mail-reply.png" alt=""></a>
                     </div>
                 </div>
                 </li>
@@ -79,13 +79,13 @@
             </li>
             <li>
             <a href="#">
-                <img src="__PUBLIC__/Admin/img/icons/fugue/gear.png" alt="">
+                <img src="__PUBLIC__/Admin/images/icons/fugue/gear.png" alt="">
                 设置
             </a>
             </li>
             <li>
             <a href="{:U('Admin/Index/doLogout')}">
-                <img src="__PUBLIC__/Admin/img/icons/fugue/control-power.png" alt="">
+                <img src="__PUBLIC__/Admin/images/icons/fugue/control-power.png" alt="">
                 退出
             </a>
             </li>
@@ -122,7 +122,7 @@
                 <a href="#" class='light toggle-collapsed'>
                     <div class="ico"><i class="icon-th-large icon-white"></i></div>
                     数据
-                    <img src="__PUBLIC__/Admin/img/toggle-subnav-down.png" alt="">
+                    <img src="__PUBLIC__/Admin/images/toggle-subnav-down.png" alt="">
                 </a>
                 <ul class='collapsed-nav closed'>
                     <li id="user">
@@ -163,14 +163,10 @@
         </div>	
     </div>
 </div>	
-<script src="__PUBLIC__/Admin/js/jquery.js"></script>
-<script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
-<script src="__PUBLIC__/Admin/js/jquery.peity.js"></script>
-<script src="__PUBLIC__/Admin/js/jquery.fancybox.js"></script>
-<script src="__PUBLIC__/Admin/js/jquery.flot.js"></script>
-<script src="__PUBLIC__/Admin/js/jquery.color.js"></script>
-<script src="__PUBLIC__/Admin/js/jquery.flot.resize.js"></script>
-<script src="__PUBLIC__/Admin/js/jquery.cookie.js"></script>
+<script src="__PUBLIC__/Common/jQuery/js/jquery-1.11.1.js"></script>
+<script src="__PUBLIC__/Common/bootstrap/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/Common/fancybox/js/jquery.fancybox.js"></script>
+<script src="__PUBLIC__/Common/jQuery/js/jquery.cookie.js"></script>
 <script src="__PUBLIC__/Admin/js/custom.js"></script>
 <script src="__PUBLIC__/Admin/js/demo.js"></script>
 <block name="script">

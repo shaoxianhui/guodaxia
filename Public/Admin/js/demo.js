@@ -26,7 +26,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		e.stopPropagation();
 		var el = $(this).parents('li');
-		el.find('.custom .expand_custom').html('<img src="img/preload.gif" alt="">');
+		el.find('.custom .expand_custom').html('<img src="images/preload.gif" alt="">');
 		setTimeout(function() {
 		  el.find('.custom .expand_custom').parent().hide();
 		  el.find('.custom-hidden').removeClass('custom-hidden');
