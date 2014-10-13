@@ -12,7 +12,7 @@
                 <h3>用户列表</h3>
             </div>
             <div class="box-content box-nomargin">
-                <table id="table" class="display">
+                <table id="table" class="display" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -42,12 +42,6 @@ editor = new $.fn.dataTable.Editor( {
         ajax: "../php/staff.php",
         table: "#table",
         fields: [ {
-                label: "ID",
-                name: "id"
-            }, {
-                label: "openId",
-                name: "openId"
-            }, {
                 label: "qrScene",
                 name: "qrScene"
             }, {
@@ -59,9 +53,10 @@ editor = new $.fn.dataTable.Editor( {
             }
         ]
     } );
+$.fn.dataTable.TableTools.defaults.sSwfPath='__PUBLIC__/Common/dataTables/extensions/tableTools/swf/copy_csv_xls_pdf.swf';
 $('#table').dataTable({
     dom: "Tfrtip",
-    searching: false,
+    searching: true,
     lengthChange: false,
     processing: true,
     serverSide: true,
@@ -74,14 +69,21 @@ $('#table').dataTable({
                 { "data": "subscribe" }
             ],
     tableTools: {
-            sRowSelect: "os",
-            aButtons: [
-                { sExtends: "editor_create", editor: editor },
-                { sExtends: "editor_edit",   editor: editor },
-                { sExtends: "editor_remove", editor: editor }
-            ]
+        sRowSelect: "os",
+        aButtons: [
+            "copy",
+            "print",
+            {
+                "sExtends":    "collection",
+                "sButtonText": "Save",
+                "aButtons":    [ "csv", "xls", "pdf" ]
+            },
+            { sExtends: "editor_create", editor: editor },
+            { sExtends: "editor_edit",   editor: editor },
+            { sExtends: "editor_remove", editor: editor }
+        ]
         }
-        });
+    });
 });
 </script>
 </block>
