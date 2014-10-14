@@ -15,7 +15,6 @@
                 <table id="table" class="display" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>openId</th>
                             <th>qrScene</th>
                             <th>score</th>
@@ -39,9 +38,13 @@ $('#data').addClass('active');
 $('#user').addClass('active');
 $('#user').parent().removeClass('closed');
 editor = new $.fn.dataTable.Editor( {
-        ajax: "../php/staff.php",
+        ajax: "user",
         table: "#table",
+        idSrc: "id",
         fields: [ {
+                label: "openId",
+                name: "openId"
+            }, {
                 label: "qrScene",
                 name: "qrScene"
             }, {
@@ -62,14 +65,13 @@ $('#table').dataTable({
     serverSide: true,
     ajax: "users",
     columns: [
-                { "data": "id" },
                 { "data": "openId" },
                 { "data": "qrScene" },
                 { "data": "score" },
                 { "data": "subscribe" }
             ],
     tableTools: {
-        sRowSelect: "os",
+        sRowSelect: "single",
         aButtons: [
             "copy",
             "print",

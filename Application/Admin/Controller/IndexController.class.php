@@ -1,6 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
+use Think\Log;
 class IndexController extends Controller {
     public function index() {
         if(D('AdminManager')->isLogged()) {
@@ -69,6 +70,47 @@ class IndexController extends Controller {
     public function doLogout() {
         D('AdminManager')->logout();
         $this->success('退出成功', 'login');
+    }
+
+    public function user($action = 'none', $data = null, $id = null) {
+        switch($action) {
+        case 'edit':
+        case 'create':
+            $result['fieldErrors'] = array();
+            if(!is_numeric($data['score'])) {
+                array_push($result['fieldErrors'], array('name' => 'score', 'status' => '积分不能为非数字'));
+            }
+            if(!is_numeric($data['qrScene'])) {
+                array_push($result['fieldErrors'], array('name' => 'qrScene', 'status' => '场景值不能为非数字'));
+            }
+            if(!empty($result['fieldErrors'])) {
+                $this->ajaxReturn($result);
+            }
+            break;
+        default:
+            break;
+        }
+        switch($action) {
+        case 'edit':
+            D('User')->where('id='.$id)->save($data);
+            $data['id'] = $id;
+            $result['row'] = $data;
+            $this->ajaxReturn($result);
+            break;
+        case 'create':
+            $id = D('User')->add($data);
+            $data['id'] = $id;
+            $result['row'] = $data;
+            $this->ajaxReturn($result);
+            break;
+        case 'remove':
+            D('User')->delete(join(',', $id));
+            $result['id'] = $id;
+            $this->ajaxReturn($result);
+            break;
+        default:
+            break;
+        }
     }
 
     public function users() {

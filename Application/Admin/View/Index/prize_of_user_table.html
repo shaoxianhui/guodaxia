@@ -15,7 +15,6 @@
                 <table id="table" class="display" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>userId</th>
                             <th>name</th>
                             <th>prizeName</th>
@@ -81,10 +80,11 @@ $('#table').dataTable({
     dom: "Tfrtip",
     searching: true,
     lengthChange: false,
-    order: [[ 9, "desc" ]],
+    processing: true,
+    serverSide: true,
+    order: [[ 8, "desc" ]],
     ajax: "prize_of_user",
     columns: [
-                { "data": "id" , "orderable": true },
                 { "data": "userId" , "orderable": true },
                 { "data": "name" , "orderable": true },
                 { "data": "prizeName" , "orderable": false },
@@ -96,7 +96,7 @@ $('#table').dataTable({
                 { "data": "ctime" , "orderable": true }
             ],
     tableTools: {
-        sRowSelect: "os",
+        sRowSelect: "single",
         aButtons: [
             "copy",
             "print",
