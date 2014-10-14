@@ -386,8 +386,8 @@ $(document).ready(function() {
 				colours: ['#dddddd', color],
 				diameter: 32,
 				strokeColour: stroke,
-				width: 60,
-				height:32
+				width: 95,
+				height:52
 			});
 		});
 	}
