@@ -92,19 +92,19 @@ class IndexController extends Controller {
         }
         switch($action) {
         case 'edit':
-            D('User')->where('id='.$id)->save($data);
+            D('Wechat/User')->where('id='.$id)->save($data);
             $data['id'] = $id;
             $result['row'] = $data;
             $this->ajaxReturn($result);
             break;
         case 'create':
-            $id = D('User')->add($data);
+            $id = D('Wechat/User')->add($data);
             $data['id'] = $id;
             $result['row'] = $data;
             $this->ajaxReturn($result);
             break;
         case 'remove':
-            D('User')->delete(join(',', $id));
+            D('Wechat/User')->delete(join(',', $id));
             $result['id'] = $id;
             $this->ajaxReturn($result);
             break;
