@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="__PUBLIC__/Common/dataTables/extensions/editor/css/dataTables.editor.min.css">
 </block>
 <block name="content">
+<div class="content">
 <div class="row-fluid">
     <div class="span12">
         <div class="box">
@@ -25,6 +26,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 </block>
 <block name='script'>
@@ -52,7 +54,13 @@ editor = new $.fn.dataTable.Editor( {
                 name: "score"
             }, {
                 label: "subscribe",
-                name: "subscribe"
+                name: "subscribe",
+                type: "radio",
+                ipOpts: [
+                    { label: "已关注", value : 1},
+                    { label: "未关注", value : 0}
+                ],
+                default: 0
             }
         ]
     } );
@@ -68,7 +76,10 @@ $('#table').dataTable({
                 { "data": "openId" },
                 { "data": "qrScene" },
                 { "data": "score" },
-                { "data": "subscribe" }
+                { "data": "subscribe" , "render": 
+                    function (data, type, row) {
+                    return row.subscribe == 1 ? '已关注' : '未关注'; }
+                }
             ],
     tableTools: {
         sRowSelect: "single",
