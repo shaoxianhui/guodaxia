@@ -9,9 +9,9 @@ class QyController extends Controller {
         parent::__construct();
         $options = array(
             'token'=>'meirixianguo',
-            'appid'=>'wx6d5502acb95cc6d1',
-            'appsecret'=>'YI4j5ctakLj380Dqtdx-aqdyOaD3u6Qzadv0Vt3Q0am3nH3-lW6JaCS_IcBwGuBT',
- 			'encodingaeskey'=>'NRl76DQeiiPnX4CyPnl597OlGYP8QR1v2xh1WAvdVXT',
+            'appid'=>'wx0f3313fd2a9eed6e',
+            'appsecret'=>'5WpAyyPu4RtWtZ6qufgnBuaAGvZJ26wwgJuy0k7fYAaYDyR8X0UHEabkPw-H0ugV',
+ 			'encodingaeskey'=>'dkPjxDa2pNi9xYa1dbakWn7kMxXajQxF9rDteEevP83',
  			'agentid'=>'1',
         );
         $this->weObj = new \Org\Wechat\QyWechat($options);
