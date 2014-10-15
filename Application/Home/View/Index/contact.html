@@ -1,153 +1,13 @@
-<!DOCTYPE HTML>
-<html>
-    <head>
-        <title>Contact</title>
-        <css href="__PUBLIC__/Home/css/style.css" media="all" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta name="keywords" content="百度地图,百度地图API，百度地图自定义工具，百度地图所见即所得工具" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
-    </head>
-    <body>
-        <div class="header-box"></div>
-        <div class="wrap"> 
-            <div class="total">
-                <div class="header">
-                    <div class="header-bot">
-                        <div class="logo">
-                            <a href="index.html"><img src="__PUBLIC__/Home/images/logo.png" alt=""/></a>
-                        </div>
-                        <ul class="follow_icon">
-                            <li><a href="#"><img src="__PUBLIC__/Home/images/wechat.png" alt=""></a></li>
-                            <li><a href="#"><img src="__PUBLIC__/Home/images/sina.png" alt=""></a></li>
-                            <li><a href="#"><img src="__PUBLIC__/Home/images/qq.png" alt=""></a></li>
-                            <li><a href="#"><img src="__PUBLIC__/Home/images/renren.png" alt=""></a></li>
-                        </ul>
-                        <div class="clear"></div> 
-                    </div>
-                    <div class="search-bar">
-                        <input type="text" class="textbox" value=" Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
-                        <input name="searchsubmit" type="image" src="__PUBLIC__/Home/images/search-icon.png" value="Go" id="searchsubmit" class="btn">
-                        <div class="clear"></div>
-                    </div>
-                    <div class="clear"></div> 
-                </div>	
-                <div class="menu"> 	
-                    <div class="top-nav">
-                        <ul>
-                            <li><a href="__CONTROLLER__/index.html">主页</a></li>
-                            <li class="active"><a href="__CONTROLLER__/contact.html">联系我们</a></li>
-                        </ul>
-                    </div>
-                </div>		
-                <div class="banner">
-                </div>
-            </div>
-            <div class="main">
-                <div class="section group">
-                    <div class="col span_2_of_contact">
-                        <div class="contact-form">
-                            <h3>联系我们</h3>
-                            <form method="post" action="feedback">
-                                <div>
-                                    <span><label>姓名</label></span>
-                                    <span><input name="name" type="text" class="textbox"></span>
-                                </div>
-                                <div>
-                                    <span><label>邮箱</label></span>
-                                    <span><input name="email" type="text" class="textbox"></span>
-                                </div>
-                                <div>
-                                    <span><label>电话</label></span>
-                                    <span><input name="phone" type="text" class="textbox"></span>
-                                </div>
-                                <div>
-                                    <span><label>主题</label></span>
-                                    <span><textarea name="content"> </textarea></span>
-                                </div>
-                                <div>
-                                    <span><input type="submit" value="Submit"></span>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col span_1_of_contact">
-                        <div class="contact_info">
-                            <h3>我们在这里</h3>
-                            <div style="width:100%;height:175px;border:#ccc solid 1px;" class="map" id="dituContent"></div>
-                        </div>
-                        <div class="company_address">
-                            <h3>地址</h3>
-                            <p>北京市石景山区古城西路113号</p>
-                            <p>景山财富中心金融商业楼450</p>
-
-                            <p>电话: 010-52609594</p>
-                            <p>E-Mail: <span>guodaxiahezuo@163.com</span></p>
-                            <p>微信: <span>每日开心果大侠</span></p>
-                            <p>微博: <span><a href="http://weibo.com/5318865419" target="_blank">新浪微博</a></span></p>
-                        </div>
-                    </div>
-                    <div class="clear"></div> 
-                </div>
-                <div class="heading">
-                    <h3>创始人</h3>
-                </div>
-                <div class="about-bottom">
-                    <div class="col_1_of_4 span_1_of_4">
-                        <img src="__PUBLIC__/Home/images/pic17.jpg" alt=""/>
-                        <div class="item_content">
-                            <h6 class="item_title">
-                                <span class="item_title_part0">张洪彬</span></h6>
-                            <div class="item_text"><p>CEO</p></div>
-                            <div class="item_text"><p>电话:18610276120</p></div>
-                            <span class="item_title_part0">E-Mail:18610276120@163.com </span>
-                        </div>
-                    </div>
-                    <div class="col_1_of_4 span_1_of_4">
-                        <img src="__PUBLIC__/Home/images/pic18.jpg" alt=""/>
-                        <div class="item_content">
-                            <h6 class="item_title">
-                                <span class="item_title_part0">邵宪辉</span></h6>
-                            <div class="item_text"><p>CIO CTO</p></div>
-                            <div class="item_text"><p>电话:18045473092</p></div>
-                            <span class="item_title_part0">E-Mail:18045473092@163.com </span>
-                        </div>
-                    </div>
-                    <div class="col_1_of_4 span_1_of_4">
-                        <img src="__PUBLIC__/Home/images/pic19.jpg" alt=""/>
-                        <div class="item_content">
-                            <h6 class="item_title">
-                                <span class="item_title_part0">张喆</span></h6>
-                            <div class="item_text"><p>生产主管</p></div>
-                            <div class="item_text"><p>电话:18621059522</p></div>
-                            <span class="item_title_part0">E-Mail:18621059522@163.com </span>
-                        </div>
-                    </div>
-                    <div class="col_1_of_4 span_1_of_4">
-                        <img src="__PUBLIC__/Home/images/pic20.jpg" alt=""/>
-                        <div class="item_content">
-                            <h6 class="item_title">
-                                <span class="item_title_part0">岳崇峰</span></h6>
-                            <div class="item_text"><p>交付主管</p></div>
-                            <div class="item_text"><p>电话:18910310117</p></div>
-                            <span class="item_title_part0">E-Mail:18910310117@163.com </span>
-                        </div>
-                    </div>
-                    <div class="clear"></div> 		
-                </div>
-                <div class="clear"> </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="wrap">
-                <div class="copy">
-                    <p>Copyright &copy; 2014.Company name All rights reserved.<a target="_blank"
-                        href="http://www.meirixianguo.com/">果大侠</a></p>
-                </div>
-            </div>
-        </div>
-    </body>
+<extend name="base" />
+<block name="title">联系</block>
+<block name="meta">
+<meta name="keywords" content="百度地图,百度地图API，百度地图自定义工具，百度地图所见即所得工具" />
+</block>
+<block name="js">
+<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
 <script type="text/javascript">
+    $(document).ready(function() {
+    $('#contact').addClass('active');
     //创建和初始化地图函数：
     function initMap(){
         createMap();//创建地图
@@ -237,5 +97,102 @@
     }
     
     initMap();//创建和初始化地图
+});
 </script>
-</html>
+</block>
+<block name="main">
+<div class="main">
+    <div class="section group">
+        <div class="col span_2_of_contact">
+            <div class="contact-form">
+                <h3>联系我们</h3>
+                <form method="post" action="feedback">
+                    <div>
+                        <span><label>姓名</label></span>
+                        <span><input name="name" type="text" class="textbox"></span>
+                    </div>
+                    <div>
+                        <span><label>邮箱</label></span>
+                        <span><input name="email" type="text" class="textbox"></span>
+                    </div>
+                    <div>
+                        <span><label>电话</label></span>
+                        <span><input name="phone" type="text" class="textbox"></span>
+                    </div>
+                    <div>
+                        <span><label>主题</label></span>
+                        <span><textarea name="content"> </textarea></span>
+                    </div>
+                    <div>
+                        <span><input type="submit" value="Submit"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col span_1_of_contact">
+            <div class="contact_info">
+                <h3>我们在这里</h3>
+                <div style="width:100%;height:175px;border:#ccc solid 1px;" class="map" id="dituContent"></div>
+            </div>
+            <div class="company_address">
+                <h3>地址</h3>
+                <p>北京市石景山区古城西路113号</p>
+                <p>景山财富中心金融商业楼450</p>
+
+                <p>电话: 010-52609594</p>
+                <p>E-Mail: <span>guodaxiahezuo@163.com</span></p>
+                <p>微信: <span>每日开心果大侠</span></p>
+                <p>微博: <span><a href="http://weibo.com/5318865419" target="_blank">新浪微博</a></span></p>
+            </div>
+        </div>
+        <div class="clear"></div> 
+    </div>
+    <div class="heading">
+        <h3>创始人</h3>
+    </div>
+    <div class="about-bottom">
+        <div class="col_1_of_4 span_1_of_4">
+            <img src="__PUBLIC__/Home/images/pic17.jpg" alt=""/>
+            <div class="item_content">
+                <h6 class="item_title">
+                    <span class="item_title_part0">张洪彬</span></h6>
+                <div class="item_text"><p>CEO</p></div>
+                <div class="item_text"><p>电话:18610276120</p></div>
+                <span class="item_title_part0">E-Mail:18610276120@163.com </span>
+            </div>
+        </div>
+        <div class="col_1_of_4 span_1_of_4">
+            <img src="__PUBLIC__/Home/images/pic18.jpg" alt=""/>
+            <div class="item_content">
+                <h6 class="item_title">
+                    <span class="item_title_part0">邵宪辉</span></h6>
+                <div class="item_text"><p>CIO CTO</p></div>
+                <div class="item_text"><p>电话:18045473092</p></div>
+                <span class="item_title_part0">E-Mail:18045473092@163.com </span>
+            </div>
+        </div>
+        <div class="col_1_of_4 span_1_of_4">
+            <img src="__PUBLIC__/Home/images/pic19.jpg" alt=""/>
+            <div class="item_content">
+                <h6 class="item_title">
+                    <span class="item_title_part0">张喆</span></h6>
+                <div class="item_text"><p>生产主管</p></div>
+                <div class="item_text"><p>电话:18621059522</p></div>
+                <span class="item_title_part0">E-Mail:18621059522@163.com </span>
+            </div>
+        </div>
+        <div class="col_1_of_4 span_1_of_4">
+            <img src="__PUBLIC__/Home/images/pic20.jpg" alt=""/>
+            <div class="item_content">
+                <h6 class="item_title">
+                    <span class="item_title_part0">岳崇峰</span></h6>
+                <div class="item_text"><p>交付主管</p></div>
+                <div class="item_text"><p>电话:18910310117</p></div>
+                <span class="item_title_part0">E-Mail:18910310117@163.com </span>
+            </div>
+        </div>
+        <div class="clear"></div> 		
+    </div>
+    <div class="clear"> </div>
+</div>
+</block>

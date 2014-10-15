@@ -1,197 +1,153 @@
-<!DOCTYPE HTML>
-<html>
-    <head>
-        <title>Home</title>
-        <css href="__PUBLIC__/Home/css/style.css" media="all" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <!--slider-->
-        <css href="__PUBLIC__/Common/flexslider/css/flexslider.css" media="all" />
-        <!-- jQuery -->
-        <js href="__PUBLIC__/Common/jQuery/js/jquery-1.11.1.min.js" />
-        <!-- FlexSlider -->
-        <!-- <js href="__PUBLIC__/Common/flexslider/js/modernizr.js" /> -->
-        <script defer="defer" src="__PUBLIC__/Common/flexslider/js/jquery.flexslider-min.js" /></script>
-        <script type="text/javascript">
-        $(window).load(function(){
-            $('.flexslider').flexslider();
-        });
-</script>
-</head>
-<body>
-    <div class="header-box"></div>
-    <div class="wrap"> 
-        <div class="total">
-            <div class="header">
-                <div class="header-bot">
-                    <div class="logo">
-                        <a href="index.html"><img src="__PUBLIC__/Home/images/logo.png" alt=""/></a>
-                    </div>
-                        <ul class="follow_icon">
-                            <li><a href="#"><img src="__PUBLIC__/Home/images/wechat.png" alt=""></a></li>
-                            <li><a href="#"><img src="__PUBLIC__/Home/images/sina.png" alt=""></a></li>
-                            <li><a href="#"><img src="__PUBLIC__/Home/images/qq.png" alt=""></a></li>
-                            <li><a href="#"><img src="__PUBLIC__/Home/images/renren.png" alt=""></a></li>
-                        </ul>
-                    <div class="clear"></div> 
-                </div>
-                <div class="search-bar">
-                    <input type="text" class="textbox" value=" Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
-                    <input name="searchsubmit" type="image" src="__PUBLIC__/Home/images/search-icon.png" value="Go" id="searchsubmit" class="btn">
-                    <div class="clear"></div>
-                </div>
-                <div class="clear"></div> 
-            </div>	
-            <div class="menu"> 	
-                <div class="top-nav">
-                    <ul>
-                        <li class="active"><a href="__CONTROLLER__/index.html">主页</a></li>
-                        <li><a href="__CONTROLLER__/contact.html">联系我们</a></li>
-                    </ul>
-                </div>
-            </div>		
-            <div class="banner">
-                <div class="flexslider">
-                    <ul class="slides">
-                        <li><img src="__PUBLIC__/Home/images/banner2.jpg" alt=""/></li>
-                        <li><img src="__PUBLIC__/Home/images/banner1.jpg"  alt=""/></li>
-                        <li><img src="__PUBLIC__/Home/images/banner3.jpg"  alt=""/></li>
-                        <li><img src="__PUBLIC__/Home/images/banner4.jpg"  alt=""/></li>
-                    </ul>
+<extend name="base" />
+<block name="title">主页</block>
+<block name="banner">
+<div class="banner">
+    <div class="flexslider">
+        <ul class="slides">
+            <li><img src="__PUBLIC__/Home/images/banner2.jpg" alt=""/></li>
+            <li><img src="__PUBLIC__/Home/images/banner1.jpg"  alt=""/></li>
+            <li><img src="__PUBLIC__/Home/images/banner3.jpg"  alt=""/></li>
+            <li><img src="__PUBLIC__/Home/images/banner4.jpg"  alt=""/></li>
+        </ul>
+    </div>
+</div>
+</block>
+<block name="main">
+<div class="main">
+    <div class="heading3">
+        <h3>新鲜&emsp;卫生&emsp;创新&emsp;专业</h3>
+    </div>
+    <div class="section group">
+        <div class="col_1_of_4 span_1_of_4">
+            <img src="__PUBLIC__/Home/images/pic.jpg" alt=""/>
+            <div class="desc">
+                <div class="left-text">
+                    <h3>
+                        <a href="#" style="text-decoration:none">好吃因为<span style="color:#00BF00;font-size:30px;">新鲜</span></a></h3>
                 </div>
             </div>
         </div>
-        <div class="main">
-            <div class="heading3">
-                <h3>新鲜&emsp;卫生&emsp;创新&emsp;专业</h3>
+        <div class="col_1_of_4 span_1_of_4">
+            <img src="__PUBLIC__/Home/images/pic1.jpg" alt=""/>
+            <div class="desc">
+                <div class="left-text">
+                    <h3>
+                        <a href="#" style="text-decoration:none">放心因为<span style="color:#00BF00;font-size:30px;">卫生</span></a></h3>
+                </div>
             </div>
-            <div class="section group">
-                <div class="col_1_of_4 span_1_of_4">
-                    <img src="__PUBLIC__/Home/images/pic.jpg" alt=""/>
-                    <div class="desc">
-                        <div class="left-text">
-                            <h3>
-                                <a href="#" style="text-decoration:none">好吃因为<span style="color:#00BF00;font-size:30px;">新鲜</span></a></h3>
-                        </div>
-                    </div>
+        </div>
+        <div class="col_1_of_4 span_1_of_4">
+            <img src="__PUBLIC__/Home/images/pic2.jpg" alt=""/>
+            <div class="desc">
+                <div class="left-text">
+                    <h3>
+                        <a href="#" style="text-decoration:none">方便因为<span style="color:#00BF00;font-size:30px;">创新</span></a></h3>
                 </div>
-                <div class="col_1_of_4 span_1_of_4">
-                    <img src="__PUBLIC__/Home/images/pic1.jpg" alt=""/>
-                    <div class="desc">
-                        <div class="left-text">
-                            <h3>
-                                <a href="#" style="text-decoration:none">放心因为<span style="color:#00BF00;font-size:30px;">卫生</span></a></h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col_1_of_4 span_1_of_4">
-                    <img src="__PUBLIC__/Home/images/pic2.jpg" alt=""/>
-                    <div class="desc">
-                        <div class="left-text">
-                            <h3>
-                                <a href="#" style="text-decoration:none">方便因为<span style="color:#00BF00;font-size:30px;">创新</span></a></h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col_1_of_4 span_1_of_4">
-                    <img src="__PUBLIC__/Home/images/pic3.jpg" alt=""/>
-                    <div class="desc">
-                        <div class="left-text">
-                            <h3>
-                                <a href="#" style="text-decoration:none">满意因为<span style="color:#00BF00;font-size:30px;">专业</span></a></h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="clear"></div> 
             </div>
-            <div class="content-middle">
-                <div class="lsidebar span_1_of_3">
-                    <img src="__PUBLIC__/Home/images/pic4.jpg" alt=""/>
+        </div>
+        <div class="col_1_of_4 span_1_of_4">
+            <img src="__PUBLIC__/Home/images/pic3.jpg" alt=""/>
+            <div class="desc">
+                <div class="left-text">
+                    <h3>
+                        <a href="#" style="text-decoration:none">满意因为<span style="color:#00BF00;font-size:30px;">专业</span></a></h3>
                 </div>
-                <div class="cont span_2_of_3">
-                    <div class="test-meta"><img src="__PUBLIC__/Home/images/quotes.png"
-                        alt=""/><span class="user">上班、会议吃水果，就找果大侠！</span></div>
-                    <p class="paragraph"><a href="#">上班、会议水果互联网第一品牌：果大侠！</br>
-                    利用先进的互联网技术及创新思维，专注上班、会议需求，提供最极致的水果服务！
-                    有梦想可笑吗？</br>
-                    我们是一群不安分的人，有来自知名互联网公司的管理者、著名大学拥有博士学历的大学教师、经验丰富的面点师、苹果（iphone）销售商等等，都有着稳定的工作，但因为有着一个共同的梦想走到了一起，那就是希望改变世界一点点，倡导我们忙碌的国人拥有一个健康的生活方式。</br>
-                    有就开干吧！</br>
-                    基于此我们创立了上班、会议即食水果互联网第一品牌:果大侠（吾与添加剂势不两立），利用先进的互联网技术及创新思维，专注上班、会议需求，提供最极致的水果服务，让繁忙工作的人随时随地便捷的吃到新鲜美味、营养丰富的水果，我们会一直奋斗着！</br>
-                </a></p>
-                </div>		
-                <div class="clear"></div> 		
             </div>
-            <div class="bottom-grids">
-                <div class="bottom-grid1">
-                    <h3>网上商店</h3>
-                    <span>多种电商选择，满足不同人的需求</span>
-                    <p>通过在网上商店轻松下单，便可品味极致果切的味道！这不仅仅是水果！</p>
-                    <ul>
-                        <li><a href="#"><img src="__PUBLIC__/Home/images/marker.png">淘宝</a></li>
-                        <li><a href="#"><img src="__PUBLIC__/Home/images/marker.png">京东商城</a></li>
-                        <div class="clear"> </div>
-                    </ul><br>
-                </div>
-                <div class="bottom-grid2 bottom-mid">
-                    <h3>产品介绍</h3>
-                    <span>目前有：单果切、双果切、三果切、整果产品服务</span>
-                    <p>鲜果切具有100%即开即食，水果种类一次多样搭配等特点，非常适合繁忙的工作之余享用，想吃多少吃多少，完全省去了处理的时间和精力，在补充营养的同时，高效完成工作！</p>
-                    <div class="gallery">
-                        <ul>
-                            <li><a href="__PUBLIC__/Home/images/t-pic5.jpg"><img src="__PUBLIC__/Home/images/pic5.jpg" alt=""></a></li>
-                            <li><a href="__PUBLIC__/Home/images/t-pic6.jpg"><img src="__PUBLIC__/Home/images/pic6.jpg" alt=""></a></li>
-                            <li><a href="__PUBLIC__/Home/images/t-pic7.jpg"><img src="__PUBLIC__/Home/images/pic7.jpg" alt=""></a></li>
-                            <li><a href="__PUBLIC__/Home/images/t-pic8.jpg"><img src="__PUBLIC__/Home/images/pic8.jpg" alt=""></a></li>
-                            <li><a href="__PUBLIC__/Home/images/t-pic9.jpg"><img src="__PUBLIC__/Home/images/pic9.jpg" alt=""></a></li>
-                            <li><a href="__PUBLIC__/Home/images/t-pic10.jpg"><img src="__PUBLIC__/Home/images/pic10.jpg" alt=""></a></li>
-                            <li><a href="__PUBLIC__/Home/images/t-pic11.jpg"><img src="__PUBLIC__/Home/images/pic11.jpg" alt=""></a></li>
-                            <li><a href="__PUBLIC__/Home/images/t-pic12.jpg"><img src="__PUBLIC__/Home/images/pic12.jpg" alt=""></a></li>
-                            <li><a href="__PUBLIC__/Home/images/t-pic13.jpg"><img src="__PUBLIC__/Home/images/pic13.jpg" alt=""></a></li>
-                            <li><a href="__PUBLIC__/Home/images/t-pic14.jpg"><img src="__PUBLIC__/Home/images/pic14.jpg" alt=""></a></li>
-                            <li><a href="__PUBLIC__/Home/images/t-pic15.jpg"><img src="__PUBLIC__/Home/images/pic15.jpg" alt=""></a></li>
-                            <li><a href="__PUBLIC__/Home/images/t-pic16.jpg"><img src="__PUBLIC__/Home/images/pic16.jpg" alt=""></a></li>
+        </div>
+        <div class="clear"></div> 
+    </div>
+    <div class="content-middle">
+        <div class="lsidebar span_1_of_3">
+            <img src="__PUBLIC__/Home/images/pic4.jpg" alt=""/>
+        </div>
+        <div class="cont span_2_of_3">
+            <div class="test-meta"><img src="__PUBLIC__/Home/images/quotes.png"
+                alt=""/><span class="user">上班、会议吃水果，就找果大侠！</span></div>
+            <p class="paragraph"><a href="#">上班、会议水果互联网第一品牌：果大侠！</br>
+            利用先进的互联网技术及创新思维，专注上班、会议需求，提供最极致的水果服务！
+            有梦想可笑吗？</br>
+            我们是一群不安分的人，有来自知名互联网公司的管理者、著名大学拥有博士学历的大学教师、经验丰富的面点师、苹果（iphone）销售商等等，都有着稳定的工作，但因为有着一个共同的梦想走到了一起，那就是希望改变世界一点点，倡导我们忙碌的国人拥有一个健康的生活方式。</br>
+            有就开干吧！</br>
+            基于此我们创立了上班、会议即食水果互联网第一品牌:果大侠（吾与添加剂势不两立），利用先进的互联网技术及创新思维，专注上班、会议需求，提供最极致的水果服务，让繁忙工作的人随时随地便捷的吃到新鲜美味、营养丰富的水果，我们会一直奋斗着！</br>
+        </a></p>
+        </div>		
+        <div class="clear"></div> 		
+    </div>
+    <div class="bottom-grids">
+        <div class="bottom-grid1">
+            <h3>网上商店</h3>
+            <span>多种电商选择，满足不同人的需求</span>
+            <p>通过在网上商店轻松下单，便可品味极致果切的味道！这不仅仅是水果！</p>
+            <ul>
+                <li><a href="#"><img src="__PUBLIC__/Home/images/marker.png">淘宝</a></li>
+                <li><a href="#"><img src="__PUBLIC__/Home/images/marker.png">京东商城</a></li>
+                <div class="clear"> </div>
+            </ul><br>
+        </div>
+        <div class="bottom-grid2 bottom-mid">
+            <h3>产品介绍</h3>
+            <span>目前有：单果切、双果切、三果切、整果产品服务</span>
+            <p>鲜果切具有100%即开即食，水果种类一次多样搭配等特点，非常适合繁忙的工作之余享用，想吃多少吃多少，完全省去了处理的时间和精力，在补充营养的同时，高效完成工作！</p>
+            <div class="gallery">
+                <ul>
+                    <li><a href="__PUBLIC__/Home/images/t-pic5.jpg"><img src="__PUBLIC__/Home/images/pic5.jpg" alt=""></a></li>
+                    <li><a href="__PUBLIC__/Home/images/t-pic6.jpg"><img src="__PUBLIC__/Home/images/pic6.jpg" alt=""></a></li>
+                    <li><a href="__PUBLIC__/Home/images/t-pic7.jpg"><img src="__PUBLIC__/Home/images/pic7.jpg" alt=""></a></li>
+                    <li><a href="__PUBLIC__/Home/images/t-pic8.jpg"><img src="__PUBLIC__/Home/images/pic8.jpg" alt=""></a></li>
+                    <li><a href="__PUBLIC__/Home/images/t-pic9.jpg"><img src="__PUBLIC__/Home/images/pic9.jpg" alt=""></a></li>
+                    <li><a href="__PUBLIC__/Home/images/t-pic10.jpg"><img src="__PUBLIC__/Home/images/pic10.jpg" alt=""></a></li>
+                    <li><a href="__PUBLIC__/Home/images/t-pic11.jpg"><img src="__PUBLIC__/Home/images/pic11.jpg" alt=""></a></li>
+                    <li><a href="__PUBLIC__/Home/images/t-pic12.jpg"><img src="__PUBLIC__/Home/images/pic12.jpg" alt=""></a></li>
+                    <li><a href="__PUBLIC__/Home/images/t-pic13.jpg"><img src="__PUBLIC__/Home/images/pic13.jpg" alt=""></a></li>
+                    <li><a href="__PUBLIC__/Home/images/t-pic14.jpg"><img src="__PUBLIC__/Home/images/pic14.jpg" alt=""></a></li>
+                    <li><a href="__PUBLIC__/Home/images/t-pic15.jpg"><img src="__PUBLIC__/Home/images/pic15.jpg" alt=""></a></li>
+                    <li><a href="__PUBLIC__/Home/images/t-pic16.jpg"><img src="__PUBLIC__/Home/images/pic16.jpg" alt=""></a></li>
 
-                            <div class="clear"> </div>
-                        </ul><br>
-                    </div>
-                    <js href="__PUBLIC__/Common/jQuery/js/jquery-1.11.1.js" />
-                    <js href="__PUBLIC__/Common/lightbox/js/jquery.lightbox.js" />
-                    <css href="__PUBLIC__/Common/lightbox/css/lightbox.css" media="screen" />
-                    <script type="text/javascript">
-                        $(function() {
-                                $('.gallery a').lightBox({
-                                                    imageLoading:'__PUBLIC__/Common/lightbox/images/lightbox-ico-loading.gif',
-                                                    imageBtnPrev:'__PUBLIC__/Common/lightbox/images/lightbox-btn-prev.gif',
-                                                    imageBtnNext:'__PUBLIC__/Common/lightbox/images/lightbox-btn-next.gif',
-                                                    imageBtnClose:'__PUBLIC__/Common/lightbox/images/lightbox-btn-close.gif',
-                                                    imageBlank:'__PUBLIC__/Common/lightbox/images/lightbox-blank.gif'
-                                        });
-
+                    <div class="clear"> </div>
+                </ul><br>
+            </div>
+            <js href="__PUBLIC__/Common/jQuery/js/jquery-1.11.1.js" />
+            <js href="__PUBLIC__/Common/lightbox/js/jquery.lightbox.js" />
+            <css href="__PUBLIC__/Common/lightbox/css/lightbox.css" media="screen" />
+            <script type="text/javascript">
+                $(function() {
+                        $('.gallery a').lightBox({
+                                            imageLoading:'__PUBLIC__/Common/lightbox/images/lightbox-ico-loading.gif',
+                                            imageBtnPrev:'__PUBLIC__/Common/lightbox/images/lightbox-btn-prev.gif',
+                                            imageBtnNext:'__PUBLIC__/Common/lightbox/images/lightbox-btn-next.gif',
+                                            imageBtnClose:'__PUBLIC__/Common/lightbox/images/lightbox-btn-close.gif',
+                                            imageBlank:'__PUBLIC__/Common/lightbox/images/lightbox-blank.gif'
                                 });
+
+                        });
 </script>
-                            </div>
-                            <div class="bottom-grid1 bottom-last">
-                                <h3>公司消息</h3>
-                                <span>最新提供放心的免洗服务</span>
-                                <p>1、专业的清洗设备：超声波清洗功能，更能快速有效清除水果表面及缝隙中的泥沙及杂质；</br>
-                                2、专业的清洗剂：采用专业的果蔬清洗盐，高效杀菌、消毒，去除残留农药；</br>
-                                3、专业的包装：每个水果配备食品级专用袋，保证卫生送到；
-                                </p>
-                                <br>
-                                <a href='#' class='button'>Read More</a>
-                            </div>
-                            <div class="clear"> </div>
-                        </div>
-                        <div class="clear"> </div>
                     </div>
-                </div>
-                <div class="footer-bottom">
-                    <div class="wrap">
-                        <div class="copy">
-                            <p>Copyright &copy; 2014.Company name All rights reserved.<a target="_blank"
-                                href="http://www.meirixianguo.com/">果大侠</a></p>
-                        </div>
+                    <div class="bottom-grid1 bottom-last">
+                        <h3>公司消息</h3>
+                        <span>最新提供放心的免洗服务</span>
+                        <p>1、专业的清洗设备：超声波清洗功能，更能快速有效清除水果表面及缝隙中的泥沙及杂质；</br>
+                        2、专业的清洗剂：采用专业的果蔬清洗盐，高效杀菌、消毒，去除残留农药；</br>
+                        3、专业的包装：每个水果配备食品级专用袋，保证卫生送到；
+                        </p>
+                        <br>
+                        <a href='#' class='button'>Read More</a>
                     </div>
+                    <div class="clear"> </div>
                 </div>
-            </body>
-        </html>
+                <div class="clear"> </div>
+            </div>
+</block>
+<block name="css">
+<css href="__PUBLIC__/Common/flexslider/css/flexslider.css" media="all" />
+</block>
+<block name="js">
+<script defer="defer" src="__PUBLIC__/Common/flexslider/js/jquery.flexslider-min.js" /></script>
+<script type="text/javascript">
+$(window).load(function(){
+    $('.flexslider').flexslider();
+});
+$(document).ready(function() {
+    $('#index').addClass('active');
+});
+</script>
+</block>
