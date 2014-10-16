@@ -8,6 +8,7 @@ class FeedbackModel extends Model {
         $data['email'] = $email;
         $data['phone'] = $phone;
         $data['content'] = $content;
+        $data['ctime'] = time();
         return $this->data($data)->add();
     }
 }
