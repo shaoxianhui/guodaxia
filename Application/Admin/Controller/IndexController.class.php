@@ -35,6 +35,14 @@ class IndexController extends Controller {
         }
     }
 
+    public function feedback_table() {
+        if(D('AdminManager')->isLogged()) {
+            $this->display();
+        } else {
+            $this->redirect('Admin/Index/login');
+        }
+    }
+
     public function statistics() {
         if(D('AdminManager')->isLogged()) {
             $this->display();
@@ -129,11 +137,23 @@ class IndexController extends Controller {
         $column = $_GET['order'][0]['column'];
         $order = $_GET['columns'][$column]['data'];
         $dir = $_GET['order'][0]['dir'];
-        $users = D('Wechat/PrizeUser')->getUserForPrize($page);
+        $users = D('Wechat/PrizeUser')->getUserForPrize($_GET['start'], $_GET['length'], $order.' '.$dir);
         $data['draw'] = $GET['draw'];
         $data['recordsTotal'] = D('Wechat/PrizeUser')->getCount();
         $data['recordsFiltered'] = $data['recordsTotal'];
         $data['data'] = $users;
+        $this->ajaxReturn($data);
+    }
+
+    public function feedback() {
+        $column = $_GET['order'][0]['column'];
+        $order = $_GET['columns'][$column]['data'];
+        $dir = $_GET['order'][0]['dir'];
+        $feedbacks = D('Home/Feedback')->getFeedback($_GET['start'], $_GET['length'], $order.' '.$dir);
+        $data['draw'] = $GET['draw'];
+        $data['recordsTotal'] = D('Home/Feedback')->getCount();
+        $data['recordsFiltered'] = $data['recordsTotal'];
+        $data['data'] = $feedbacks;
         $this->ajaxReturn($data);
     }
 }
