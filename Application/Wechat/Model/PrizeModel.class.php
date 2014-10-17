@@ -29,6 +29,7 @@ class PrizeModel extends Model {
                         D('PrizeUser')->addPrizeOfUser($openId, $p['prizeId']);
                         return $prize;
                     } else {
+                        $prize = null;
                         continue;
                     }
                 }

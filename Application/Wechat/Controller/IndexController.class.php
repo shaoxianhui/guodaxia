@@ -69,7 +69,6 @@ class IndexController extends Controller {
             if($event !== false) {
                 switch(strtolower($event['event'])) {
                 case 'subscribe':
-                    Log::write('sdsdsdsdddddddd'.$this->weObj->getRevSceneId(), 'DEBUG');
                     $add_or_update = D('User')->addUser($this->weObj->getRevFrom(), $this->weObj->getRevSceneId());
                     if($this->weObj->getRevSceneId() !== false) {
                         $group = M('Group');

@@ -45,7 +45,7 @@ class UserModel extends RelationModel {
             if($qrScene !== false && is_numeric($qrScene)) {
                 $user['qrScene'] = $qrScene;
             } else {
-                $user['qrScene'] = -1;
+                $user['qrScene'] = 0;
             }
             $this->save($user);
             $add_or_update = false;
@@ -54,7 +54,7 @@ class UserModel extends RelationModel {
             if($qrScene !== false && is_numeric($qrScene)) {
                 $user_data['qrScene'] = $qrScene;
             } else {
-                $user['qrScene'] = -1;
+                $user['qrScene'] = 0;
             }
             $this->data($user_data)->add();
         }
