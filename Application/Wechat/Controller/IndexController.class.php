@@ -11,6 +11,9 @@ class IndexController extends Controller {
             'token'=>'meirixianguo',
             'appid'=>'wx5a89b696654c4d57',
             'appsecret'=>'d7e8b0a65784d18a4e4cd3d437818fec',
+            /* 'token'=>'meirixianguo', */
+            /* 'appid'=>'wxb9f3a09738245da2', */
+            /* 'appsecret'=>'5e2f55e0d2366a8288ace72bd1b8ca24', */
         );
         $this->weObj = new \Org\Wechat\Wechat($options);
     }
@@ -66,6 +69,7 @@ class IndexController extends Controller {
             if($event !== false) {
                 switch(strtolower($event['event'])) {
                 case 'subscribe':
+                    Log::write('sdsdsdsdddddddd'.$this->weObj->getRevSceneId(), 'DEBUG');
                     $add_or_update = D('User')->addUser($this->weObj->getRevFrom(), $this->weObj->getRevSceneId());
                     if($this->weObj->getRevSceneId() !== false) {
                         $group = M('Group');
@@ -93,7 +97,12 @@ class IndexController extends Controller {
                         $r = rand(1, 100) / 100;
                         $prize = D('Prize')->isPrize($this->weObj->getRevFrom(), $r);
                         if($prize !== null) {
-                            $this->weObj->text(D('Text')->getText(5))->reply();
+                            $des = explode('</br>', $prize['description']);
+                            $prize_news[0] = array('Title' => $prize['name'],
+                                                        'PicUrl' => getWeChatImageUrl($prize['picUrl']),
+                                                        'Description' => '恭喜您！您扫描二维码中奖啦！'.$des[0],
+                                                        'Url' => $prize['url'] == null ? getWeChatDetailUrl($prize['id'], 'prize') : $prize['url']);
+                            $this->weObj->news($prize_news)->reply();
                         } else {
                             $this->weObj->text(D('Text')->getText(6))->reply();
                         }

@@ -19,18 +19,26 @@ class PrizeUserModel extends Model {
     public function addLocationAndPhone($openId, $name, $company, $location, $phone, $advice) {
         $user = D('User')->getUser($openId);
         if($user !== null) {
-            /* $prizeOfUser = $this->where('userId='.$user['id'])->order('ctime desc')->find(); */
-            /* if($prizeOfUser !== null) { */
-            $prizeOfUser['userId'] = $user['id'];
-            $prizeOfUser['prizeId'] = 1;
-            $prizeOfUser['location'] = $location;
-            $prizeOfUser['phone'] = $phone;
-            $prizeOfUser['name'] = $name;
-            $prizeOfUser['company'] = $company;
-            $prizeOfUser['advice'] = $advice;
-            $prizeOfUser['ctime'] = time();
-            $this->data($prizeOfUser)->add();
-            /* } */
+            $prizeOfUser = $this->where('userId='.$user['id'].' and received=0')->order('ctime desc')->find();
+            if($prizeOfUser !== null) {
+                $prizeOfUser['userId'] = $user['id'];
+                $prizeOfUser['location'] = $location;
+                $prizeOfUser['phone'] = $phone;
+                $prizeOfUser['name'] = $name;
+                $prizeOfUser['company'] = $company;
+                $prizeOfUser['advice'] = $advice;
+                $this->data($prizeOfUser)->save();
+            } else {
+                $prizeOfUser['userId'] = $user['id'];
+                $prizeOfUser['prizeId'] = 1;
+                $prizeOfUser['location'] = $location;
+                $prizeOfUser['phone'] = $phone;
+                $prizeOfUser['name'] = $name;
+                $prizeOfUser['company'] = $company;
+                $prizeOfUser['advice'] = $advice;
+                $prizeOfUser['ctime'] = time();
+                $this->data($prizeOfUser)->add();
+            }
         }
     }
 

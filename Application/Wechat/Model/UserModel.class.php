@@ -42,15 +42,19 @@ class UserModel extends RelationModel {
         $user = $this->where($user_data)->find();
         if($user !== null) {
             $user['subscribe'] = 1;
-            if($qrScene !== false) {
+            if($qrScene !== false && is_numeric($qrScene)) {
                 $user['qrScene'] = $qrScene;
+            } else {
+                $user['qrScene'] = -1;
             }
             $this->save($user);
             $add_or_update = false;
         } else {
             $user_data['subscribe'] = 1;
-            if($qrScene !== false) {
+            if($qrScene !== false && is_numeric($qrScene)) {
                 $user_data['qrScene'] = $qrScene;
+            } else {
+                $user['qrScene'] = -1;
             }
             $this->data($user_data)->add();
         }
