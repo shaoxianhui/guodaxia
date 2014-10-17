@@ -69,7 +69,8 @@ class IndexController extends Controller {
             if($event !== false) {
                 switch(strtolower($event['event'])) {
                 case 'subscribe':
-                    $add_or_update = D('User')->addUser($this->weObj->getRevFrom(), $this->weObj->getRevSceneId());
+                    $info = $this->weObj->getUserInfo($this->weObj->getRevFrom());
+                    $add_or_update = D('User')->addUser($this->weObj->getRevFrom(),  $info['nickname'], $this->weObj->getRevSceneId());
                     if($this->weObj->getRevSceneId() !== false) {
                         $group = M('Group');
                         $g = $group->where('qrScene='.$this->weObj->getRevSceneId())->find();

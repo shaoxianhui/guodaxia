@@ -36,12 +36,13 @@ class UserModel extends RelationModel {
         return $this->count();
     }
 
-    public function addUser($openId, $qrScene) {
+    public function addUser($openId, $nickname, $qrScene) {
         $add_or_update = true;
         $user_data['openId'] = $openId;
         $user = $this->where($user_data)->find();
         if($user !== null) {
             $user['subscribe'] = 1;
+            $user['nickname'] = $nickname;
             if($qrScene !== false && is_numeric($qrScene)) {
                 $user['qrScene'] = $qrScene;
             } else {
@@ -51,6 +52,7 @@ class UserModel extends RelationModel {
             $add_or_update = false;
         } else {
             $user_data['subscribe'] = 1;
+            $user_data['nickname'] = $nickname;
             if($qrScene !== false && is_numeric($qrScene)) {
                 $user_data['qrScene'] = $qrScene;
             } else {
