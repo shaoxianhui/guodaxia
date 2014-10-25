@@ -148,9 +148,9 @@ $(function(){
             return;
         }
         $.ajax({
-            url:"index.php",
+            url:"{:U('Wechat/Addons/dzp_data')}",
             dataType:"json",
-            data:{token:"o7MB9ji5fQRsE0ZoVAMU7SlnRyMI",ac:"activityuser",tid:"5",t:Math.random()},
+            data:{ openId:"openId" },
             beforeSend:function(){
                 running=true;
                 timer=setInterval(function(){
