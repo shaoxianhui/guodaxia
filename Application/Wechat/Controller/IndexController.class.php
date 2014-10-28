@@ -7,15 +7,7 @@ class IndexController extends Controller {
     public function __construct()
     {
         parent::__construct();
-        $options = array(
-            'token'=>'meirixianguo',
-            'appid'=>'wx5a89b696654c4d57',
-            'appsecret'=>'d7e8b0a65784d18a4e4cd3d437818fec',
-            /* 'token'=>'meirixianguo', */
-            /* 'appid'=>'wxb9f3a09738245da2', */
-            /* 'appsecret'=>'5e2f55e0d2366a8288ace72bd1b8ca24', */
-        );
-        $this->weObj = new \Org\Wechat\Wechat($options);
+        $this->weObj = new \Org\Wechat\Wechat(C('WECHAT'));
     }
 
     public function index() {
@@ -165,6 +157,7 @@ class IndexController extends Controller {
     }
 
     public function createMenu() {
+        dump(D('Menu')->getMenus());
         $result = $this->weObj->createMenu(D('Menu')->getMenus());
         echo $result;
     }
@@ -228,5 +221,15 @@ class IndexController extends Controller {
     }
 
     public function test($openId = 'oGulKs0s3IAdDEF9sd0Nki7MoYp8') {
+        echo $this->weObj->getOauthRedirect('http://test.meirixianguo.com/index.php/Wechat/Index/OAuth', '', 'snsapi_base');
+    }
+
+    public function OAuth() {
+        $access_token = $this->weObj->getOauthAccessToken();
+        if($access_token) {
+            dump($access_token);
+        } else {
+            die('no access!');
+        }
     }
 }
