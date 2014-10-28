@@ -150,7 +150,7 @@ $(function(){
         $.ajax({
             url:"{:U('Wechat/Addons/dzp_data')}",
             dataType:"json",
-            data:{ openId:"openId" },
+            data:{ openId:"{$openId}" },
             beforeSend:function(){
                 running=true;
                 timer=setInterval(function(){
