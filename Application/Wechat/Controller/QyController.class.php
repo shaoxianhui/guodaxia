@@ -54,5 +54,6 @@ class QyController extends Controller {
     }
 
     public function test($openId = 'oGulKs0s3IAdDEF9sd0Nki7MoYp8') {
+        $this->display();
     }
 }

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>微信企业号</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="__PUBLIC__/Common/bootstrap-3.2.0-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="__PUBLIC__/Common/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="__PUBLIC__/Wechat/css/qy.css">
+
+</head>
+
+<body>
+<div class="container main">
+    <div class="row">
+        <img src="__PUBLIC__/Wechat/images/logo.png"></img>
+        <form role="form">
+            <h2>Please sign in</h2>
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+              <input type="email" class="form-control" placeholder="Email address" required autofocus>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+              <input type="password" class="form-control" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+                <div class="input-group date form_datetime" data-date="" data-date-format="" data-link-field="dtp_input1">
+					<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                    <input type="text" class="form-control" placeholder="DateTime" value="">
+                </div>
+				<input type="hidden" id="dtp_input1" value="" />
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="remember-me"> Remember me
+              </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+
+    </div>
+      <hr>
+      <footer>
+        <p>&copy; Company 2014</p>
+      </footer>
+</div>
+<script src="__PUBLIC__/Common/jQuery/js/jquery-1.11.1.min.js"></script>
+<script src="__PUBLIC__/Common/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/Common/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="__PUBLIC__/Common/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
+</script>
+
+</body>
+</html>
