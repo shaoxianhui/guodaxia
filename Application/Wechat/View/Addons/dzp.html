@@ -49,9 +49,9 @@
             <div class="box">
                 <div class="title-green"><span>奖项设置：</span></div>
                 <div class="Detail">
-                    <p>一等奖：网时奖励200小时 。奖品数量：3 </p>
-                    <p>二等奖：网时奖励100小时 。奖品数量：5 </p>
-                    <p>三等奖：广播台免费点首歌 。奖品数量：10 </p>
+                    <volist name="prizes" id="prize">
+                    <p>{$prize.name}：{$prize.description} 。奖品数量：{$prize.quantity} </p>
+                    </volist>
                 </div>
             </div>
         </div>
@@ -59,8 +59,7 @@
             <div class="box">
                 <div class="title-green">活动说明：</div>
                 <div class="Detail">
-                    <p>本次活动每人可以转 3 次 </p>
-                    <p> 我们的中奖率高达33.3%！！ </p>
+                    <p>{$rule}</p>
                 </div>
             </div>
         </div>
@@ -150,7 +149,7 @@ $(function(){
         $.ajax({
             url:"{:U('Wechat/Addons/dzp_data')}",
             dataType:"json",
-            data:{ openId:"openId" },
+            data:{ openId:"{$openId}" },
             beforeSend:function(){
                 running=true;
                 timer=setInterval(function(){
