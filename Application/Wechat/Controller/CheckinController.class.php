@@ -22,7 +22,7 @@ class CheckinController extends Controller {
         $type = $this->weObj->getRev()->getRevType();
         switch($type) {
         case \Org\Wechat\Wechat::MSGTYPE_TEXT:
-            $this->weObj->text('hello world!')->reply();
+            $this->weObj->text('hello checkin!')->reply();
             break;
         case \Org\Wechat\Wechat::MSGTYPE_EVENT:
             $event = $this->weObj->getRevEvent();
@@ -79,16 +79,22 @@ class CheckinController extends Controller {
             }
             break;
         case \Org\Wechat\Wechat::MSGTYPE_IMAGE:
-            $this->weObj->text('hello world!')->reply();
+            $this->weObj->text('hello checkin!')->reply();
             break;
         default:
-            $this->weObj->text('hello world!')->reply();
+            $this->weObj->text('hello checkin!')->reply();
         }
     }
 
-    public function createMenu() {
-        $result = $this->weObj->createMenu(D('Menu')->getMenus());
-        echo $result;
+    public function broadcast() {
+        $message = array( "touser" => "@all",
+            "safe" => "0",
+            "agentid" => "1",
+            "msgtype" => "text",
+            "text" => array(
+                "content" => "你好，不要忘记签到哦！",
+        ));
+        $this->weObj->sendMessage($message);
     }
 
     public function test($userId = 'ljl') {
