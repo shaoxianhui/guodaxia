@@ -12,9 +12,9 @@ function getWeChatDetailUrl($id, $type) {
     return 'http://www.meirixianguo.com/index.php/Wechat/Index/detail/id/'.$id.'/type/'.$type;
 }
 
-function getDistance($latA, $lonA, $latB = 45.740271, $LonB = 126.624488) {
+function getDistance($latA, $lonA, $latB = 45.732044, $lonB = 126.611824) {
     $R = 6371.001;
-    $t = sin($LatA) * sin($LatB) + cos($LatA) * cos($LatB) * cos($LonA - $LonB);
+    $t = sin($latA) * sin($latB) + cos($latA) * cos($latB) * cos($lonA - $lonB);
     $distance = $R * acos($t) * M_PI / 180;
     return $distance * 1000;
 }

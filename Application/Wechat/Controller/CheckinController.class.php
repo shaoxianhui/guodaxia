@@ -35,12 +35,43 @@ class CheckinController extends Controller {
                 case 'scan':
                     break;
                 case 'click':
+                    switch($event['key']) {
+                    case 'CHECKIN_CHECKIN':
+                        $currentTime = time();
+                        $currentDate = getdate($currentTime);
+                        if($currentDate['hours'] != 8) {
+                            $this->weObj->text('请在每天的八点签到！！')->reply();
+                        }
+                        $userId = $this->weObj->getRevFrom();
+                        $checkin = D('Checkin')->getCheckin($userId);
+                        if($checkin !== null) {
+                            $checkinDate = getdate($checkin['ctime']);
+                            if($checkinDate['year'] == $currentDate['year'] && 
+                                $checkinDate['mon'] == $currentDate['mon'] && 
+                                $checkinDate['mday'] == $currentDate['mday']) {
+                                    $this->weObj->text('今日签到已成功！！')->reply();
+                                }
+                        }
+                        $location = D('EmployeeLocation')->getLocation($userId);
+                        if($location !== null) {
+                            if(abs($currentTime - $location['ctime']) < 20) {
+                                $ls = D('CheckinConfig')->getLocations($userId);
+                                foreach($ls as $l) {
+                                    if(getDistance($location['x'], $location['y'], $l['latitude'], $l['longitude']) < 100) {
+                                        D('Checkin')->addCheckin($userId, $l['id']);
+                                        $this->weObj->text('签到成功！！')->reply();
+                                    }
+                                }
+                            }
+                        }
+                        $this->weObj->text('签到失败！！')->reply();
+                        break;
+                    }
                     break;
                 case 'location':
                     $location = $this->weObj->getRevEventGeo();
                     if($location !== false) {
-                        $distance = getDistance($location['x'], $location['y']);
-                        Log::write('distance='.$distance, Log::INFO);
+                        D('EmployeeLocation')->addLocation($this->weObj->getRevFrom(), $location);
                     }
                     break;
                 default:
@@ -60,7 +91,6 @@ class CheckinController extends Controller {
         echo $result;
     }
 
-    public function test($openId = 'oGulKs0s3IAdDEF9sd0Nki7MoYp8') {
-        $this->display();
+    public function test($userId = 'ljl') {
     }
 }
