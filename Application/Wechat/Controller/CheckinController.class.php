@@ -36,6 +36,13 @@ class CheckinController extends Controller {
                     break;
                 case 'click':
                     break;
+                case 'location':
+                    $location = $this->weObj->getRevEventGeo();
+                    if($location !== false) {
+                        $distance = getDistance($location['x'], $location['y']);
+                        Log::write('distance='.$distance, Log::INFO);
+                    }
+                    break;
                 default:
                 }
             }
