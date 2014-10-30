@@ -2,7 +2,7 @@
 namespace Wechat\Controller;
 use Think\Controller;
 use Think\Log;
-class NoticeController extends Controller {
+class ManagerController extends Controller {
     private $weObj;
     public function __construct()
     {
@@ -12,7 +12,7 @@ class NoticeController extends Controller {
             'appid'=>'wx0f3313fd2a9eed6e',
             'appsecret'=>'5WpAyyPu4RtWtZ6qufgnBuaAGvZJ26wwgJuy0k7fYAaYDyR8X0UHEabkPw-H0ugV',
  			'encodingaeskey'=>'dkPjxDa2pNi9xYa1dbakWn7kMxXajQxF9rDteEevP83',
- 			'agentid'=>'4',
+ 			'agentid'=>'7',
         );
         $this->weObj = new \Org\Wechat\QyWechat($options);
     }
@@ -22,7 +22,15 @@ class NoticeController extends Controller {
         $type = $this->weObj->getRev()->getRevType();
         switch($type) {
         case \Org\Wechat\Wechat::MSGTYPE_TEXT:
-            $this->weObj->text('hello notice!')->reply();
+            $message = array( "touser" => "@all",
+                "safe" => "0",
+                "agentid" => "4",
+                "msgtype" => "text",
+                "text" => array(
+                    "content" => $this->weObj->getRevContent(),
+            ));
+            $this->weObj->sendMessage($message);
+            $this->weObj->text('公告已发布！！')->reply();
             break;
         case \Org\Wechat\Wechat::MSGTYPE_EVENT:
             $event = $this->weObj->getRevEvent();
@@ -43,10 +51,10 @@ class NoticeController extends Controller {
             }
             break;
         case \Org\Wechat\Wechat::MSGTYPE_IMAGE:
-            $this->weObj->text('hello notice!')->reply();
+            $this->weObj->text('hello manager!')->reply();
             break;
         default:
-            $this->weObj->text('hello notice!')->reply();
+            $this->weObj->text('hello manager!')->reply();
         }
     }
 
