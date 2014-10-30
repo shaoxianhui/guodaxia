@@ -2,7 +2,7 @@
 namespace Wechat\Controller;
 use Think\Controller;
 use Think\Log;
-class QyController extends Controller {
+class CheckinController extends Controller {
     private $weObj;
     public function __construct()
     {
