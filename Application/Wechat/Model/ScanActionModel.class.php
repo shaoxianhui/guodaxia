@@ -11,7 +11,7 @@ class ScanActionModel extends Model {
             $scan = $this->where('userId='.$u['id'].' and score<>0')->order('ctime desc')->find();
             if($scan !== null) {
                 $interval = $time - $scan['ctime'];
-                if($interval < 60 * 60 * 12) {
+                if($interval < 60 * 60 * 6) {
                     $data['userId'] = $u['id'];
                     $data['score'] = 0;
                     $data['ctime'] = $time;
