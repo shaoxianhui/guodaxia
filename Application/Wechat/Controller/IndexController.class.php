@@ -26,7 +26,7 @@ class IndexController extends Controller {
             } else if(preg_match('/^gdx\+(\d+)$/i', $this->weObj->getRevContent(), $m)) {
                 D('ProductUser')->addProductOfUser($this->weObj->getRevFrom(), $m[1]);
                 $this->weObj->text(D('Text')->getText(7))->reply();
-            } else if(preg_match('/^领奖\+.*$/i', $this->weObj->getRevContent(), $m)) {
+            } else if(preg_match('/.*(\d{8,}).*/i', $this->weObj->getRevContent(), $m)) {
                 $list = explode('+', $m[0]);
                 if(count($list) == 6) {
                     D('PrizeUser')->addLocationAndPhone($this->weObj->getRevFrom(), $list[3], $list[1], $list[2], $list[4], $list[5]);
@@ -35,7 +35,7 @@ class IndexController extends Controller {
                     /* $message = preg_replace('/\{2\}/i', $list[4], $message); */
                     $this->weObj->text($message)->reply();
                 } else {
-                    $this->weObj->text(D('Text')->getText(12))->reply();
+                    $this->weObj->text(D('Text')->getText(9))->reply();
                 }
             } else if(preg_match('/^我来兑奖$/i', $this->weObj->getRevContent())) {
                 $prizes = D('Prize')->getPrizeOfUser($this->weObj->getRevFrom());
@@ -63,12 +63,14 @@ class IndexController extends Controller {
                 case 'subscribe':
                     $info = $this->weObj->getUserInfo($this->weObj->getRevFrom());
                     $add_or_update = D('User')->addUser($this->weObj->getRevFrom(),  $info['nickname'], $this->weObj->getRevSceneId());
-                    if($this->weObj->getRevSceneId() !== false) {
+                    if(is_numeric($this->weObj->getRevSceneId())) {
+                        D('ScanAction')->addScanAction($this->weObj->getRevFrom());
                         $group = M('Group');
                         $g = $group->where('qrScene='.$this->weObj->getRevSceneId())->find();
                         if($g !== null) {
                             $this->weObj->updateGroupMembers($g['groupId'], $this->weObj->getRevFrom());
                         }
+                        $this->weObj->text(D('Text')->getText(13))->reply();
                     }
                     if($add_or_update) {
                         $this->weObj->text(D('Text')->getText(1))->reply();
@@ -86,18 +88,19 @@ class IndexController extends Controller {
                     D('User')->changeSceneOfUser($this->weObj->getRevFrom(), $this->weObj->getRevSceneId());
                     $score = D('ScanAction')->addScanAction($this->weObj->getRevFrom());
                     if($score !== 0) {
-                        $r = rand(1, 100) / 100;
-                        $prize = D('Prize')->isPrize($this->weObj->getRevFrom(), $r);
-                        if($prize !== null) {
-                            $des = explode('</br>', $prize['description']);
-                            $prize_news[0] = array('Title' => $prize['name'],
-                                                        'PicUrl' => getWeChatImageUrl($prize['picUrl']),
-                                                        'Description' => '恭喜您！您扫描二维码中奖啦！'.$des[0],
-                                                        'Url' => $prize['url'] == null ? getWeChatDetailUrl($prize['id'], 'prize') : $prize['url']);
-                            $this->weObj->news($prize_news)->reply();
-                        } else {
-                            $this->weObj->text(D('Text')->getText(6))->reply();
-                        }
+                        /* $r = rand(1, 100) / 100; */
+                        /* $prize = D('Prize')->isPrize($this->weObj->getRevFrom(), $r); */
+                        /* if($prize !== null) { */
+                        /*     $des = explode('</br>', $prize['description']); */
+                        /*     $prize_news[0] = array('Title' => $prize['name'], */
+                        /*                                 'PicUrl' => getWeChatImageUrl($prize['picUrl']), */
+                        /*                                 'Description' => '恭喜您！您扫描二维码中奖啦！'.$des[0], */
+                        /*                                 'Url' => $prize['url'] == null ? getWeChatDetailUrl($prize['id'], 'prize') : $prize['url']); */
+                        /*     $this->weObj->news($prize_news)->reply(); */
+                        /* } else { */
+                        /*     $this->weObj->text(D('Text')->getText(4))->reply(); */
+                        /* } */
+                        $this->weObj->text(D('Text')->getText(13))->reply();
                     } else {
                         $this->weObj->text(D('Text')->getText(4))->reply();
                     }

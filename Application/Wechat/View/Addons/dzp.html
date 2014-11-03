@@ -18,7 +18,11 @@
         var loadingObj = new loading(document.getElementById('loading'),{radius:20,circleLineWidth:8});   
         loadingObj.show();   
     </script>
-    <div id="outercont">
+    <div id="outercont" 
+        <if condition="$enableDzp==false">
+        style="display:none"
+        </if>
+        >
         <div id="outer-cont">
             <div id="outer" style="-webkit-transform: rotate(2136deg);"><img src="__PUBLIC__/Wechat/images/activity-lottery-1.png" width="310px"></div>
         </div>
@@ -27,21 +31,15 @@
         </div>
     </div>
     <div class="content">
-        <div class="boxcontent boxyellow" id="result" style="display:none">
+        <div class="boxcontent boxyellow" id="result"
+        <if condition="$enableDzp==true">
+        style="display:none"
+        </if>
+        >
             <div class="box">
-                <div class="title-orange"><span>恭喜你中奖了</span></div>
+                <div class="title-orange"><span>消息：</span></div>
                 <div class="Detail">
-                    <a class="ui-link" href="http://www.weixinjia.net/mobile/showresult.html" id="opendialog" style="display: none;" data-rel="dialog"></a>
-                    <p>你中了：<span class="red" id="prizetype">一等奖</span></p>
-                    <p>你的兑奖SN码：<span class="red" id="sncode"></span></p>
-                    <p class="red">本次兑奖码已经关联你的微信号，你可向公众号发送 兑奖 进行查询!</p>
-
-                    <p>
-                    <input name="" class="px" id="tel" type="text" placeholder="输入您的手机号码">
-                    </p>
-                    <p>
-                    <input class="pxbtn" id="save-btn" name="提 交" type="button" value="提 交">
-                    </p>
+                    <p id="message">{$message}</p>
                 </div>
             </div>
         </div>
@@ -49,9 +47,9 @@
             <div class="box">
                 <div class="title-green"><span>奖项设置：</span></div>
                 <div class="Detail">
-                    <p>一等奖：网时奖励200小时 。奖品数量：3 </p>
-                    <p>二等奖：网时奖励100小时 。奖品数量：5 </p>
-                    <p>三等奖：广播台免费点首歌 。奖品数量：10 </p>
+                    <volist name="prizes" id="prize">
+                    <p>{$prize.name}：{$prize.description} 。奖品数量：{$prize.quantity} </p>
+                    </volist>
                 </div>
             </div>
         </div>
@@ -59,8 +57,7 @@
             <div class="box">
                 <div class="title-green">活动说明：</div>
                 <div class="Detail">
-                    <p>本次活动每人可以转 3 次 </p>
-                    <p> 我们的中奖率高达33.3%！！ </p>
+                    <p>{$rule}</p>
                 </div>
             </div>
         </div>
@@ -105,7 +102,6 @@ $(function(){
             running=false;
             setTimeout(function(){
                 if(prize!=null){
-                    $("#sncode").text(sncode);
                     var type="";
                     if(prize==1){
                         type="一等奖";
@@ -114,7 +110,7 @@ $(function(){
                     }else if(prize==3){
                         type="三等奖";
                     }
-                    $("#prizetype").text(type);
+                    $("#message").text(type);
                     $("#result").slideToggle(500);
                     $("#outercont").slideUp(500);
                 }else{
@@ -139,12 +135,8 @@ $(function(){
     i=10;
     $("#inner").click(function(){
         if(running) return;
-        if(count>=3){
-            alert("您已经抽了 3 次奖。");
-            return;
-        }
-        if(prize!=null){
-            alert("亲，你不能再参加本次活动了喔！下次再来吧~");
+        if(count>={$count}){
+            alert("您已经达到最大抽奖次数了。");
             return;
         }
         $.ajax({
@@ -158,27 +150,11 @@ $(function(){
                     outter.style.webkitTransform='rotate('+i+'deg)';
                     outter.style.MozTransform='rotate('+i+'deg)';
                 },1)},
-            success:function(data){
-                if(data.error=="invalid"){
-                    alert("您已经抽了 3 次奖。");
-                    count=3;
-                    clearInterval(timer);
-                    return;
-                }
-                if(data.error=="getsn") {
-                    alert('本次活动你已经中过奖，本次只显示你上次抽奖结果!兑奖SN码为:'+data.sn);
-                    count=3;
-                    clearInterval(timer);
-                    prize=data.prizetype;
-                    sncode=data.sn;
-                    start(prizeDeg[data.prizetype-1]);
-                    return;
-                }
-                if(data.success){
-                    prize=data.prizetype;
-                    sncode=data.sn;
-                    start(prizeDeg[data.prizetype-1]);
-                }else{
+            success:function(data) {
+                if(data.success) {
+                    prize=data.prize;
+                    start(prizeDeg[data.prize-1]);
+                } else {
                     prize=null;
                     start();
                 }
@@ -194,29 +170,6 @@ $(function(){
             timeout:4000
         })
     })
-});
-
-$("#save-btn").bind("click",function(){
-    var btn=$(this);
-    var tel=$("#tel").val();
-    if(tel==''){
-        alert("请输入手机号码");
-        return;
-    }
-    var regu=/^[1][0-9]{10}$/;
-    var re=new RegExp(regu);
-    if(!re.test(tel)){
-        alert("请输入正确手机号码");
-        return;
-    }
-    var submitData={tid:5,code:$("#sncode").text(),tel:tel,action:"setTel"};
-    $.post('index.php?ac=activityuser',submitData,function(data){
-        if(data.success==true){
-            alert("提交成功，谢谢您的参与");
-            return;
-        }else{
-        }
-    },"json")
 });
 </script>
 </body>
