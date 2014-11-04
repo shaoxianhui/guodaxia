@@ -224,7 +224,7 @@ class IndexController extends Controller {
     }
 
     public function test($openId = 'oGulKs0s3IAdDEF9sd0Nki7MoYp8') {
-        echo $this->weObj->getOauthRedirect('http://test.meirixianguo.com/index.php/Wechat/Index/OAuth', '', 'snsapi_base');
+        @\Common\Library\PhpQrCode\TQrCode::png('http://www.meirixianguo.com', false, 'H', 20);
     }
 
     public function OAuth() {
