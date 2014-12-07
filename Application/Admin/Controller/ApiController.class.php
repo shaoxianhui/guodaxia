@@ -63,12 +63,24 @@ class ApiController extends RpcController {
     }
 
     public function getUserForPrize($page) {
-        $result = D('PrizeUser')->getUserForPrize($page);
+        $result = D('Wechat/PrizeUser')->getUserForPrize(($page - 1) * 10);
         return $result;
     }
 
     public function updateReceived($id, $received) {
-        $result = M('PrizeUser')->where('id='.$id)->setField('received', $received);
+        $result = M('Wechat/PrizeUser')->where('id='.$id)->setField('received', $received);
         return $result;
+    }
+
+    public function getOrder($cdate) {
+        $where['cdate'] = $cdate;
+        $orders = M('Order')->where($where)->select();
+        return $orders;
+    }
+
+    public function getOrderItem($orderId) {
+        $where['orderId'] = $orderId;
+        $items = M('OrderItem')->where($where)->select();
+        return $items;
     }
 }
