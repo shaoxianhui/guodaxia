@@ -119,20 +119,8 @@ class IndexController extends Controller {
                         $this->weObj->text(D('Text')->getText(11))->reply();
                         break;
                     case 'MENU_KEY_PRIZE':
-                        $prizes = D('Prize')->getPrizeOfUser($this->weObj->getRevFrom());
-                        if($prizes !== null) {
-                            $prize_news = array();
-                            $count = 0;
-                            foreach($prizes as $p) {
-                                $des = explode('</br>', $p['description']);
-                                $prize_news[$count] = array('Title' => $p['name'],
-                                                            'PicUrl' => getWeChatImageUrl($p['picUrl']),
-                                                            'Description' => $des[0],
-                                                            'Url' => $p['url'] == null ? getWeChatDetailUrl($p['id'], 'prize') : $p['url']);
-                                $count = $count + 1;
-                            }
-                            $this->weObj->news($prize_news)->reply();
-                        }
+                        $news = D('News')->getNews(array(3));
+                        $this->weObj->news($news)->reply();
                         break;
                     case 'MENU_KEY_SERVICE':
                         $this->weObj->reply(array('ToUserName' => $this->weObj->getRevFrom(),
