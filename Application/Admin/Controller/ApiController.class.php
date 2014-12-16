@@ -73,14 +73,42 @@ class ApiController extends RpcController {
     }
 
     public function getOrder($cdate) {
-        $where['cdate'] = $cdate;
-        $orders = M('Order')->where($where)->select();
+        $orders = D('Order')->getOrder($cdate);
         return $orders;
     }
 
     public function getOrderItem($orderId) {
-        $where['orderId'] = $orderId;
-        $items = M('OrderItem')->where($where)->select();
+        $items = D('OrderItem')->getOrderItem($orderId);
         return $items;
+    }
+
+    public function addOrder($customer, $cdate, $earliest, $latest, $comment) {
+        $id = D('Order')->addOrder($customer, $cdate, $earliest, $latest, $comment);
+        return $id;
+    }
+
+    public function updateOrder($orderId, $customer, $cdate, $earliest, $latest, $comment) {
+        $id = D('Order')->updateOrder($orderId, $customer, $cdate, $earliest, $latest, $comment);
+        return $id;
+    }
+
+    public function deleteOrder($orderId) {
+        $id = D('Order')->deleteOrder($orderId);
+        return $id;
+    }
+
+    public function addOrderItem($orderId, $product, $quantity, $money, $comment) {
+        $id = D('OrderItem')->addOrderItem($orderId, $product, $quantity, $money, $comment);
+        return $id;
+    }
+
+    public function updateOrderItem($orderItemId, $product, $quantity, $money, $comment) {
+        $id = D('OrderItem')->updateOrderItem($orderItemId, $product, $quantity, $money, $comment);
+        return $id;
+    }
+
+    public function deleteOrderItem($orderItemId) {
+        $id = D('OrderItem')->deleteOrderItem($orderItemId);
+        return $id;
     }
 }
