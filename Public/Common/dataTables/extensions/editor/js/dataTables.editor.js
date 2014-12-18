@@ -7,38 +7,12 @@
  * Copyright 2012-2014 SpryMedia, all rights reserved.
  * License: DataTables Editor - http://editor.datatables.net/license
  */
-(function(){
-
-// Please note that this message is for information only, it does not effect the
-// running of the Editor script below, which will stop executing after the
-// expiry date. For documentation, purchasing options and more information about
-// Editor, please see https://editor.datatables.net .
-var remaining = Math.ceil(
-	(new Date( 1418256000 * 1000 ).getTime() - new Date().getTime()) / (1000*60*60*24)
-);
-
-if ( remaining <= 0 ) {
-	alert(
-		'Thank you for trying DataTables Editor\n\n'+
-		'Your trial has now expired. To purchase a license '+
-		'for Editor, please see https://editor.datatables.net/purchase'
-	);
-	throw 'Editor - Trial expired';
-}
-else if ( remaining <= 7 ) {
-	console.log(
-		'DataTables Editor trial info - '+remaining+
-		' day'+(remaining===1 ? '' : 's')+' remaining'
-	);
-}
-
-})();
 var P0Y={'m2C':(function(F2C){return (function(s2C,d2C){return (function(R2C){return {a2C:R2C}
 ;}
 )(function(V2C){var t2C,K2C=0;for(var u2C=s2C;K2C<V2C["length"];K2C++){var B2C=d2C(V2C,K2C);t2C=K2C===0?B2C:t2C^B2C;}
 return t2C?u2C:!u2C;}
 );}
-)((function(I2C,p2C,w2C,D2C){var f2C=26;return I2C(F2C,f2C)-D2C(p2C,w2C)>f2C;}
+)((function(I2C,p2C,w2C,D2C){var f2C=26;return I2C(F2C,f2C)-D2C(p2C,w2C)<f2C;}
 )(parseInt,Date,(function(p2C){return (''+p2C)["substring"](1,(p2C+'')["length"]-1);}
 )('_getTime2'),function(p2C,w2C){return new p2C()[w2C]();}
 ),function(V2C,K2C){var O2C=parseInt(V2C["charAt"](K2C),16)["toString"](2);return O2C["charAt"](O2C["length"]-1);}
