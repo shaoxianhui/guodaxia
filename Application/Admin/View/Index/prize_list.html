@@ -1,0 +1,93 @@
+<extend name="base2" />
+<block name="css">
+<link rel="stylesheet" href="__PUBLIC__/Common/dataTables/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="__PUBLIC__/Common/dataTables/extensions/tableTools/css/dataTables.tableTools.min.css">
+<link rel="stylesheet" href="__PUBLIC__/Common/dataTables/extensions/editor/css/dataTables.editor.min.css">
+</block>
+<block name="content">
+<div class="content">
+<div class="row">
+    <table id="table" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>用户ID</th>
+                <th>用户名</th>
+                <th>奖品名</th>
+                <th>公司</th>
+                <th>地址</th>
+                <th>电话</th>
+                <th>建议</th>
+                <th>是否送达</th>
+                <th>时间</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+</div>
+</block>
+<block name='script'>
+<script src="__PUBLIC__/Common/dataTables/js/jquery.dataTables.js"></script>
+<script src="__PUBLIC__/Common/dataTables/extensions/tableTools/js/dataTables.tableTools.min.js"></script>
+<script src="__PUBLIC__/Common/dataTables/extensions/editor/js/dataTables.editor.min.js"></script>
+<script type="text/javascript">
+var editor;
+$(document).ready(function() {
+$('#prize_list').addClass('active');
+editor = new $.fn.dataTable.Editor( {
+        ajax: "../php/staff.php",
+        table: "#table",
+        fields: [ {
+                label: "是否送达",
+                name: "received",
+                type: "radio",
+                ipOpts: [
+                    { label: "已送达", value : 1},
+                    { label: "未送达", value : 0}
+                ],
+                default: 0
+                } ]
+    } );
+$.fn.dataTable.TableTools.defaults.sSwfPath='__PUBLIC__/Common/dataTables/extensions/tableTools/swf/copy_csv_xls_pdf.swf';
+$('#table').dataTable({
+    dom: "Tfrtip",
+    searching: true,
+    lengthChange: false,
+    processing: true,
+    serverSide: true,
+    order: [[ 8, "desc" ]],
+    ajax: "prize_of_user",
+    columns: [
+                { "data": "userId" , "orderable": true },
+                { "data": "name" , "orderable": true },
+                { "data": "prizeName" , "orderable": false },
+                { "data": "company" , "orderable": true },
+                { "data": "location" , "orderable": true },
+                { "data": "phone" , "orderable": true },
+                { "data": "advice" , "orderable": true },
+                { "data": "received" , "orderable": true, "render": 
+                    function (data, type, row) {
+                    return row.received == 1 ? '已送达' : '未送达'; }
+                },
+                { "data": "ctime" , "orderable": true, "render": 
+                    function (data, type, row) {
+                    var date = new Date(row.ctime * 1000);
+                    return date.toLocaleDateString(); }
+                }
+            ],
+    tableTools: {
+        sRowSelect: "single",
+        aButtons: [
+            "copy",
+            "print",
+            {
+                "sExtends":    "collection",
+                "sButtonText": "Save",
+                "aButtons":    [ "csv", "xls", "pdf" ]
+            },
+            { sExtends: "editor_edit",   editor: editor }
+        ]
+        }
+        });
+});
+</script>
+</block>

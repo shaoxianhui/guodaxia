@@ -1,0 +1,91 @@
+<extend name="base2" />
+<block name="css">
+<link rel="stylesheet" href="__PUBLIC__/Common/dataTables/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="__PUBLIC__/Common/dataTables/extensions/tableTools/css/dataTables.tableTools.min.css">
+<link rel="stylesheet" href="__PUBLIC__/Common/dataTables/extensions/editor/css/dataTables.editor.min.css">
+</block>
+<block name="content">
+<div class="content">
+<div class="row">
+    <table id="table" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>openId</th>
+                <th>qrScene</th>
+                <th>score</th>
+                <th>subscribe</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+</div>
+</block>
+<block name='script'>
+<script src="__PUBLIC__/Common/dataTables/js/jquery.dataTables.js"></script>
+<script src="__PUBLIC__/Common/dataTables/extensions/tableTools/js/dataTables.tableTools.min.js"></script>
+<script src="__PUBLIC__/Common/dataTables/extensions/editor/js/dataTables.editor.min.js"></script>
+<script type="text/javascript">
+var editor;
+$(document).ready(function() {
+$('#order_list').addClass('active');
+editor = new $.fn.dataTable.Editor( {
+        ajax: "user",
+        table: "#table",
+        idSrc: "id",
+        fields: [ {
+                label: "openId",
+                name: "openId"
+            }, {
+                label: "qrScene",
+                name: "qrScene"
+            }, {
+                label: "score",
+                name: "score"
+            }, {
+                label: "subscribe",
+                name: "subscribe",
+                type: "radio",
+                ipOpts: [
+                    { label: "已关注", value : 1},
+                    { label: "未关注", value : 0}
+                ],
+                default: 0
+            }
+        ]
+    } );
+$.fn.dataTable.TableTools.defaults.sSwfPath='__PUBLIC__/Common/dataTables/extensions/tableTools/swf/copy_csv_xls_pdf.swf';
+$('#table').dataTable({
+    dom: "Tfrtip",
+    searching: true,
+    lengthChange: false,
+    processing: true,
+    serverSide: true,
+    ajax: "users",
+    columns: [
+                { "data": "openId" },
+                { "data": "qrScene" },
+                { "data": "score" },
+                { "data": "subscribe" , "render": 
+                    function (data, type, row) {
+                    return row.subscribe == 1 ? '已关注' : '未关注'; }
+                }
+            ],
+    tableTools: {
+        sRowSelect: "single",
+        aButtons: [
+            "copy",
+            "print",
+            {
+                "sExtends":    "collection",
+                "sButtonText": "Save",
+                "aButtons":    [ "csv", "xls", "pdf" ]
+            },
+            { sExtends: "editor_create", editor: editor },
+            { sExtends: "editor_edit",   editor: editor },
+            { sExtends: "editor_remove", editor: editor }
+        ]
+        }
+    });
+});
+</script>
+</block>

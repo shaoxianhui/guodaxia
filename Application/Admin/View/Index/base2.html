@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>果大侠后台管理</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="__PUBLIC__/Common/bootstrap-3.2.0-dist/css/bootstrap.min.css">
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="__PUBLIC__/Common/bootstrap-3.2.0-dist/css/bootstrap-theme.min.css">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/base2.css">
+    <block name="css"></block>
+  </head>
+
+  <body role="document">
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">每日开心科技</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li id="order_list"><a href="order_list">订单详情</a></li>
+            <li id="order_edit"><a href="order_edit">订单管理</a></li>
+            <li id="customer_edit"><a href="customer_edit">客户管理</a></li>
+            <li id="fruit_edit"><a href="fruit_edit">水果管理</a></li>
+            <li id="prize_list"><a href="prize_list">奖品管理</a></li>
+            <li id="logout"><a href="#contact">退出系统</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container theme-showcase" role="main">
+        <block name="content"></block>
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="__PUBLIC__/Common/jQuery/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Common/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+    <block name="script"></block>
+  </body>
+</html>

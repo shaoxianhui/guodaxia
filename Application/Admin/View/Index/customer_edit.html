@@ -1,0 +1,97 @@
+<extend name="base2" />
+<block name="css">
+<link rel="stylesheet" href="__PUBLIC__/Common/dataTables/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="__PUBLIC__/Common/dataTables/extensions/tableTools/css/dataTables.tableTools.min.css">
+<link rel="stylesheet" href="__PUBLIC__/Common/dataTables/extensions/editor/css/dataTables.editor.min.css">
+</block>
+<block name="content">
+<div class="content">
+<div class="row">
+    <table id="table" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>客户名称</th>
+                <th>联系人</th>
+                <th>电话</th>
+                <th>地址</th>
+                <th>经度</th>
+                <th>纬度</th>
+                <th>备注</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+</div>
+</block>
+<block name='script'>
+<script src="__PUBLIC__/Common/dataTables/js/jquery.dataTables.js"></script>
+<script src="__PUBLIC__/Common/dataTables/extensions/tableTools/js/dataTables.tableTools.min.js"></script>
+<script src="__PUBLIC__/Common/dataTables/extensions/editor/js/dataTables.editor.min.js"></script>
+<script type="text/javascript">
+var editor;
+$(document).ready(function() {
+$('#customer_edit').addClass('active');
+editor = new $.fn.dataTable.Editor( {
+        ajax: "customer_crud",
+        table: "#table",
+        idSrc: "id",
+        fields: [ {
+                label: "客户名称",
+                name: "name"
+            }, {
+                label: "联系人",
+                name: "linkman"
+            }, {
+                label: "电话",
+                name: "phone"
+            }, {
+                label: "地址",
+                name: "location",
+            }, {
+                label: "经度",
+                name: "longitude",
+            }, {
+                label: "纬度",
+                name: "latitude",
+            }, {
+                label: "备注",
+                name: "comment",
+            }
+        ]
+    } );
+$.fn.dataTable.TableTools.defaults.sSwfPath='__PUBLIC__/Common/dataTables/extensions/tableTools/swf/copy_csv_xls_pdf.swf';
+$('#table').dataTable({
+    dom: "Tfrtip",
+    searching: true,
+    lengthChange: false,
+    processing: true,
+    serverSide: true,
+    ajax: "customer",
+    columns: [
+                { "data": "name" },
+                { "data": "linkman" },
+                { "data": "phone" },
+                { "data": "location" },
+                { "data": "longitude" },
+                { "data": "latitude" },
+                { "data": "comment" }
+            ],
+    tableTools: {
+        sRowSelect: "single",
+        aButtons: [
+            { sExtends: "editor_create", editor: editor },
+            { sExtends: "editor_edit",   editor: editor },
+            { sExtends: "editor_remove", editor: editor },
+            "copy",
+            {
+                "sExtends":    "collection",
+                "sButtonText": "Save",
+                "aButtons":    [ "csv", "xls", "pdf" ]
+            },
+            "print"
+        ]
+        }
+    });
+});
+</script>
+</block>
