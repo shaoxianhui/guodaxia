@@ -145,6 +145,18 @@ class IndexController extends Controller {
         $this->ajaxReturn($data);
     }
 
+    public function prizer() {
+        $column = $_GET['order'][0]['column'];
+        $order = $_GET['columns'][$column]['data'];
+        $dir = $_GET['order'][0]['dir'];
+        $users = D('Wechat/Prizer')->getPrizer($_GET['start'], $_GET['length'], $order.' '.$dir);
+        $data['draw'] = $GET['draw'];
+        $data['recordsTotal'] = D('Wechat/Prizer')->getCount();
+        $data['recordsFiltered'] = $data['recordsTotal'];
+        $data['data'] = $users;
+        $this->ajaxReturn($data);
+    }
+
     public function feedback() {
         $column = $_GET['order'][0]['column'];
         $order = $_GET['columns'][$column]['data'];

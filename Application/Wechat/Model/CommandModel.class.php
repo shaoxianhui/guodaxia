@@ -10,7 +10,7 @@ class CommandModel extends Model {
         }
         foreach($commands as $c) {
             if(preg_match($c['regex'], $content)) {
-                $callback->sendCustomMessage($c['toUserId']);
+                $callback->sendCustomMessage($c['toUserId'], $c['toQy']);
             }
         }
     }

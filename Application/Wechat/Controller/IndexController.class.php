@@ -15,43 +15,12 @@ class IndexController extends Controller {
         $type = $this->weObj->getRev()->getRevType();
         switch($type) {
         case \Org\Wechat\Wechat::MSGTYPE_TEXT:
+            D('TextMessage')->addTextMessage($this->weObj->getRevFrom(), $this->weObj->getRevContent(), $this->weObj->getRevCtime());
             D('Command')->executeAll($this->weObj->getRevContent(), $this);
-            if(preg_match('/^gdx$/i', $this->weObj->getRevContent())) {
-                $products = D('Product')->getProductNewsOfUser($this->weObj->getRevFrom());
-                if($products !== null) {
-                    $this->weObj->news($products)->reply();
-                } else {
-                    $this->weObj->text(D('Text')->getText(8))->reply();
-                }
-            } else if(preg_match('/^gdx\+(\d+)$/i', $this->weObj->getRevContent(), $m)) {
-                D('ProductUser')->addProductOfUser($this->weObj->getRevFrom(), $m[1]);
-                $this->weObj->text(D('Text')->getText(7))->reply();
-            } else if(preg_match('/.*(\d{8,}).*/i', $this->weObj->getRevContent(), $m)) {
-                $list = explode('+', $m[0]);
-                if(count($list) == 6) {
-                    D('PrizeUser')->addLocationAndPhone($this->weObj->getRevFrom(), $list[3], $list[1], $list[2], $list[4], $list[5]);
-                    $message = D('Text')->getText(9);
-                    /* $message = preg_replace('/\{1\}/i', $list[2], $message); */
-                    /* $message = preg_replace('/\{2\}/i', $list[4], $message); */
-                    $this->weObj->text($message)->reply();
-                } else {
-                    $this->weObj->text(D('Text')->getText(9))->reply();
-                }
-            } else if(preg_match('/^我来兑奖$/i', $this->weObj->getRevContent())) {
-                $prizes = D('Prize')->getPrizeOfUser($this->weObj->getRevFrom());
-                if($prizes !== null) {
-                    $prize_news = array();
-                    $count = 0;
-                    foreach($prizes as $p) {
-                        $des = explode('</br>', $p['description']);
-                        $prize_news[$count] = array('Title' => $p['name'],
-                                                    'PicUrl' => getWeChatImageUrl($p['picUrl']),
-                                                    'Description' => $des[0],
-                                                    'Url' => $p['url'] == null ? getWeChatDetailUrl($p['id'], 'prize') : $p['url']);
-                        $count = $count + 1;
-                    }
-                    $this->weObj->news($prize_news)->reply();
-                }
+            if(preg_match('/.*(\d{11,}).*/i', $this->weObj->getRevContent(), $m)) {
+                D('Prizer')->addPrizer($this->weObj->getRevFrom(), $m[1], $m[0]);
+                $message = D('Text')->getText(9);
+                $this->weObj->text($message)->reply();
             } else {
                 $this->weObj->text(D('Text')->getText(1))->reply();
             }
@@ -195,13 +164,13 @@ class IndexController extends Controller {
             }
             break;
         default:
-            break;
+        break;
         }
         $this->assign('content', $content);
         $this->display();
     }
 
-    public function sendCustomMessage($userId) {
+    public function sendCustomMessage($userId, $Qy) {
         $user = M('User')->find($userId);
         if($user !== null) {
             $data['touser'] = $user['openId'];
@@ -209,10 +178,12 @@ class IndexController extends Controller {
             $data['text'] = array('content' => $this->weObj->getRevContent());
             $this->weObj->sendCustomMessage($data);
         }
+        A($Qy)->publish($this->weObj->getRevContent());
     }
 
-    public function test($openId = 'oGulKs0s3IAdDEF9sd0Nki7MoYp8') {
-        @\Common\Library\PhpQrCode\TQrCode::png('http://www.meirixianguo.com', false, 'H', 20);
+    public function test($openId = '') {
+        D('Prizer')->convert();
+        /* @\Common\Library\PhpQrCode\TQrCode::png('http://www.meirixianguo.com', false, 'H', 20); */
     }
 
     public function OAuth() {

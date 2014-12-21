@@ -11,12 +11,9 @@
         <thead>
             <tr>
                 <th>用户ID</th>
-                <th>用户名</th>
                 <th>奖品名</th>
-                <th>公司</th>
-                <th>地址</th>
                 <th>电话</th>
-                <th>建议</th>
+                <th>详细内容</th>
                 <th>是否送达</th>
                 <th>时间</th>
             </tr>
@@ -54,16 +51,13 @@ $('#table').dataTable({
     lengthChange: false,
     processing: true,
     serverSide: true,
-    order: [[ 8, "desc" ]],
-    ajax: "prize_of_user",
+    order: [[ 5, "desc" ]],
+    ajax: "prizer",
     columns: [
                 { "data": "userId" , "orderable": true },
-                { "data": "name" , "orderable": true },
                 { "data": "prizeName" , "orderable": false },
-                { "data": "company" , "orderable": true },
-                { "data": "location" , "orderable": true },
-                { "data": "phone" , "orderable": true },
-                { "data": "advice" , "orderable": true },
+                { "data": "phone" , "orderable": false },
+                { "data": "content" , "orderable": false },
                 { "data": "received" , "orderable": true, "render": 
                     function (data, type, row) {
                     return row.received == 1 ? '已送达' : '未送达'; }

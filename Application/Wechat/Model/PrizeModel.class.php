@@ -37,4 +37,9 @@ class PrizeModel extends Model {
         }
         return $prize;
     }
+
+    public function getCurrentPrize() {
+        $prize = $this->where('current=1')->order('id desc')->find();
+        return $prize;
+    }
 }

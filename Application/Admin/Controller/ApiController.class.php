@@ -109,6 +109,7 @@ class ApiController extends RpcController {
 
     public function deleteOrderItem($orderItemId) {
         $id = D('OrderItem')->deleteOrderItem($orderItemId);
+        A('Wechat/Order')->publish('hello');
         return $id;
     }
 }

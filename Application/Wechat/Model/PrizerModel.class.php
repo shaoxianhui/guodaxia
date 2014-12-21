@@ -1,0 +1,56 @@
+<?php
+namespace Wechat\Model;
+use Think\Model;
+class PrizerModel extends Model {
+    public function addPrizer($openId, $phone, $content) {
+        $user = D('User')->getUser($openId);
+        if($user !== null) {
+            $data['userId'] = $user['id'];
+            $prize = D('Prize')->getCurrentPrize();
+            if($prize != null) {
+                $data['prizeId'] = $prize['id'];
+            }
+            $data['phone'] = $phone;
+            $data['content'] = $content;
+            $data['ctime'] = time();
+            $this->data($data)->add();
+        }
+    }
+
+    public function received($id) {
+        $this->where('id='.$id)->setField('received', 1);
+    }
+
+    public function getCount() {
+        return $this->count();
+    }
+
+    public function getPrizer($start = 0, $length = 10, $order = 'ctime asc') {
+        $page = $start / $length + 1;
+        $prizer = $this->order($order)->page($page.','.$length)->select();
+        if($prizer === null)
+            return array();
+        for($i = 0; $i < count($prizer); $i++) {
+            $prize = M('Prize')->find($prizer[$i]['prizeId']);
+            if($prize != null) {
+                $prizer[$i]['prizeName'] = $prize['name'];
+            } else {
+                $prizer[$i]['prizeName'] = '未知';
+            }
+        }
+        return $prizer;
+    }
+
+    public function convert() {
+        $ps = M('PrizeUser')->select();
+        foreach($ps as $p) {
+            $data['userId'] = $p['userId'];
+            $data['prizeId'] = $p['prizeId'];
+            $data['phone'] = $p['phone'];
+            $data['content'] = '领奖+'.$p['company'].'+'.$p['location'].'+'.$p['name'].'+'.$p['phone'].'+'.$p['advice'];
+            $data['ctime'] = $p['ctime'];
+            $this->data($data)->add();
+        }
+        
+    }
+}
