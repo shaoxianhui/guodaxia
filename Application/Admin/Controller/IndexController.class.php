@@ -74,7 +74,15 @@ class IndexController extends Controller {
             $this->error('登陆失败', 'login', 3);
         }
     }
-
+	
+	public function doLogin2($adminName, $password, $remember = false) {
+        if(D('AdminManager')->login($adminName, $password, $remember)) {
+            $this->success('登陆成功', 'prizer_list');
+        } else {
+            $this->error('登陆失败', 'login', 3);
+        }
+    }
+	
     public function doLogout() {
         D('AdminManager')->logout();
         $this->success('退出成功', 'login');
