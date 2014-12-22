@@ -178,7 +178,9 @@ class IndexController extends Controller {
             $data['text'] = array('content' => $this->weObj->getRevContent());
             $this->weObj->sendCustomMessage($data);
         }
-        A($Qy)->publish($this->weObj->getRevContent());
+        if($Qy != null && $Qy != '') {
+            A($Qy)->publish($this->weObj->getRevContent());
+        }
     }
 
     public function test($openId = '') {

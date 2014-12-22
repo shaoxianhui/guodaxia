@@ -17,15 +17,15 @@ class PrizerModel extends Model {
         }
     }
 
-    public function received($id) {
-        $this->where('id='.$id)->setField('received', 1);
+    public function received($id, $received) {
+        return $this->where('id='.$id)->setField('received', $received);
     }
 
     public function getCount() {
         return $this->count();
     }
 
-    public function getPrizer($start = 0, $length = 10, $order = 'ctime asc') {
+    public function getPrizer($start = 0, $length = 10, $order = 'ctime desc') {
         $page = $start / $length + 1;
         $prizer = $this->order($order)->page($page.','.$length)->select();
         if($prizer === null)

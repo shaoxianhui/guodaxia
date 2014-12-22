@@ -62,13 +62,13 @@ class ApiController extends RpcController {
         return $id;
     }
 
-    public function getUserForPrize($page) {
-        $result = D('Wechat/PrizeUser')->getUserForPrize(($page - 1) * 10);
+    public function getPrizer($page) {
+        $result = D('Wechat/Prizer')->getPrizer(($page - 1) * 10);
         return $result;
     }
 
     public function updateReceived($id, $received) {
-        $result = M('Wechat/PrizeUser')->where('id='.$id)->setField('received', $received);
+        $result = D('Wechat/Prizer')->received($id, $received);
         return $result;
     }
 
