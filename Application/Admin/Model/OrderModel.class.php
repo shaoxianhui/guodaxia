@@ -24,7 +24,9 @@ class OrderModel extends RelationModel {
         $data['earliest'] = $earliest;
         $data['latest'] = $latest;
         $data['comment'] = $comment;
-        return $this->data($data)->add();
+        $result['result'] = $this->data($data)->add();
+        $result['message'] = '创建'.$data['cdate'].' '.$data['customer'].'的'.$result['result'].'号订单!';
+        return $result;
     }
 
     public function updateOrder($orderId, $customer, $cdate, $earliest, $latest, $comment) {
@@ -33,10 +35,17 @@ class OrderModel extends RelationModel {
         $data['earliest'] = $earliest;
         $data['latest'] = $latest;
         $data['comment'] = $comment;
-        return $this->where('id='.$orderId)->data($data)->save();
+        $result['result'] = $this->where('id='.$orderId)->data($data)->save();
+        $result['message'] = '更新'.$data['cdate'].' '.$data['customer'].'的'.$orderId.'号订单!';
+        return $result;
     }
 
     public function deleteOrder($orderId) {
-        return $this->relation(true)->delete($orderId);
+        $order = $this->find($orderId);
+        if($order !== null) {
+            $result['result'] = $this->relation(true)->delete($orderId);
+            $result['message'] = '删除'.$order['cdate'].' '.$order['customer'].'的'.$order['id'].'号订单!';
+        }
+        return $result;
     }
 }

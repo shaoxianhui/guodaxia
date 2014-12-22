@@ -83,33 +83,38 @@ class ApiController extends RpcController {
     }
 
     public function addOrder($customer, $cdate, $earliest, $latest, $comment) {
-        $id = D('Order')->addOrder($customer, $cdate, $earliest, $latest, $comment);
-        return $id;
+        $data = D('Order')->addOrder($customer, $cdate, $earliest, $latest, $comment);
+        A('Wechat/Order')->publish($data['message']);
+        return $data['result'];
     }
 
     public function updateOrder($orderId, $customer, $cdate, $earliest, $latest, $comment) {
-        $id = D('Order')->updateOrder($orderId, $customer, $cdate, $earliest, $latest, $comment);
-        return $id;
+        $data = D('Order')->updateOrder($orderId, $customer, $cdate, $earliest, $latest, $comment);
+        A('Wechat/Order')->publish($data['message']);
+        return $data['result'];
     }
 
     public function deleteOrder($orderId) {
-        $id = D('Order')->deleteOrder($orderId);
-        return $id;
+        $data = D('Order')->deleteOrder($orderId);
+        A('Wechat/Order')->publish($data['message']);
+        return $data['result'];
     }
 
     public function addOrderItem($orderId, $product, $quantity, $money, $comment) {
-        $id = D('OrderItem')->addOrderItem($orderId, $product, $quantity, $money, $comment);
-        return $id;
+        $data = D('OrderItem')->addOrderItem($orderId, $product, $quantity, $money, $comment);
+        A('Wechat/Order')->publish($data['message']);
+        return $data['result'];
     }
 
     public function updateOrderItem($orderItemId, $product, $quantity, $money, $comment) {
-        $id = D('OrderItem')->updateOrderItem($orderItemId, $product, $quantity, $money, $comment);
-        return $id;
+        $data = D('OrderItem')->updateOrderItem($orderItemId, $product, $quantity, $money, $comment);
+        A('Wechat/Order')->publish($data['message']);
+        return $data['result'];
     }
 
     public function deleteOrderItem($orderItemId) {
-        $id = D('OrderItem')->deleteOrderItem($orderItemId);
-        A('Wechat/Order')->publish('hello');
-        return $id;
+        $data = D('OrderItem')->deleteOrderItem($orderItemId);
+        A('Wechat/Order')->publish($data['message']);
+        return $data['result'];
     }
 }
