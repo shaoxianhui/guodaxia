@@ -191,19 +191,25 @@ class IndexController extends Controller {
 
     public function customer_crud($action = 'none', $data = null, $id = null) {
         $result['fieldErrors'] = array();
-        $c = D('Customer')->where('name=\''.$data['name'].'\'')->find();
-        if($c != null) {
-            array_push($result['fieldErrors'], array('name' => 'name', 'status' => '客户名称已存在'));
-        }
-
-        if(!is_numeric($data['longitude'])) {
-            array_push($result['fieldErrors'], array('name' => 'longitude', 'status' => '经度错误'));
-        }
-        if(!is_numeric($data['latitude'])) {
-            array_push($result['fieldErrors'], array('name' => 'latitude', 'status' => '纬度错误'));
-        }
-        if(!empty($result['fieldErrors'])) {
-            $this->ajaxReturn($result);
+        switch($action) {
+        case 'create':
+            $c = D('Customer')->where('name=\''.$data['name'].'\'')->find();
+            if($c != null) {
+                array_push($result['fieldErrors'], array('name' => 'name', 'status' => '客户名称已存在'));
+            }
+        case 'edit':
+            if(!is_numeric($data['longitude'])) {
+                array_push($result['fieldErrors'], array('name' => 'longitude', 'status' => '经度错误'));
+            }
+            if(!is_numeric($data['latitude'])) {
+                array_push($result['fieldErrors'], array('name' => 'latitude', 'status' => '纬度错误'));
+            }
+            if(!empty($result['fieldErrors'])) {
+                $this->ajaxReturn($result);
+            }
+            break;
+        default:
+            break;
         }
         switch($action) {
         case 'edit':
