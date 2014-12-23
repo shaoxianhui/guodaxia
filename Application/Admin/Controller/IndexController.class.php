@@ -27,8 +27,13 @@ class IndexController extends Controller {
         }
     }
 
-    public function order_list() {
+    public function order_list($date = null) {
         if(D('AdminManager')->isLogged()) {
+            if($date == null)
+                $date = date('Y-m-d');
+            $this->assign('date', $date);
+            $order = D('Order')->getOrder($date);
+            $this->assign('order', $order);
             $this->display();
         } else {
             $this->redirect('Admin/Index/signin');
