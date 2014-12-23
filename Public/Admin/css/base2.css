@@ -3,6 +3,28 @@ body {
   padding-bottom: 30px;
 }
 
+body {
+  background: url('../images/bg2.png') repeat;
+}
+body.dark {
+  background: url('../images/wood-black.jpg') repeat;
+}
+body.light {
+  background: url('../images/light.jpg') repeat;
+}
+body.wood {
+  background: url('../images/wood.jpg') repeat;
+}
+body.retina-wood {
+  background: url('../images/retina_wood.png') repeat;
+}
+body.linen {
+  background: url('../images/low_contrast_linen.png') repeat;
+}
+body.paper {
+  background: url('../images/natural_paper.png') repeat;
+}
+
 .theme-dropdown .dropdown-menu {
   position: static;
   display: block;

@@ -5,87 +5,71 @@ use Think\Log;
 class IndexController extends Controller {
     public function index() {
         if(D('AdminManager')->isLogged()) {
-            $this->redirect('Admin/Index/dashboard');
+            $this->redirect('Admin/Index/information');
         } else {
-            $this->redirect('Admin/Index/login');
+            $this->redirect('Admin/Index/signin');
         }
     }
 
-    public function dashboard() {
+    public function information() {
         if(D('AdminManager')->isLogged()) {
             $this->display();
         } else {
-            $this->redirect('Admin/Index/login');
+            $this->redirect('Admin/Index/signin');
         }
     }
 
-    public function user_table() {
+    public function prizer_list() {
         if(D('AdminManager')->isLogged()) {
             $this->display();
         } else {
-            $this->redirect('Admin/Index/login');
+            $this->redirect('Admin/Index/signin');
         }
     }
 
-    public function prize_of_user_table() {
+    public function order_list() {
         if(D('AdminManager')->isLogged()) {
             $this->display();
         } else {
-            $this->redirect('Admin/Index/login');
+            $this->redirect('Admin/Index/signin');
         }
     }
 
-    public function feedback_table() {
+    public function order_edit() {
         if(D('AdminManager')->isLogged()) {
             $this->display();
         } else {
-            $this->redirect('Admin/Index/login');
+            $this->redirect('Admin/Index/signin');
         }
     }
 
-    public function statistics() {
+    public function customer_edit() {
         if(D('AdminManager')->isLogged()) {
             $this->display();
         } else {
-            $this->redirect('Admin/Index/login');
+            $this->redirect('Admin/Index/signin');
         }
     }
 
-    public function calendar() {
+    public function fruit_edit() {
         if(D('AdminManager')->isLogged()) {
             $this->display();
         } else {
-            $this->redirect('Admin/Index/login');
-        }
-    }
-
-    public function profile() {
-        if(D('AdminManager')->isLogged()) {
-            $this->display();
-        } else {
-            $this->redirect('Admin/Index/login');
+            $this->redirect('Admin/Index/signin');
         }
     }
 
     public function doLogin($adminName, $password, $remember = false) {
         if(D('AdminManager')->login($adminName, $password, $remember)) {
-            $this->success('登陆成功', 'dashboard');
+            $this->success('登陆成功', 'information');
         } else {
-            $this->error('登陆失败', 'login', 3);
-        }
-    }
-	
-	public function doLogin2($adminName, $password, $remember = false) {
-        if(D('AdminManager')->login($adminName, $password, $remember)) {
-            $this->success('登陆成功', 'prizer_list');
-        } else {
-            $this->error('登陆失败', 'login', 3);
+            $this->error('登陆失败', 'signin', 3);
         }
     }
 	
     public function doLogout() {
         D('AdminManager')->logout();
-        $this->success('退出成功', 'login');
+        $this->success('退出成功', 'signin');
     }
 
     public function user($action = 'none', $data = null, $id = null) {
