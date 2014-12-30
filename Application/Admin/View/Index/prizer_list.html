@@ -58,7 +58,7 @@ $('#table').dataTable({
     processing: true,
     serverSide: true,
     order: [[ 5, "desc" ]],
-    ajax: "prizer",
+    ajax: "{:U('Admin/Prizer/index')}",
     columns: [
                 { "data": "userId" , "orderable": true },
                 { "data": "prizeName" , "orderable": false },

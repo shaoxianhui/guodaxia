@@ -77,7 +77,7 @@ $('#table').dataTable({
     processing: true,
     serverSide: true,
     order: [[ 0, "desc" ]],
-    ajax: "{:U('Admin/Index/orders', array(), '')}/date/{$date}",
+    ajax: "{:U('Admin/Order/index', array(), '')}/date/{$date}",
     columns: [
                 { "data": "customer" , "orderable": true },
                 { "data": "earliest" , "orderable": false },
