@@ -20,7 +20,7 @@ class AdminManagerModel extends Model {
 
             if (!$this->getCookieAid()) {
                 $expire = $remember ? (3600*24*365) : (3600*1);
-                cookie('LOGGED_ADMIN', base64_encode("beijing.".$admin['id']), $expire);
+                cookie('LOGGED_ADMIN', base64_encode("gdx.".$admin['id']), $expire);
             }
             return $admin;
         }
