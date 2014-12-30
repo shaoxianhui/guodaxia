@@ -4,60 +4,62 @@
 </block>
 <block name="content">
 <div class="content">
-<div class="row">
-<div class="panel panel-default">
-  <!-- Default panel contents -->
-  <div class="panel-heading">订单详情</div>
-  <div class="panel-body">
-    订单日期　:　<input type="text" id="datetimepicker" readonly>
-  </div>
-<table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>订单ID</th>
-          <th>客户名称</th>
-          <th>最早送货时间</th>
-          <th>最晚送货时间</th>
-          <th>状态</th>
-          <th>备注</th>
-          <th>订单项ID</th>
-          <th>产品</th>
-          <th>数量</th>
-          <th>单价</th>
-          <th>详细</th>
-        </tr>
-      </thead>
-      <tbody>
-      <volist name="order" id="o">
-        <tr>
-            <td rowspan="{$o.orderItems|count}">{$o.id}</td>
-            <td rowspan="{$o.orderItems|count}">{$o.customer}</td>
-            <td rowspan="{$o.orderItems|count}">{$o.earliest}</td>
-            <td rowspan="{$o.orderItems|count}">{$o.latest}</td>
-            <td rowspan="{$o.orderItems|count}">{$o.status}</td>
-            <td rowspan="{$o.orderItems|count}">{$o.comment}</td>
-          <volist name="o.orderItems" offset="0" length="1" id="i1">
-            <td>{$i1.id}</td>
-            <td>{$i1.product}</td>
-            <td>{$i1.quantity}</td>
-            <td>{$i1.money}</td>
-            <td>{$i1.comment}</td>
-          </volist>
-        </tr>
-          <volist name="o.orderItems" offset="1" id="i2">
-        <tr>
-            <td>{$i2.id}</td>
-            <td>{$i2.product}</td>
-            <td>{$i2.quantity}</td>
-            <td>{$i2.money}</td>
-            <td>{$i2.comment}</td>
-        </tr>
-          </volist>
-      </volist>
-      </tbody>
-    </table>
+    <div class="row">
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">订单详情</div>
+            <div class="panel-body">
+                订单日期　:　<input type="text" id="datetimepicker" readonly>
+            </div>
+            <div style="margin:0px 15px 0px 15px">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>订单ID</th>
+                            <th>客户名称</th>
+                            <th>最早送货时间</th>
+                            <th>最晚送货时间</th>
+                            <th>状态</th>
+                            <th>备注</th>
+                            <th>订单项ID</th>
+                            <th>产品</th>
+                            <th>数量</th>
+                            <th>单价</th>
+                            <th>详细</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <volist name="order" id="o">
+                    <tr>
+                        <td rowspan="{$o.orderItems|count}">{$o.id}</td>
+                        <td rowspan="{$o.orderItems|count}">{$o.customer}</td>
+                        <td rowspan="{$o.orderItems|count}">{$o.earliest}</td>
+                        <td rowspan="{$o.orderItems|count}">{$o.latest}</td>
+                        <td rowspan="{$o.orderItems|count}">{$o.status}</td>
+                        <td rowspan="{$o.orderItems|count}">{$o.comment}</td>
+                        <volist name="o.orderItems" offset="0" length="1" id="i1">
+                        <td>{$i1.id}</td>
+                        <td>{$i1.product}</td>
+                        <td>{$i1.quantity}</td>
+                        <td>{$i1.money}</td>
+                        <td>{$i1.comment}</td>
+                        </volist>
+                    </tr>
+                    <volist name="o.orderItems" offset="1" id="i2">
+                    <tr>
+                        <td>{$i2.id}</td>
+                        <td>{$i2.product}</td>
+                        <td>{$i2.quantity}</td>
+                        <td>{$i2.money}</td>
+                        <td>{$i2.comment}</td>
+                    </tr>
+                    </volist>
+                    </volist>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-</div>
 </div>
 </block>
 <block name='script'>

@@ -7,20 +7,24 @@
 </block>
 <block name="content">
 <div class="content">
-<div class="row">
-    <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>用户ID</th>
-                <th>奖品名</th>
-                <th>电话</th>
-                <th>详细内容</th>
-                <th>是否送达</th>
-                <th>时间</th>
-            </tr>
-        </thead>
-    </table>
-</div>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">中奖用户</div>
+        <div style="margin:15px 15px 0px 15px">
+            <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>用户ID</th>
+                        <th>奖品名</th>
+                        <th>电话</th>
+                        <th>详细内容</th>
+                        <th>是否送达</th>
+                        <th>时间</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
 </div>
 </block>
 <block name='script'>
@@ -73,14 +77,14 @@ $('#table').dataTable({
     tableTools: {
         sRowSelect: "single",
         aButtons: [
+            { sExtends: "editor_edit",   editor: editor },
             "copy",
             "print",
             {
                 "sExtends":    "collection",
                 "sButtonText": "Save",
                 "aButtons":    [ "csv", "xls", "pdf" ]
-            },
-            { sExtends: "editor_edit",   editor: editor }
+            }
         ]
         }
         });
