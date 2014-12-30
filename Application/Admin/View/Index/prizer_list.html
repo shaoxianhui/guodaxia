@@ -37,8 +37,9 @@ var editor;
 $(document).ready(function() {
 $('#prizer_list').addClass('active');
 editor = new $.fn.dataTable.Editor( {
-        ajax: "../php/staff.php",
+        ajax: "{:U('Admin/Prizer/crud')}",
         table: "#table",
+        idSrc: "id",
         fields: [ {
                 label: "是否送达",
                 name: "received",

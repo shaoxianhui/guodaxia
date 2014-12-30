@@ -14,4 +14,17 @@ class PrizerController extends Controller {
         $data['data'] = $users;
         $this->ajaxReturn($data);
     }
+
+    public function crud($action = 'none', $data = null, $id = null) {
+        switch($action) {
+        case 'edit':
+            D('Wechat/Prizer')->where('id='.$id)->save($data);
+            $data['id'] = $id;
+            $result['row'] = $data;
+            $this->ajaxReturn($result);
+            break;
+        default:
+            break;
+        }
+    }
 }
