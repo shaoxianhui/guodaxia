@@ -13,7 +13,13 @@ class IndexController extends Controller {
 
     public function doLogin($adminName, $password, $remember = false) {
         if(D('AdminManager')->login($adminName, $password, $remember)) {
-            $this->success('登陆成功', 'information');
+            if(session('?jump_url')) {
+                $jump_url = session('jump_url');
+            } else {
+                $jump_url = 'information';
+            }
+            session('jump_url', null);
+            $this->success('登陆成功', $jump_url);
         } else {
             $this->error('登陆失败', 'signin', 3);
         }
@@ -36,6 +42,7 @@ class IndexController extends Controller {
         if(D('AdminManager')->isLogged()) {
             $this->display();
         } else {
+            session('jump_url', 'prizer_list');
             $this->redirect('Admin/Index/signin');
         }
     }
@@ -49,6 +56,7 @@ class IndexController extends Controller {
             $this->assign('order', $order);
             $this->display();
         } else {
+            session('jump_url', 'order_list');
             $this->redirect('Admin/Index/signin');
         }
     }
@@ -60,6 +68,7 @@ class IndexController extends Controller {
             $this->assign('date', $date);
             $this->display();
         } else {
+            session('jump_url', 'order_edit');
             $this->redirect('Admin/Index/signin');
         }
     }
@@ -68,6 +77,7 @@ class IndexController extends Controller {
         if(D('AdminManager')->isLogged()) {
             $this->display();
         } else {
+            session('jump_url', 'customer_edit');
             $this->redirect('Admin/Index/signin');
         }
     }
@@ -76,6 +86,7 @@ class IndexController extends Controller {
         if(D('AdminManager')->isLogged()) {
             $this->display();
         } else {
+            session('jump_url', 'fruit_edit');
             $this->redirect('Admin/Index/signin');
         }
     }
