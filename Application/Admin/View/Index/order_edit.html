@@ -70,6 +70,31 @@ editor = new $.fn.dataTable.Editor( {
                 ]
     } );
 $.fn.dataTable.TableTools.defaults.sSwfPath='__PUBLIC__/Common/dataTables/extensions/tableTools/swf/copy_csv_xls_pdf.swf';
+TableTools.BUTTONS.view = {
+    "sAction": "text",
+    "sTag": "default",
+    "sFieldBoundary": "",
+    "sFieldSeperator": "\t",
+    "sNewLine": "<br>",
+    "sToolTip": "",
+    "sButtonClass": "DTTT_button_text",
+    "sButtonClassHover": "DTTT_button_text_hover",
+    "sButtonText": "Copy to element",
+    "mColumns": "all",
+    "bHeader": true,
+    "bFooter": true,
+    "bSelectedOnly": true,
+    "fnMouseover": null,
+    "fnMouseout": null,
+    "fnClick": function( nButton, oConfig ) {
+        var data = this.fnGetSelectedData();
+        if(data.length > 0)
+            window.open("{:U('Admin/Index/order_item_edit', array(), '')}" + "/orderId/" + data[0].id);
+    },
+    "fnSelect": null,
+    "fnComplete": null,
+    "fnInit": null
+};
 $('#table').dataTable({
     dom: "Tfrtip",
     searching: true,
@@ -102,7 +127,11 @@ $('#table').dataTable({
                 "sButtonText": "Save",
                 "aButtons":    [ "csv", "xls", "pdf" ]
             },
-            "print"
+            "print",
+            {
+                "sExtends": "view",
+                "sButtonText": "View"
+            }
         ]
         }
         });

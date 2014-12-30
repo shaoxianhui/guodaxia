@@ -73,6 +73,20 @@ class IndexController extends Controller {
         }
     }
 
+    public function order_item_edit($orderId = null) {
+        if(D('AdminManager')->isLogged()) {
+            $order = M('Order')->find($orderId);
+            if($order == null)
+                $this->redirect('Admin/Index/order_edit');
+
+            $this->assign('order', $order);
+            $this->display();
+        } else {
+            session('jump_url', 'order_edit');
+            $this->redirect('Admin/Index/signin');
+        }
+    }
+
     public function customer_edit() {
         if(D('AdminManager')->isLogged()) {
             $this->display();

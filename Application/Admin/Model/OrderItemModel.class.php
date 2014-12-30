@@ -12,6 +12,11 @@ class OrderItemModel extends RelationModel {
         )
     );
 
+    public function getCount($orderId) {
+        $where['orderId'] = $orderId;
+        return $this->where($where)->count();
+    }
+
     public function getOrderItem($orderId) {
         $where['orderId'] = $orderId;
         return $this->where($where)->select();
