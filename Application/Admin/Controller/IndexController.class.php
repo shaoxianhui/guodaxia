@@ -40,8 +40,11 @@ class IndexController extends Controller {
         }
     }
 
-    public function order_edit() {
+    public function order_edit($date = null) {
         if(D('AdminManager')->isLogged()) {
+            if($date == null)
+                $date = date('Y-m-d');
+            $this->assign('date', $date);
             $this->display();
         } else {
             $this->redirect('Admin/Index/signin');
@@ -151,6 +154,20 @@ class IndexController extends Controller {
         $data['recordsTotal'] = D('Wechat/Prizer')->getCount();
         $data['recordsFiltered'] = $data['recordsTotal'];
         $data['data'] = $users;
+        $this->ajaxReturn($data);
+    }
+
+    public function orders($date = null) {
+        if($date == null)
+            $date = date('Y-m-d');
+        $column = $_GET['order'][0]['column'];
+        $order = $_GET['columns'][$column]['data'];
+        $dir = $_GET['order'][0]['dir'];
+        $orders = D('Order')->getOrder($date, $order.' '.$dir);
+        $data['draw'] = $GET['draw'];
+        $data['recordsTotal'] = D('Order')->getCount($date);
+        $data['recordsFiltered'] = $data['recordsTotal'];
+        $data['data'] = $orders;
         $this->ajaxReturn($data);
     }
 

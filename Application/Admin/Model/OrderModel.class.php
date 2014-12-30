@@ -13,9 +13,21 @@ class OrderModel extends RelationModel {
         )
     );
 
-    public function getOrder($cdate) {
+    public function getOrder($cdate, $order = 'id desc') {
         $where['cdate'] = $cdate;
-        return $this->relation(true)->where($where)->select();
+        $orders = $this->relation(true)->where($where)->order($order)->select();
+        if($orders === null)
+            return array();
+        return $orders;
+    }
+
+    public function getCount($cdate = null) {
+        if($cdate == null) {
+            return $this->count();
+        } else {
+            $where['cdate'] = $cdate;
+            return $this->where($where)->count();
+        }
     }
 
     public function addOrder($customer, $cdate, $earliest, $latest, $comment) {
