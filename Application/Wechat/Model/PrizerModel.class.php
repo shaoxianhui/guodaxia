@@ -21,13 +21,23 @@ class PrizerModel extends Model {
         return $this->where('id='.$id)->setField('received', $received);
     }
 
-    public function getCount() {
-        return $this->count();
+    public function getCount($search = null) {
+        if($search == null || $search == '') {
+            return $this->count();
+        } else {
+            $map['phone'] = array('like', '%'.$search.'%');
+            return $this->where($map)->count();
+        }
     }
 
-    public function getPrizer($start = 0, $length = 10, $order = 'ctime desc') {
+    public function getPrizer($start = 0, $length = 10, $order = 'ctime desc', $search = null) {
         $page = $start / $length + 1;
-        $prizer = $this->order($order)->page($page.','.$length)->select();
+        if($search == null || $search == '') {
+            $prizer = $this->order($order)->page($page.','.$length)->select();
+        } else {
+            $map['phone'] = array('like', '%'.$search.'%');
+            $prizer = $this->where($map)->order($order)->page($page.','.$length)->select();
+        }
         if($prizer === null)
             return array();
         for($i = 0; $i < count($prizer); $i++) {
