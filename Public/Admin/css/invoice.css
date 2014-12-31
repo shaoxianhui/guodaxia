@@ -1,0 +1,113 @@
+.invoice .invoice-name {
+  float: right;
+  font-size: 30px;
+  color: #ddd;
+  font-weight: bold;
+}
+.invoice .invoice-company {
+  font-size: 40px;
+  font-weight: bold;
+}
+.invoice .invoice-from {
+  margin-top: 25px;
+}
+.invoice .invoice-infos {
+  margin-top: 30px;
+  *zoom: 1;
+  float: right;
+  width: auto;
+  text-align: right;
+}
+.invoice .invoice-infos:before,
+.invoice .invoice-infos:after {
+  display: table;
+  content: "";
+}
+.invoice .invoice-infos:after {
+  clear: both;
+}
+.invoice .invoice-infos .dl-horizontal:first-child {
+  margin-top: 0;
+}
+.invoice .invoice-to {
+  margin-top: 30px;
+  float: left;
+  *zoom: 1;
+}
+.invoice .invoice-to:before,
+.invoice .invoice-to:after {
+  display: table;
+  content: "";
+}
+.invoice .invoice-to:after {
+  clear: both;
+}
+.invoice .table-invoice thead tr th {
+  font-weight: bold;
+  font-size: 14px;
+}
+.invoice .table-invoice tbody .price,
+.invoice .table-invoice tbody .qty,
+.invoice .table-invoice tbody .bottom,
+.invoice .table-invoice tbody .last {
+  text-align: center;
+}
+.invoice .table-invoice .last {
+  font-weight: bold;
+}
+.invoice .invoice-footer {
+  margin-top: 20px;
+  *zoom: 1;
+  float: left;
+  padding-top: 10px;
+  width: 100%;
+  color: #777;
+}
+.invoice .invoice-footer:before,
+.invoice .invoice-footer:after {
+  display: table;
+  content: "";
+}
+.invoice .invoice-footer:after {
+  clear: both;
+}
+.panel .panel-heading .actions {
+  position: relative;
+  margin-top: -20px;
+  float: right;
+}
+.panel .panel-heading .actions > ul {
+  list-style-type: none;
+  margin: 0;
+  *zoom: 1;
+}
+.panel .panel-heading .actions > ul:before,
+.panel .panel-heading .actions > ul:after {
+  display: table;
+  content: "";
+}
+.panel .panel-heading .actions > ul:after {
+  clear: both;
+}
+.panel .panel-heading .actions > ul > li {
+  float: left;
+  margin-right: 0px;
+}
+.panel .panel-heading .actions > ul > li:last-child {
+  margin-right: 0;
+}
+.panel .panel-heading .actions > ul > li.open a {
+  position: relative;
+  z-index: 1001;
+  -webkit-panel-shadow: none;
+  -moz-panel-shadow: none;
+  panel-shadow: none;
+  border-color: #b3b3b3;
+  -webkit-border-radius: 0 0 0 0;
+  -moz-border-radius: 0 0 0 0;
+  border-radius: 0 0 0 0;
+}
+.panel .panel-heading .actions > ul > li.open a.btn {
+  background: #ffffff;
+  border-bottom: 0;
+}

@@ -1,80 +1,8 @@
 <extend name="base2" />
 <block name="css">
-<style type="text/css">
-.invoice .invoice-name {
-  float: right;
-  font-size: 30px;
-  color: #ddd;
-  font-weight: bold;
-}
-.invoice .invoice-company {
-  font-size: 40px;
-  font-weight: bold;
-}
-.invoice .invoice-from {
-  margin-top: 25px;
-}
-.invoice .invoice-infos {
-  margin-top: 30px;
-  *zoom: 1;
-  float: right;
-  width: auto;
-  text-align: right;
-}
-.invoice .invoice-infos:before,
-.invoice .invoice-infos:after {
-  display: table;
-  content: "";
-}
-.invoice .invoice-infos:after {
-  clear: both;
-}
-.invoice .invoice-infos .dl-horizontal:first-child {
-  margin-top: 0;
-}
-.invoice .invoice-to {
-  margin-top: 30px;
-  float: left;
-  *zoom: 1;
-}
-.invoice .invoice-to:before,
-.invoice .invoice-to:after {
-  display: table;
-  content: "";
-}
-.invoice .invoice-to:after {
-  clear: both;
-}
-.invoice .table-invoice thead tr th {
-  font-weight: bold;
-  font-size: 14px;
-}
-.invoice .table-invoice tbody .price,
-.invoice .table-invoice tbody .qty,
-.invoice .table-invoice tbody .bottom,
-.invoice .table-invoice tbody .last {
-  text-align: center;
-}
-.invoice .table-invoice .last {
-  font-weight: bold;
-}
-.invoice .invoice-footer {
-  margin-top: 20px;
-  *zoom: 1;
-  float: left;
-  padding-top: 10px;
-  width: 100%;
-  color: #777;
-}
-.invoice .invoice-footer:before,
-.invoice .invoice-footer:after {
-  display: table;
-  content: "";
-}
-.invoice .invoice-footer:after {
-  clear: both;
-}
-</style>
+<link rel="stylesheet" href="__PUBLIC__/Admin/css/invoice.css">
+<link rel="stylesheet" href="__PUBLIC__/Common/messenger/css/messenger.css">
+<link rel="stylesheet" href="__PUBLIC__/Common/messenger/css/messenger-theme-future.css">
 </block>
 <block name="content">
     <div class="row">
@@ -87,6 +15,16 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Printable invoice</h3>
+                    <div class="actions">
+                        <ul>
+                            <li>
+                                <a href="#" class='tip btn btn-xs' title="Save!"><img src="__PUBLIC__/Admin/images/icons/fugue/disk-black.png" alt=""></a>
+                            </li>
+                            <li>
+                                <a href="#" class='btn btn-xs tip' title="Print!"><img src="__PUBLIC__/Admin/images/icons/fugue/printer.png" alt=""></a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="panel-body">
                     <div class="invoice">
@@ -204,7 +142,14 @@
     </div>
 </block>
 <block name='script'>
+<script src="__PUBLIC__/Common/messenger/js/messenger.min.js"></script>
+<script src="__PUBLIC__/Common/messenger/js/messenger-theme-future.js"></script>
 <script type="text/javascript">
 $('#invoice').addClass('active');
+Messenger.options = {
+    extraClasses: 'messenger-fixed messenger-on-bottom',
+    theme: 'future'
+}
+Messenger().post("Your request has succeded!");
 </script>
 </block>
