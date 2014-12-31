@@ -18,6 +18,7 @@
                         <th>客户名称</th>
                         <th>最早送货时间</th>
                         <th>最晚送货时间</th>
+                        <th>总计金额</th>
                         <th>状态</th>
                         <th>备注</th>
                         <th>订单项ID</th>
@@ -34,6 +35,7 @@
                     <td rowspan="{$o.orderItems|count}">{$o.customer}</td>
                     <td rowspan="{$o.orderItems|count}">{$o.earliest}</td>
                     <td rowspan="{$o.orderItems|count}">{$o.latest}</td>
+                    <td rowspan="{$o.orderItems|count}">{$o.money}</td>
                     <td rowspan="{$o.orderItems|count}">{$o.status}</td>
                     <td rowspan="{$o.orderItems|count}">{$o.comment}</td>
                     <volist name="o.orderItems" offset="0" length="1" id="i1">

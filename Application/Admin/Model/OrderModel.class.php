@@ -18,6 +18,12 @@ class OrderModel extends RelationModel {
         $orders = $this->relation(true)->where($where)->order($order)->select();
         if($orders === null)
             return array();
+        foreach($orders as &$order) {
+            $order['money'] = 0;
+            foreach($order['orderItems'] as $item) {
+                $order['money'] += $item['money'] * $item['quantity'];
+            }
+        }
         return $orders;
     }
 
