@@ -35,8 +35,9 @@ var editor;
 $(document).ready(function() {
 $('#order_edit').addClass('active');
 editor = new $.fn.dataTable.Editor( {
-        ajax: "order_crud",
+        ajax: "{:U('Admin/OrderItem/crud', array(), '')}/orderId/{$order.id}",
         table: "#table",
+        idSrc: "id",
         fields: [
                     {
                         label: "产品",

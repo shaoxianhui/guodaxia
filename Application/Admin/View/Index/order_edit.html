@@ -41,8 +41,9 @@ var editor;
 $(document).ready(function() {
 $('#order_edit').addClass('active');
 editor = new $.fn.dataTable.Editor( {
-        ajax: "order_crud",
+        ajax: "{:U('Admin/Order/crud')}",
         table: "#table",
+        idSrc: "id",
         fields: [
                     {
                         label: "客户名称",
@@ -57,11 +58,13 @@ editor = new $.fn.dataTable.Editor( {
                     },
                     {
                         label: "最早送货时间",
-                        name: "earliest"
+                        name: "earliest",
+                        def: "13:00:00"
                     },
                     {
                         label: "最晚送货时间",
-                        name: "latest"
+                        name: "latest",
+                        def: "14:00:00"
                     },
                     {
                         label: "备注",
