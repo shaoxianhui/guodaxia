@@ -13,6 +13,33 @@
         </div>
         </div>
     </div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">请输入日程内容</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <label for="title">日程内容</label>
+            <input type="text" class="form-control" id="title">
+          </div>
+          <div class="form-group">
+            <label for="url">网址</label>
+            <input type="text" class="form-control" id="url">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="cancel" type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button id="ok" type="button" class="btn btn-primary">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
 </block>
 <block name='script'>
 <script src="__PUBLIC__/Common/fullcalendar/js/moment.min.js"></script>
@@ -25,6 +52,8 @@ $(document).ready(function() {
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
+    var g_start;
+    var g_end;
 
     if($('.calendar').length > 0){
     $('.calendar').fullCalendar({
@@ -36,19 +65,27 @@ $(document).ready(function() {
         editable: true,
         selectable: true,
         selectHelper: true,
-        select: function(start, end) {
-            var title = prompt('Event Title:');
-            var eventData;
-            if (title) {
-                eventData = {
-                    title: title,
-                    start: start,
-                    end: end
-                };
-                $('.calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-            }
-            $('.calendar').fullCalendar('unselect');
+        unselectAuto: false,
+        timezone: 'Asia/Harbin',
+        titleFormat: {
+            month: 'YYYY年MM月',
+            week: "YYYY年MM月DD日", // Sep 7 - 13 2013
+            day: 'YYYY年MM月DD日' // Tuesday, Sep 8, 2013
         },
+        select: function(start, end) {
+            g_start = start;
+            g_end = end;
+            $('#myModal').modal();
+        },
+eventResize: function(event, delta, revertFunc) {
+
+        alert(event.title + " end is now " + event.end.format());
+
+        if (!confirm("is this okay?")) {
+            revertFunc();
+        }
+
+    },
         lang: 'zh-cn',
         events: [
         {
@@ -98,6 +135,22 @@ $(document).ready(function() {
         ]
     });
     }
+$('#ok').on('click', function () {
+    var $btn = $(this).button('add...')
+    var eventData = {
+            title: $('#title').val(),
+            start: g_start,
+            end: g_end
+        };
+        alert(g_start.format('L'));
+    $('.calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+    $('.calendar').fullCalendar('unselect');
+    $('#myModal').modal('hide')
+  })
+
+$('#cancel').on('click', function () {
+    $('.calendar').fullCalendar('unselect');
+        })
 });
 </script>
 </block>
