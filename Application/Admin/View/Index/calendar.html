@@ -1,29 +1,103 @@
-<extend name="base" />
+<extend name="base2" />
 <block name="css">
 <link rel="stylesheet" href="__PUBLIC__/Common/fullcalendar/css/fullcalendar.min.css">
 <link rel="stylesheet" href="__PUBLIC__/Common/fullcalendar/css/fullcalendar.print.css" media='print'>
 </block>
 <block name="content">
-	<div class="content">
-		<div class="row-fluid">
-			<div class="span12">
-				<div class="box">
-					<div class="box-head">
-						<h3>Calendar</h3>
-					</div>
-					<div class="box-content box-nomargin">
-						<div class="calendar"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>	
+    <div class="row">
+        <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">日程安排</div>
+        <div style="margin:15px 8px 8px 8px">
+            <div class="calendar"></div>
+        </div>
+        </div>
+    </div>
 </block>
 <block name='script'>
 <script src="__PUBLIC__/Common/fullcalendar/js/moment.min.js"></script>
 <script src="__PUBLIC__/Common/fullcalendar/js/zh-cn.js"></script>
 <script src="__PUBLIC__/Common/fullcalendar/js/fullcalendar.min.js"></script>
 <script type="text/javascript">
-$('#calendar').addClass('active');
+$(document).ready(function() {
+    $('#calendar').addClass('active');
+    var date = new Date();
+    var d = date.getDate();
+    var m = date.getMonth();
+    var y = date.getFullYear();
+
+    if($('.calendar').length > 0){
+    $('.calendar').fullCalendar({
+        header: {
+            left: 'prev,next,today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        editable: true,
+        selectable: true,
+        selectHelper: true,
+        select: function(start, end) {
+            var title = prompt('Event Title:');
+            var eventData;
+            if (title) {
+                eventData = {
+                    title: title,
+                    start: start,
+                    end: end
+                };
+                $('.calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+            }
+            $('.calendar').fullCalendar('unselect');
+        },
+        lang: 'zh-cn',
+        events: [
+        {
+            title: 'All Day Event',
+            start: new Date(y, m, 1)
+        },
+        {
+            title: 'Long Event',
+            start: new Date(y, m, d-5),
+            end: new Date(y, m, d-2)
+        },
+        {
+            id: 999,
+            title: 'Repeating Event',
+            start: new Date(y, m, d-3, 16, 0),
+            allDay: false
+        },
+        {
+            id: 999,
+            title: 'Repeating Event',
+            start: new Date(y, m, d+4, 16, 0),
+            allDay: false
+        },
+        {
+            title: 'Meeting',
+            start: new Date(y, m, d, 10, 30),
+            allDay: false
+        },
+        {
+            title: 'Lunch',
+            start: new Date(y, m, d, 12, 0),
+            end: new Date(y, m, d, 14, 0),
+            allDay: false
+        },
+        {
+            title: 'Birthday Party',
+            start: new Date(y, m, d+1, 19, 0),
+            end: new Date(y, m, d+1, 22, 30),
+            allDay: false
+        },
+        {
+            title: 'Click for Google',
+            start: new Date(y, m, 28),
+            end: new Date(y, m, 29),
+            url: '../../google.com/default.htm'
+        }
+        ]
+    });
+    }
+});
 </script>
 </block>
