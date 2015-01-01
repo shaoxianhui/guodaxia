@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>倒计时</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="__PUBLIC__/Common/bootstrap-3.2.0-dist/css/bootstrap.min.css">
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="__PUBLIC__/Common/bootstrap-3.2.0-dist/css/bootstrap-theme.min.css">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/cover.css">
+    <link rel="stylesheet" href="__PUBLIC__/Common/jcountdown/css/jcountdown.css">
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+        <div class="cover-container">
+          <div class="inner cover">
+            <div class="countdown background1" >
+			</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="__PUBLIC__/Common/jQuery/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Common/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+    <script src="__PUBLIC__/Common/jcountdown/js/jquery.compatible.js"></script>
+    <script src="__PUBLIC__/Common/jcountdown/js/jquery.jcountdown.min.js"></script>
+	<script>
+	$(function ()
+	{
+		var b = new Date;
+		e = b.getFullYear() + 1 + "/" + (b.getMonth() + 1) + "/" + b.getDate() + " " + b.getHours() + ":" + b.getMinutes() + ":" + b.getSeconds(), 
+		b =- b.getTimezoneOffset() / 60;
+        var styles = new Array("flip","slide","metal","crystal");
+        var colors = new Array("black", "white");
+        var style_index = Math.floor(Math.random() * ( 3 + 1));
+        var color_index = Math.floor(Math.random() * ( 1 + 1));
+		opt = 
+		{
+			timeText : e, timeZone : b, style : styles[style_index], color : colors[color_index], width : 0, textGroupSpace : 15, textSpace : 0, 
+			reflection :!0, reflectionOpacity : 10, reflectionBlur : 0, dayTextNumber : 3, displayDay :!0, 
+			displayHour :!0, displayMinute :!0, displaySecond :!0, displayLabel :!0, onFinish : function () {}
+		};
+		$(".countdown").jCountdown(opt);
+	});
+	</script>
+  </body>
+</html>
