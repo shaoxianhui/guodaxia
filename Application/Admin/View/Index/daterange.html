@@ -1,7 +1,6 @@
 <extend name="base2" />
 <block name="css">
-<link rel="stylesheet" href="__PUBLIC__/Common/bootstrap-application-wizard/css/bootstrap-wizard.css">
-<link rel="stylesheet" href="__PUBLIC__/Common/bootstrap-daterangepicker/css/daterangepicker-bs3.css">
+<link rel="stylesheet" href="__PUBLIC__/bower_components/bootstrap-daterangepicker/daterangepicker-bs3.css">
 </block>
 
 <block name="content">
@@ -85,8 +84,8 @@
       </div>
 </block>
 <block name='script'>
-<script src="__PUBLIC__/Common/bootstrap-daterangepicker/js/moment.min.js"></script>
-<script src="__PUBLIC__/Common/bootstrap-daterangepicker/js/daterangepicker.js"></script>
+<script src="__PUBLIC__/bower_components/moment/min/moment.min.js"></script>
+<script src="__PUBLIC__/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
                   $('#reservation').daterangepicker(null, function(start, end, label) {

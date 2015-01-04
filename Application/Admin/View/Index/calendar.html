@@ -1,7 +1,7 @@
 <extend name="base2" />
 <block name="css">
-<link rel="stylesheet" href="__PUBLIC__/Common/fullcalendar/css/fullcalendar.min.css">
-<link rel="stylesheet" href="__PUBLIC__/Common/fullcalendar/css/fullcalendar.print.css" media='print'>
+<link rel="stylesheet" href="__PUBLIC__/bower_components/fullcalendar/dist/fullcalendar.min.css">
+<link rel="stylesheet" href="__PUBLIC__/bower_components/fullcalendar/dist/fullcalendar.print.css" media='print'>
 </block>
 <block name="content">
     <div class="row">
@@ -42,9 +42,9 @@
 </div>
 </block>
 <block name='script'>
-<script src="__PUBLIC__/Common/fullcalendar/js/moment.min.js"></script>
-<script src="__PUBLIC__/Common/fullcalendar/js/zh-cn.js"></script>
-<script src="__PUBLIC__/Common/fullcalendar/js/fullcalendar.min.js"></script>
+<script src="__PUBLIC__/bower_components/moment/min/moment.min.js"></script>
+<script src="__PUBLIC__/bower_components/fullcalendar/dist/lang/zh-cn.js"></script>
+<script src="__PUBLIC__/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
     $('#calendar').addClass('active');

@@ -1,9 +1,9 @@
 <extend name="base2" />
 <block name="css">
-<link rel="stylesheet" href="__PUBLIC__/Common/dataTables/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="__PUBLIC__/Common/dataTables/extensions/tableTools/css/dataTables.tableTools.min.css">
-<link rel="stylesheet" href="__PUBLIC__/Common/dataTables/extensions/editor/css/dataTables.editor.min.css">
-<link rel="stylesheet" href="__PUBLIC__/Common/dataTables/css/dataTables.bootstrap.css">
+<link rel="stylesheet" href="__PUBLIC__/bower_components/DataTables/media/css/jquery.dataTables.css">
+<link rel="stylesheet" href="__PUBLIC__/bower_components/datatables-tabletools/css/dataTables.tableTools.css">
+<link rel="stylesheet" href="__PUBLIC__/Common/DataTables.Editor/css/dataTables.editor.min.css">
+<link rel="stylesheet" href="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css">
 </block>
 <block name="content">
 <div class="row">
@@ -28,10 +28,10 @@
 </div>
 </block>
 <block name='script'>
-<script src="__PUBLIC__/Common/dataTables/js/jquery.dataTables.js"></script>
-<script src="__PUBLIC__/Common/dataTables/extensions/tableTools/js/dataTables.tableTools.min.js"></script>
-<script src="__PUBLIC__/Common/dataTables/extensions/editor/js/dataTables.editor.min.js"></script>
-<script src="__PUBLIC__/Common/dataTables/js/dataTables.bootstrap.js"></script>
+<script src="__PUBLIC__/bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
+<script src="__PUBLIC__/bower_components/datatables-tabletools/js/dataTables.tableTools.js"></script>
+<script src="__PUBLIC__/Common/DataTables.Editor/js/dataTables.editor.min.js"></script>
+<script src="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript">
 var editor;
 $(document).ready(function() {
@@ -51,7 +51,7 @@ editor = new $.fn.dataTable.Editor( {
                 default: 0
                 } ]
     } );
-$.fn.dataTable.TableTools.defaults.sSwfPath='__PUBLIC__/Common/dataTables/extensions/tableTools/swf/copy_csv_xls_pdf.swf';
+$.fn.dataTable.TableTools.defaults.sSwfPath='__PUBLIC__/bower_components/datatables-tabletools/swf/copy_csv_xls_pdf.swf';
 $('#table').dataTable({
     dom: "Tfrtip",
     searching: true,

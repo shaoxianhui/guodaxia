@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>alertify.js - example page</title>
-    <link rel="stylesheet" href="__PUBLIC__/Common/alertify.js/css/alertify.core.css" />
-    <link rel="stylesheet" href="__PUBLIC__/Common/alertify.js/css/alertify.default.css" id="toggleCSS" />
+    <link rel="stylesheet" href="__PUBLIC__/bower_components/alertify.js/themes/alertify.core.css" />
+    <link rel="stylesheet" href="__PUBLIC__/bower_components/alertify.js/themes/alertify.default.css" id="toggleCSS" />
 	<meta name="viewport" content="width=device-width">
 	<style>
 		.alertify-log-custom {
@@ -37,10 +37,10 @@
 	<a href="#" id="bootstrap">Bootstrap Theme</a>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="__PUBLIC__/Common/alertify.js/js/alertify.min.js"></script>
+    <script src="__PUBLIC__/bower_components/alertify.js/lib/alertify.min.js"></script>
 	<script>
 		function reset () {
-			$("#toggleCSS").attr("href", "__PUBLIC__/Common/alertify.js/css/alertify.default.css");
+			$("#toggleCSS").attr("href", "__PUBLIC__/bower_components/alertify.js/themes/alertify.default.css");
 			alertify.set({
 				labels : {
 					ok     : "OK",

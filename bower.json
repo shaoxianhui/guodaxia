@@ -1,0 +1,43 @@
+{
+  "name": "angular-basic",
+  "version": "0.0.1",
+  "authors": [
+    "shaoxianhui <huihui6007@163.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.8",
+    "bootstrap": "~3.3.1",
+    "angular-route": "~1.3.8",
+    "d3": "~3.5.3",
+    "flot": "~0.8.3",
+    "fullcalendar": "~2.2.5",
+    "DataTables": "~1.10.4",
+    "datatables-tabletools": "~2.2.3",
+    "FlexSlider": "*",
+    "chartjs": "~0.2.0",
+    "fancybox": "~2.1.5",
+    "jquery.uniform": "~2.1.2",
+    "jQuery.mmenu": "~4.7.5",
+    "textillate": "*",
+    "jquery-qrcode": "*",
+    "fullpage.js": "~2.5.2",
+    "bootstrap3-wysiwyg": "~0.3.3",
+    "bootstrap-application-wizard": "*",
+    "messenger": "~1.4.1",
+    "jcountdown": "~1.5.3",
+    "alertify.js": "~0.3.11",
+    "chosen_v1.3.0": "https://github.com/harvesthq/chosen/releases/download/v1.3.0/chosen_v1.3.0.zip",
+    "bootstrap-daterangepicker": "~1.3.17",
+    "datatables-plugins": "~1.0.1",
+    "SideBySideImproved": "https://github.com/pkoltermann/SideBySideImproved.git",
+    "jquery-ui": "~1.11.2"
+  }
+}

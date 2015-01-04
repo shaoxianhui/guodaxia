@@ -2,3 +2,6 @@
 Application/Runtime
 # 忽略临时备份文件
 *.backup
+# 忽略bower文件
+# 运行bower install
+bower_components
