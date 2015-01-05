@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>水果订购</title>
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="__PUBLIC__/bower_components/twitter-bootstrap-wizard/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div class='container'>
+		
+		<div class="span12">
+			<section id="wizard">
+			  <div class="page-header">
+	            <h1>Wizard With Finish Button On last tab</h1>
+	          </div>
+	
+				<div id="rootwizard">
+					<div class="navbar">
+					  <div class="navbar-inner">
+					    <div class="container">
+					<ul>
+					  	<li><a href="#tab1" data-toggle="tab">First</a></li>
+						<li><a href="#tab2" data-toggle="tab">Second</a></li>
+						<li><a href="#tab3" data-toggle="tab">Third</a></li>
+						<li><a href="#tab4" data-toggle="tab">Forth</a></li>
+						<li><a href="#tab5" data-toggle="tab">Fifth</a></li>
+						<li><a href="#tab6" data-toggle="tab">Sixth</a></li>
+						<li><a href="#tab7" data-toggle="tab">Seventh</a></li>
+					</ul>
+					 </div>
+					  </div>
+					</div>
+					<div class="tab-content">
+					    <div class="tab-pane" id="tab1">
+					      1
+					    </div>
+					    <div class="tab-pane" id="tab2">
+					      2
+					    </div>
+						<div class="tab-pane" id="tab3">
+							3
+					    </div>
+						<div class="tab-pane" id="tab4">
+							4
+					    </div>
+						<div class="tab-pane" id="tab5">
+							5
+					    </div>
+						<div class="tab-pane" id="tab6">
+							6
+					    </div>
+						<div class="tab-pane" id="tab7">
+							7
+					    </div>
+						<ul class="pager wizard">
+							<li class="previous first"><a href="javascript:;">First</a></li>
+							<li class="previous"><a href="javascript:;">Previous</a></li>
+							<li class="next last"><a href="javascript:;">Last</a></li>
+						  	<li class="next"><a href="javascript:;">Next</a></li>
+							<li class="next finish" style="display:none;"><a href="javascript:;">Finish</a></li>
+						</ul>
+					</div>	
+				</div>
+			</section>
+ 		</div>
+	</div>
+<script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="__PUBLIC__/bower_components/twitter-bootstrap-wizard/bootstrap/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/bower_components/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<script>
+$(document).ready(function() {
+	  	$('#rootwizard').bootstrapWizard({onTabShow: function(tab, navigation, index) {
+			var $total = navigation.find('li').length;
+			var $current = index+1;
+			var $percent = ($current/$total) * 100;
+			$('#rootwizard').find('.bar').css({width:$percent+'%'});
+			
+			// If it's the last tab then hide the last button and show the finish instead
+			if($current >= $total) {
+				$('#rootwizard').find('.pager .next').hide();
+				$('#rootwizard').find('.pager .finish').show();
+				$('#rootwizard').find('.pager .finish').removeClass('disabled');
+			} else {
+				$('#rootwizard').find('.pager .next').show();
+				$('#rootwizard').find('.pager .finish').hide();
+			}
+			
+		}});
+		$('#rootwizard .finish').click(function() {
+			alert('Finished!, Starting over!');
+			$('#rootwizard').find("a[href*='tab1']").trigger('click');
+		});	
+	});	
+</script>
+</body>
+</html>
