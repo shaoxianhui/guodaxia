@@ -1,18 +1,33 @@
 <?php
 namespace Org\Wechat;
 class WxPay {
-	var $code;
-	var $openid;
-	var $parameters;
-	var $prepay_id;
-	var $curl_timeout;
+
+    private $appid;
+    private $appsecret;
+    private $key;
+    private $sslcert;
+    private $sslkey;
+    private $mchid;
+
+	public $openid;
+	public $parameters;
+	public $prepay_id;
+	public $curl_timeout;
+	public $data;
+	public $returnParameters;
 	
 	public function __construct() {
 		$this->url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 		$this->curl_timeout = 30;
+		$this->appid = C('WECHAT.appid');
+		$this->appsecret = C('WECHAT.appsecret');
+		$this->key = C('WECHAT.key');
+		$this->sslcert = C('WECHAT.sslcert');
+		$this->sslkey = C('WECHAT.sslkey');
+		$this->mchid = C('WECHAT.mchid');
 	}
 	
-	function trimString($value) {
+	private function trimString($value) {
 		$ret = null;
 		if (null != $value) {
 			$ret = $value;
@@ -23,16 +38,16 @@ class WxPay {
 		return $ret;
 	}
 	
-	public function createNoncestr( $length = 32 ) {
+	public function createNoncestr($length = 32) {
 		$chars = "abcdefghijklmnopqrstuvwxyz0123456789";  
-		$str ="";
+		$str = "";
 		for ( $i = 0; $i < $length; $i++ )  {  
-			$str.= substr($chars, mt_rand(0, strlen($chars)-1), 1);  
+			$str .= substr($chars, mt_rand(0, strlen($chars)-1), 1);  
 		}  
 		return $str;
 	}
 	
-	function formatBizQueryParaMap($paraMap, $urlencode) {
+	private function formatBizQueryParaMap($paraMap, $urlencode) {
 		$buff = "";
 		ksort($paraMap);
 		foreach ($paraMap as $k => $v)
@@ -51,13 +66,13 @@ class WxPay {
 		return $reqPar;
 	}
 	
-	public function getSign($Obj) {
+	private function getSign($Obj) {
 		foreach ($Obj as $k => $v) {
-			$Parameters[$k] = $v;
+			$params[$k] = $v;
 		}
-		ksort($Parameters);
-		$String = $this->formatBizQueryParaMap($Parameters, false);
-		$String = $String."&key=".C('WECHAT.key');
+		ksort($params);
+		$String = $this->formatBizQueryParaMap($params, false);
+		$String = $String."&key=".$this->key;
 		$String = md5($String);
 		$result_ = strtoupper($String);
 		return $result_;
@@ -83,10 +98,10 @@ class WxPay {
 
 	public function postXmlCurl($xml,$url,$second=30) {		       
        	$ch = curl_init();
-		curl_setopt($ch, CURLOP_TIMEOUT, $second);
-        curl_setopt($ch,CURLOPT_URL, $url);
-        curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,FALSE);
-        curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,FALSE);
+		curl_setopt($ch, CURLOPT_TIMEOUT, $second);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,FALSE);
 		curl_setopt($ch, CURLOPT_HEADER, FALSE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($ch, CURLOPT_POST, TRUE);
@@ -105,18 +120,18 @@ class WxPay {
 
 	function postXmlSSLCurl($xml,$url,$second=30) {
 		$ch = curl_init();
-		curl_setopt($ch,CURLOPT_TIMEOUT,$second);
-        curl_setopt($ch,CURLOPT_URL, $url);
-        curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,FALSE);
-        curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,FALSE);
-		curl_setopt($ch,CURLOPT_HEADER,FALSE);
-		curl_setopt($ch,CURLOPT_RETURNTRANSFER,TRUE);
-		curl_setopt($ch,CURLOPT_SSLCERTTYPE,'PEM');
-		curl_setopt($ch,CURLOPT_SSLCERT, C('WECHAT.sslcert'));
-		curl_setopt($ch,CURLOPT_SSLKEYTYPE,'PEM');
-		curl_setopt($ch,CURLOPT_SSLKEY, C('WECHAT.sslkey'));
-		curl_setopt($ch,CURLOPT_POST, true);
-		curl_setopt($ch,CURLOPT_POSTFIELDS,$xml);
+		curl_setopt($ch, CURLOPT_TIMEOUT,$second);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,FALSE);
+		curl_setopt($ch, CURLOPT_HEADER,FALSE);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER,TRUE);
+		curl_setopt($ch, CURLOPT_SSLCERTTYPE,'PEM');
+		curl_setopt($ch, CURLOPT_SSLCERT, $this->sslcert);
+		curl_setopt($ch, CURLOPT_SSLKEYTYPE,'PEM');
+		curl_setopt($ch, CURLOPT_SSLKEY, $this->sslkey);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS,$xml);
 		$data = curl_exec($ch);
 		curl_close($ch);
 		if($data){
@@ -126,8 +141,8 @@ class WxPay {
 		}
 	}
 	
-	function createOauthUrlForCode($redirectUrl) {
-		$urlObj["appid"] = C('WECHAT.appid');
+	public function createOauthUrlForCode($redirectUrl) {
+		$urlObj["appid"] = $this->appid;
 		$urlObj["redirect_uri"] = "$redirectUrl";
 		$urlObj["response_type"] = "code";
 		$urlObj["scope"] = "snsapi_base";
@@ -136,23 +151,22 @@ class WxPay {
 		return "https://open.weixin.qq.com/connect/oauth2/authorize?".$bizString;
 	}
 	
-	function createOauthUrlForOpenid() {
-		$urlObj["appid"] = C('WECHAT.appid');
-		$urlObj["secret"] = C('WECHAT.appsecret');
-		$urlObj["code"] = $this->code;
+	private function createOauthUrlForOpenid($code) {
+		$urlObj["appid"] = $this->appid;
+		$urlObj["secret"] = $this->appsecret;
+		$urlObj["code"] = $code;
 		$urlObj["grant_type"] = "authorization_code";
 		$bizString = $this->formatBizQueryParaMap($urlObj, false);
 		return "https://api.weixin.qq.com/sns/oauth2/access_token?".$bizString;
 	}
 	
-	function getOpenid()
-	{
-		$url = $this->createOauthUrlForOpenid();
+	public function getOpenid($code) {
+		$url = $this->createOauthUrlForOpenid($code);
         $ch = curl_init();
-		curl_setopt($ch, CURLOP_TIMEOUT, $this->curl_timeout);
+		curl_setopt($ch, CURLOPT_TIMEOUT, $this->curl_timeout);
 		curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,FALSE);
-        curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,FALSE);
 		curl_setopt($ch, CURLOPT_HEADER, FALSE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         $res = curl_exec($ch);
@@ -161,45 +175,63 @@ class WxPay {
 		return $this->openid;
 	}
 	
-	function setPrepayId($prepayId) {
-		$this->prepay_id = $prepayId;
-	}
-	
-	function setCode($code_) {
-		$this->code = $code_;
-	}
-	
-	function setParameter($parameter, $parameterValue)
-	{
+	public function setParameter($parameter, $parameterValue) {
 		$this->parameters[$this->trimString($parameter)] = $this->trimString($parameterValue);
 	}
 
 	public function getParameters() {
-		$jsApiObj["appId"] = C('WECHAT.appid');
+		$jsApiObj["appId"] = $this->appid;
 		$timeStamp = time();
 	    $jsApiObj["timeStamp"] = "$timeStamp";
 	    $jsApiObj["nonceStr"] = $this->createNoncestr();
 		$jsApiObj["package"] = "prepay_id=$this->prepay_id";
 	    $jsApiObj["signType"] = "MD5";
 	    $jsApiObj["paySign"] = $this->getSign($jsApiObj);
-	    $this->parameters = json_encode($jsApiObj);
-		return $this->parameters;
+	    return json_encode($jsApiObj);
 	}
 	
-	function getPrepayId() {
-		$this->parameters["appid"] = C('WECHAT.appid');
-		$this->parameters["mch_id"] = C('WECHAT.mchid');
+	public function getPrepayId() {
+		$this->parameters["appid"] = $this->appid;
+		$this->parameters["mch_id"] = $this->mchid;
 		$this->parameters["spbill_create_ip"] = $_SERVER['REMOTE_ADDR'];    
 		$this->parameters["nonce_str"] = $this->createNoncestr();
 		$this->parameters["sign"] = $this->getSign($this->parameters);
 		$xml = $this->arrayToXml($this->parameters);
 		$this->response = $this->postXmlCurl($xml, $this->url, $this->curl_timeout);
 		$this->result = $this->xmlToArray($this->response);
-		$prepay_id = $this->result["prepay_id"];
-		return $prepay_id;
+		$this->prepay_id = $this->result["prepay_id"];
+		return $this->prepay_id;
 	}
 	
-	public function hello() {
-		return $this->curl_timeout;
+	public function saveData($xml) {
+		$this->data = $this->xmlToArray($xml);
 	}
+	
+	public function checkSign() {
+		$tmpData = $this->data;
+		unset($tmpData['sign']);
+		$sign = $this->getSign($tmpData);//本地签名
+		if ($this->data['sign'] == $sign) {
+			return TRUE;
+		}
+		return FALSE;
+	}
+	
+	public function getData() {		
+		return $this->data;
+	}
+	
+	public function setReturnParameter($parameter, $parameterValue) {
+		$this->returnParameters[$this->trimString($parameter)] = $this->trimString($parameterValue);
+	}
+	
+	private function createXml() {
+		return $this->arrayToXml($this->returnParameters);
+	}
+	
+	public function returnXml() {
+		$returnXml = $this->createXml();
+		return $returnXml;
+	}
+
 }

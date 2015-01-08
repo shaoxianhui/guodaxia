@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>订单页</title>
+    <title>果大侠</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="__PUBLIC__/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -20,127 +20,40 @@
     <div class="container-fluid theme-showcase" role="main">
 		<div class="row text-center">
 			<div class="panel panel-success">
+				<div class="panel-heading">本周水果安排</div>
+				<div class="panel-body">
+                    周一：苹果</br>
+                    周二：橘子</br>
+                    周三：香蕉</br>
+                    周四：葡萄</br>
+                    周五：神秘水果</br>
+				</div>
+			</div>
+			<div class="panel panel-success">
 				<div class="panel-heading">选择取货地点</div>
 				<div class="panel-body">
-				   <select class="form-control">
-						<option>北京</option>
-						<option>上海</option>
-						<option>天津</option>
+				   <select id="location" class="form-control">
+                       <volist name="locations" id="location">
+                           <option value="{$location.id}">{$location.name}</option>
+                       </volist>
 					</select>
-				</div>
-			</div>
-			<div class="panel panel-success">
-				<div class="panel-heading">选择取货星期</div>
-				<div class="panel-body">
-					<div class="checkbox-inline">
-						<label>
-							<input type="checkbox" value="1">
-							星期一
-						</label>
-					</div>
-					<div class="checkbox-inline">
-						<label>
-							<input type="checkbox" value="1">
-							星期二
-						</label>
-					</div>
-					<div class="checkbox-inline">
-						<label>
-							<input type="checkbox" value="1">
-							星期三
-						</label>
-					</div>
-					<div class="checkbox-inline">
-						<label>
-							<input type="checkbox" value="1">
-							星期四
-						</label>
-					</div>
-					<div class="checkbox-inline">
-						<label>
-							<input type="checkbox" value="1">
-							星期五
-						</label>
-					</div>
-					<div class="checkbox-inline">
-						<label>
-							<input type="checkbox" value="1">
-							星期六
-						</label>
-					</div>
-					<div class="checkbox-inline">
-						<label>
-							<input type="checkbox" value="1">
-							星期日
-						</label>
-					</div>
-				</div>
-			</div>
-			<div class="panel panel-success">
-				<div class="panel-heading">选择取货时间</div>
-				<div class="panel-body">
-					<select class="form-control">
-						<option>上午08:00-09:00</option>
-						<option>中午12:00-13:00</option>
-						<option>下午15:00-16:00</option>
-					</select>
-				</div>
-			</div>
-			<div class="panel panel-success">
-				<div class="panel-heading">选择喜欢水果</div>
-				<div class="panel-body">
-					<div class="checkbox-inline">
-						<label>
-							<input type="checkbox" value="1">
-							苹果
-						</label>
-					</div>
-					<div class="checkbox-inline">
-						<label>
-							<input type="checkbox" value="1">
-							梨
-						</label>
-					</div>
-					<div class="checkbox-inline">
-						<label>
-							<input type="checkbox" value="1">
-							香蕉
-						</label>
-					</div>
-					<div class="checkbox-inline">
-						<label>
-							<input type="checkbox" value="1">
-							橘子
-						</label>
-					</div>
-					<div class="checkbox-inline">
-						<label>
-							<input type="checkbox" value="1">
-							葡萄
-						</label>
-					</div>
-					<div class="checkbox-inline">
-						<label>
-							<input type="checkbox" value="1">
-							西红柿
-						</label>
-					</div>
-					<div class="checkbox-inline">
-						<label>
-							<input type="checkbox" value="1">
-							火龙果
-						</label>
-					</div>
 				</div>
 			</div>
 			<div class="panel panel-success">
 				<div class="panel-heading">个人信息</div>
 				<div class="panel-body">
-					<input type="text" class="form-control" style="margin:0px 0px 10px 0px" placeholder="姓名">
-					<input type="text" class="form-control" placeholder="手机号">
+					<input id="name" type="text" class="form-control" style="margin:0px 0px 10px 0px" value="{$name|default=""}" placeholder="姓名">
+                    <input id="phone" type="text" class="form-control" value="{$phone|default=""}" placeholder="手机号">
 				</div>
 			</div>
-			<button type="button" class="btn btn-success btn-lg btn-block" onclick="callpay()">提交</button>
+			<div class="panel panel-success">
+				<div class="panel-heading">订单金额</div>
+				<div class="panel-body">
+                    {$money}元
+				</div>
+			</div>
+			<button type="button" class="btn btn-success btn-lg btn-block"
+                onclick="callpay()">付款</button>
 		</div>
     </div>
     <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
@@ -149,16 +62,32 @@
 		//调用微信JS api 支付
 		function jsApiCall()
 		{
-			WeixinJSBridge.invoke(
-				'getBrandWCPayRequest',
-				{$jsApiParameters},
-				function(res){
-                if(res.err_msg == 'get_brand_wcpay_request:ok') {
-                    window.location.href = "http://www.meirixianguo.com/wechat/wxpay/success";
-                }
-                //alert(res.err_code + res.err_desc+res.err_msg);
-                }
-			);
+            if($('#name').val() == '' || $('#phone').val() == '') {
+                alert('请填写姓名和电话');
+                return;
+            }
+            $.post("{:U('Wechat/Wxpay/createOrder')}", {
+                    openId : "{$openId}",
+                    trade : "{$trade}",
+                    locationId : $('#location').val(),
+                    name : $('#name').val(),
+                    phone : $('#phone').val()
+                    }, function(result) {
+                    if(result.success == true) {
+                        WeixinJSBridge.invoke(
+                            'getBrandWCPayRequest',
+                            {$jsApiParameters},
+                            function(res){
+                            if(res.err_msg == 'get_brand_wcpay_request:ok') {
+                                window.location.href = "http://www.meirixianguo.com/wechat/wxpay/success";
+                            }
+                            //alert(res.err_code + res.err_desc+res.err_msg);
+                            }
+                        );
+                    } else {
+                        alert('false');
+                    }
+            });
 		}
 
 		function callpay()
