@@ -44,8 +44,9 @@ class JSSDK {
         $ticket = S('JSSDK_TICKET');
         if($ticket == null) {
             $accessToken = $this->getAccessToken();
-            $url = "http://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jssdk&access_token=$accessToken";
+            $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=$accessToken";
             $res = json_decode($this->httpGet($url));
+            dump($res);
             $ticket = $res->ticket;
             if ($ticket) {
                 S('JSSDK_TICKET', $ticket, 7000);
