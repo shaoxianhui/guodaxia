@@ -196,4 +196,11 @@ class IndexController extends Controller {
             die('no access!');
         }
     }
+	
+	public function jssdk() {
+        $jssdk = new \Org\Wechat\JSSDK(C('WECHAT.appid'), C('WECHAT.appsecret'));
+        $signPackage = $jssdk->GetSignPackage();
+        $this->assign('signPackage', $signPackage);
+        $this->display();
+    }
 }
