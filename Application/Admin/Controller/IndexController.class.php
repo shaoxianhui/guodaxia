@@ -4,7 +4,7 @@ use Think\Controller;
 use Think\Log;
 class IndexController extends Controller {
     public function index() {
-        if(D('AdminManager')->isLogged()) {
+        if(D('Admin')->isLogged()) {
             $this->redirect('Admin/Index/information');
         } else {
             $this->redirect('Admin/Index/signin');
@@ -12,7 +12,7 @@ class IndexController extends Controller {
     }
 
     public function doLogin($adminName, $password, $remember = false) {
-        if(D('AdminManager')->login($adminName, $password, $remember)) {
+        if(D('Admin')->login($adminName, $password, $remember)) {
             if(session('?jump_url')) {
                 $jump_url = session('jump_url');
             } else {
@@ -26,12 +26,12 @@ class IndexController extends Controller {
     }
 	
     public function doLogout() {
-        D('AdminManager')->logout();
+        D('Admin')->logout();
         $this->success('退出成功', 'signin');
     }
 
     public function information() {
-        if(D('AdminManager')->isLogged()) {
+        if(D('Admin')->isLogged()) {
             $this->display();
         } else {
             $this->redirect('Admin/Index/signin');
@@ -39,7 +39,7 @@ class IndexController extends Controller {
     }
 
     public function prizer_list() {
-        if(D('AdminManager')->isLogged()) {
+        if(D('Admin')->isLogged()) {
             $this->display();
         } else {
             session('jump_url', 'prizer_list');
@@ -48,7 +48,7 @@ class IndexController extends Controller {
     }
 
     public function order_list($date = null) {
-        if(D('AdminManager')->isLogged()) {
+        if(D('Admin')->isLogged()) {
             if($date == null)
                 $date = date('Y-m-d');
             $this->assign('date', $date);
@@ -62,7 +62,7 @@ class IndexController extends Controller {
     }
 
     public function order_edit($date = null) {
-        if(D('AdminManager')->isLogged()) {
+        if(D('Admin')->isLogged()) {
             if($date == null)
                 $date = date('Y-m-d');
             $this->assign('date', $date);
@@ -74,7 +74,7 @@ class IndexController extends Controller {
     }
 
     public function order_item_edit($orderId = null) {
-        if(D('AdminManager')->isLogged()) {
+        if(D('Admin')->isLogged()) {
             $order = M('Order')->find($orderId);
             if($order == null)
                 $this->redirect('Admin/Index/order_edit');
@@ -88,7 +88,7 @@ class IndexController extends Controller {
     }
 
     public function customer_edit() {
-        if(D('AdminManager')->isLogged()) {
+        if(D('Admin')->isLogged()) {
             $this->display();
         } else {
             session('jump_url', 'customer_edit');
@@ -97,7 +97,7 @@ class IndexController extends Controller {
     }
 
     public function fruit_edit() {
-        if(D('AdminManager')->isLogged()) {
+        if(D('Admin')->isLogged()) {
             $this->display();
         } else {
             session('jump_url', 'fruit_edit');
