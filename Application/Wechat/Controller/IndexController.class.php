@@ -34,10 +34,9 @@ class IndexController extends Controller {
                     $add_or_update = D('User')->addUser($this->weObj->getRevFrom(),  $info['nickname'], $this->weObj->getRevSceneId());
                     if(is_numeric($this->weObj->getRevSceneId())) {
                         D('ScanAction')->addScanAction($this->weObj->getRevFrom());
-                        $group = M('Group');
-                        $g = $group->where('qrScene='.$this->weObj->getRevSceneId())->find();
-                        if($g !== null) {
-                            $this->weObj->updateGroupMembers($g['groupId'], $this->weObj->getRevFrom());
+                        $location = M('Location')->where('qrScene='.$this->weObj->getRevSceneId())->find();
+                        if($location !== null) {
+                            $this->weObj->updateGroupMembers($location['groupId'], $this->weObj->getRevFrom());
                         }
                         $this->weObj->text(D('Text')->getText(13))->reply();
                     }
@@ -183,8 +182,11 @@ class IndexController extends Controller {
         }
     }
 
-    public function test($openId = '') {
-        D('Prizer')->convert();
+    public function test($openId = 'oGulKs0s3IAdDEF9sd0Nki7MoYp8') {
+        dump(D('UserOrderItem')->relation(true)->find(1));
+        dump(D('UserOrder')->relation(true)->find(4));
+        //D('Prizer')->convert();
+        /* dump($this->weObj->getGroup()); */
         /* @\Common\Library\PhpQrCode\TQrCode::png('http://www.meirixianguo.com', false, 'H', 20); */
     }
 
