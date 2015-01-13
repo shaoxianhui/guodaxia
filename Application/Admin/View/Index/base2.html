@@ -38,13 +38,24 @@
               Logged in as <a href="#" class="navbar-link">Username</a>
         </p>
           <ul class="nav navbar-nav">
-          <li id="order_list"><a href="{:U('Admin/Index/order_list')}">订单详情</a></li>
-          <li id="order_edit"><a href="{:U('Admin/Index/order_edit')}">订单管理</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">订单<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                  <li id="order_list"><a href="{:U('Admin/Index/order_list')}">订单详情</a></li>
+                  <li id="order_edit"><a href="{:U('Admin/Index/order_edit')}">订单管理</a></li>
+              </ul>
+            </li>
+            <li id="userorder_list"><a href="{:U('Admin/Index/userorder_list')}">用户订单</a></li>
             <li id="customer_edit"><a href="{:U('Admin/Index/customer_edit')}">客户管理</a></li>
             <li id="fruit_edit"><a href="{:U('Admin/Index/fruit_edit')}">水果管理</a></li>
             <li id="prizer_list"><a href="{:U('Admin/Index/prizer_list')}">奖品管理</a></li>
-            <li id="calendar"><a href="{:U('Admin/Index/calendar')}">日程安排</a></li>
-            <li id="invoice"><a href="{:U('Admin/Index/invoice')}">发票打印</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">工具<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li id="calendar"><a href="{:U('Admin/Index/calendar')}">日程安排</a></li>
+                <li id="invoice"><a href="{:U('Admin/Index/invoice')}">发票打印</a></li>
+              </ul>
+            </li>
             <li id="logout"><a href="{:U('Admin/Index/doLogout')}">退出系统</a></li>
           </ul>
         </div><!--/.nav-collapse -->

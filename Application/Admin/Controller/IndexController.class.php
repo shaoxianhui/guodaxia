@@ -104,4 +104,19 @@ class IndexController extends Controller {
             $this->redirect('Admin/Index/signin');
         }
     }
+
+    public function userorder_list($date = null, $locationId = 1) {
+        if(D('Admin')->isLogged()) {
+            if($date == null)
+                $date = date('Y-m-d');
+            $this->assign('date', $date);
+            $locations = M('Location')->where('valid=1')->select();
+            $this->assign("locationId", $locationId);
+            $this->assign('locations', $locations);
+            $this->display();
+        } else {
+            session('jump_url', 'userorder_list');
+            $this->redirect('Admin/Index/signin');
+        }
+    }
 }

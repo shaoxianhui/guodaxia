@@ -21,6 +21,9 @@ class UserOrderModel extends RelationModel {
             $para = '+'.($start[date('w')] + $c).' day';
             $item['orderId'] = $userOrder['id'];
             $item['paydate'] = date('Y-m-d', strtotime($para));
+            $item['locationId'] = $userOrder['locationId'];
+            $item['name'] = $userOrder['name'];
+            $item['phone'] = $userOrder['phone'];
             array_push($data, $item);
         }
         M('UserOrderItem')->addAll($data);

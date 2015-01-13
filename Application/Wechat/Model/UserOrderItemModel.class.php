@@ -12,15 +12,29 @@ class UserOrderItemModel extends RelationModel {
         )
     );
 
+    public function getCount($paydate = null, $locationId = 1) {
+        if($paydate == null)
+            $paydate = date('Y-m-d');
+        $where['paydate'] = $paydate;
+        $where['locationId'] = $locationId;
+        return $this->where($where)->count();
+    }
+
     /* public function getCount($orderId) { */
     /*     $where['orderId'] = $orderId; */
     /*     return $this->where($where)->count(); */
     /* } */
 
-    /* public function getOrderItem($orderId) { */
-    /*     $where['orderId'] = $orderId; */
-    /*     return $this->where($where)->select(); */
-    /* } */
+    public function getUserOrderItem($paydate = null, $locationId = 1) {
+        if($paydate == null)
+            $paydate = date('Y-m-d');
+        $where['paydate'] = $paydate;
+        $where['locationId'] = $locationId;
+        $items = $this->relation(true)->where($where)->select();
+        if($items == null)
+            $items = array();
+        return $items;
+    }
 
     /* public function addOrderItem($orderId, $product, $quantity, $money, $comment) { */
     /*     $order = M('Order')->find($orderId); */
