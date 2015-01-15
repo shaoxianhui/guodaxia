@@ -41,13 +41,12 @@ class JSSDK {
     }
 
     private function getJsApiTicket() {
-		$authname = 'wechat_jsapi_ticket'.$appId;
+		$authname = 'wechat_jsapi_ticket'.$this->appId;
         $ticket = S($authname);
         if($ticket == null) {
             $accessToken = $this->getAccessToken();
             $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=$accessToken";
             $res = json_decode($this->httpGet($url));
-            dump($res);
             $ticket = $res->ticket;
             if ($ticket) {
                 S($authname, $ticket, 7100);
@@ -57,7 +56,7 @@ class JSSDK {
     }
 
     private function getAccessToken() {
-		$authname = 'wechat_access_token'.$appId;
+		$authname = 'wechat_access_token'.$this->appId;
         $access_token = S($authname);
         if($access_token == null) {
             $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$this->appId&secret=$this->appSecret";
@@ -74,6 +73,8 @@ class JSSDK {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_TIMEOUT, 500);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_URL, $url);
 
         $res = curl_exec($curl);
