@@ -16,7 +16,7 @@ class WxpayController extends Controller {
             $timeStamp = time();
             $out_trade_no = C('WECHAT.appid').substr($openId, -4)."$timeStamp";
             $pay->setParameter("out_trade_no","$out_trade_no"); 
-            $pay->setParameter("total_fee","1");
+            $pay->setParameter("total_fee","1200");
             $pay->setParameter("notify_url","http://$_SERVER[HTTP_HOST]/wechat/wxpay/notify");
             $pay->setParameter("trade_type","JSAPI");
             $pay->getPrepayId();
@@ -49,6 +49,11 @@ class WxpayController extends Controller {
             $this->assign('locations', $locations);
 
             $this->assign('jsApiParameters', $jsApiParameters);
+
+            $jssdk = new \Org\Wechat\JSSDK(C('WECHAT.appid'), C('WECHAT.appsecret'));
+            $signPackage = $jssdk->GetSignPackage();
+            $this->assign('signPackage', $signPackage);
+
             $this->display();
 		}
     }
