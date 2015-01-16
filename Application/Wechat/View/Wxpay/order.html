@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="__PUBLIC__/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Bootstrap theme -->
     <link rel="stylesheet" href="__PUBLIC__/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/bower_components/messenger/build/css/messenger.css">
+    <link rel="stylesheet" href="__PUBLIC__/bower_components/messenger/build/css/messenger-theme-future.css">
 
   </head>
 
@@ -58,13 +60,15 @@
     </div>
     <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="__PUBLIC__/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="__PUBLIC__/bower_components/messenger/build/js/messenger.min.js"></script>
+    <script src="__PUBLIC__/bower_components/messenger/build/js/messenger-theme-future.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	<script type="text/javascript">
 		//调用微信JS api 支付
 		function jsApiCall()
 		{
             if($('#name').val() == '' || $('#phone').val() == '') {
-                alert('请填写姓名和电话');
+                Messenger().post("请填写姓名和电话");
                 return;
             }
             $.post("{:U('Wechat/Wxpay/createOrder')}", {
@@ -80,7 +84,8 @@
                             {$jsApiParameters},
                             function(res){
                             if(res.err_msg == 'get_brand_wcpay_request:ok') {
-                                window.location.href = "http://www.meirixianguo.com/wechat/wxpay/success";
+                                window.location.href =
+                                "http://www.meirixianguo.com/wechat/wxpay/success/openId/{$openId}";
                             }
                             //alert(res.err_code + res.err_desc+res.err_msg);
                             }
@@ -105,6 +110,10 @@
 			}
 		}
         $(document).ready(function() {
+            Messenger.options = {
+                extraClasses: 'messenger-fixed messenger-on-top',
+                theme: 'future'
+            }
             $('#location').val('{$locationId}');
             wx.config({
                 debug: false,
@@ -118,6 +127,17 @@
                 ]
             });
             wx.ready(function () {
+                wx.checkJsApi({
+                jsApiList: [
+                  'onMenuShareTimeline',
+                  'onMenuShareAppMessage'
+                  ],
+                  success : function(res) {
+                  if(res.checkResult.onMenuShareTimeline == false ||
+                      res.checkResult.onMenuShareAppMessage == false)
+                      alert('请升级微信版本');
+                  }
+                });
               var shareData = {
                   title: '果大侠-办公室水果第一品牌',
                   desc: '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。',
@@ -130,7 +150,7 @@
                         openId : "{$openId}",
                         voucherId : 1
                         }, function(result) {
-                            alert(result.message);
+                            Messenger().post(result.message);
                             if(result.success == true) {
                                 window.location.href =
                                 "http://www.meirixianguo.com/wechat/wxpay/order";

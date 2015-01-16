@@ -40,7 +40,7 @@ class WxpayController extends Controller {
             } else {
                 $this->assign('money', ($money / 100).'元');
             }
-            $pay->setParameter("total_fee","$money");
+            $pay->setParameter("total_fee","1");
 
             // 获得支付ID
             $pay->getPrepayId();
@@ -113,7 +113,7 @@ class WxpayController extends Controller {
                     /* $weObj->sendCustomMessage($message); */
                     $message['touser'] = $order['openId'];
                     $message['template_id'] = 'gEdLfypbMwa-c3mLb2-aCxOFMz9OGI-565k718QGt0c';
-                    $message['url'] = 'www.baidu.com';
+                    $message['url'] = 'http://mp.weixin.qq.com/s?__biz=MzAwODAzMTAwMg==&mid=200805974&idx=1&sn=36f55c2d0a9a9051bba2065f3ec4ce4b#rd';
                     $message['topcolor'] = '#00FF00';
                     $message['data']['first'] = array('value' => '您好，欢迎购买果大侠产品。', 'color' => '#000000');
                     $message['data']['product'] = array('value' => '果大侠整果', 'color' => '#000000');
@@ -131,7 +131,12 @@ class WxpayController extends Controller {
         echo $returnXml;
     }
 
-    public function success() {
+    public function success($openId) {
+        // 支持JSSDK的验证签名
+        $jssdk = new \Org\Wechat\JSSDK(C('WECHAT.appid'), C('WECHAT.appsecret'));
+        $signPackage = $jssdk->GetSignPackage();
+        $this->assign('signPackage', $signPackage);
+        $this->assign('openId', $openId);
         $this->display();
     }
 
@@ -176,7 +181,19 @@ class WxpayController extends Controller {
                 $data['voucherId'] = $voucherId;
                 $data['valid'] = 1;
                 $data['ctime'] = time();
-                M('UserVoucher')->data($data)->add();
+                $id = M('UserVoucher')->data($data)->add();
+                $weObj = new \Org\Wechat\Wechat(C('WECHAT'));
+                $message['touser'] = $openId;
+                $message['template_id'] = 'ftB_fcU7tcQkx5he06K51e_DnB3ue_jrHF-pXywR-lw';
+                $message['url'] = 'http://mp.weixin.qq.com/s?__biz=MzAwODAzMTAwMg==&mid=200805974&idx=1&sn=36f55c2d0a9a9051bba2065f3ec4ce4b#rd';
+                $message['topcolor'] = '#00FF00';
+                $message['data']['first'] = array('value' => '您好，你已获得果大侠代金券一张！', 'color' => '#000000');
+                $message['data']['keyword1'] = array('value' => '果大侠代金券', 'color' => '#000000');
+                $message['data']['keyword2'] = array('value' => 100000 + $id, 'color' => '#000000');
+                $message['data']['keyword3'] = array('value' => date('Y-m-d'), 'color' => '#000000');
+                $message['data']['keyword4'] = array('value' => '永久', 'color' => '#000000');
+                $message['data']['remark'] = array('value' => '代金券在购买果大侠产品时自动减免相应金额，果大侠具有永久解释权', 'color' => '#000000');
+                $weObj->sendTemplateMessage($message);
                 $result['success'] = true;
                 $result['message'] = $voucher['description'];
                 $this->ajaxReturn($result);
