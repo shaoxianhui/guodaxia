@@ -36,11 +36,11 @@ class WxpayController extends Controller {
                 if($money <= 0) {
                     $money = 1;
                 }
-                $this->assign('money', ($money / 100).'元(使用了一张代金券)');
+                $this->assign('money', ($money / 100).'元(使用了一张5元代金券)');
             } else {
                 $this->assign('money', ($money / 100).'元');
             }
-            $pay->setParameter("total_fee","1");
+            $pay->setParameter("total_fee","$money");
 
             // 获得支付ID
             $pay->getPrepayId();
