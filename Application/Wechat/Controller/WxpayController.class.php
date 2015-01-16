@@ -50,6 +50,7 @@ class WxpayController extends Controller {
             $this->assign('jsApiParameters', $jsApiParameters);
 
             // 查找用户手机号，名字，地点
+            $this->assign("locationId", 1);
             $map['openId'] = $openId;
             $order = M('UserOrder')->where($map)->order('ctime desc')->find();
             if($order != null) {
