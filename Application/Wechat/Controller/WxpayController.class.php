@@ -121,10 +121,24 @@ class WxpayController extends Controller {
                     $message['data']['time'] = array('value' => $order['cdate'], 'color' => '#000000');
                     $message['data']['remark'] = array('value' => '记得及时取回水果', 'color' => '#000000');
                     $weObj->sendTemplateMessage($message);
-                }
-                // 销毁代金券
-                if(isset($data['attach'])) {
-                    M('UserVoucher')->where('id='.$data['attach'])->setField('valid', 0);
+
+                    // 销毁代金券
+                    if(isset($data['attach'])) {
+                        M('UserVoucher')->where('id='.$data['attach'])->setField('valid', 0);
+                        unset($message);
+                        $message['touser'] = $order['openId'];
+                        $message['template_id'] = '2W160vGYDJmucz17GtSs-wTTXnXghpmGQCmx5RCTCgI';
+                        $message['url'] = 'http://mp.weixin.qq.com/s?__biz=MzAwODAzMTAwMg==&mid=200805974&idx=1&sn=36f55c2d0a9a9051bba2065f3ec4ce4b#rd';
+                        $message['topcolor'] = '#00FF00';
+                        $message['data']['first'] = array('value' => '您好，你使用了一张果大侠代金券！', 'color' => '#000000');
+                        $message['data']['keyword1'] = array('value' => 100000 + $order['id'], 'color' => '#000000');
+                        $message['data']['keyword2'] = array('value' => ($data['total_fee'] / 100).'元', 'color' => '#000000');
+                        $message['data']['keyword3'] = array('value' => '果大侠代金券', 'color' => '#000000');
+                        $message['data']['keyword4'] = array('value' => 100000 + $data['attach'], 'color' => '#000000');
+                        $message['data']['keyword5'] = array('value' => date('Y-m-d'), 'color' => '#000000');
+                        $message['data']['remark'] = array('value' => '代金券在购买果大侠产品时自动减免相应金额，果大侠具有永久解释权', 'color' => '#000000');
+                        $weObj->sendTemplateMessage($message);
+                    }
                 }
             }
         }
