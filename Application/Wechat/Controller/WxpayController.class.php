@@ -109,13 +109,13 @@ class WxpayController extends Controller {
                     /* $weObj->sendCustomMessage($message); */
                     $message['touser'] = $order['openId'];
                     $message['template_id'] = 'gEdLfypbMwa-c3mLb2-aCxOFMz9OGI-565k718QGt0c';
-                    $message['url'] = 'http://mp.weixin.qq.com/s?__biz=MzAwODAzMTAwMg==&mid=200805974&idx=1&sn=36f55c2d0a9a9051bba2065f3ec4ce4b#rd';
+                    $message['url'] = 'http://www.meirixianguo.com/wechat/wxpay/order?showwxpaytitle=1';
                     $message['topcolor'] = '#00FF00';
-                    $message['data']['first'] = array('value' => '您好，欢迎购买果大侠产品。', 'color' => '#000000');
+                    $message['data']['first'] = array('value' => '您已成功预定果大侠产品', 'color' => '#000000');
                     $message['data']['product'] = array('value' => '果大侠整果', 'color' => '#000000');
                     $message['data']['price'] = array('value' => ($order['payment'] / 100).'元', 'color' => '#000000');
                     $message['data']['time'] = array('value' => $order['cdate'], 'color' => '#000000');
-                    $message['data']['remark'] = array('value' => '记得及时取回水果', 'color' => '#000000');
+                    $message['data']['remark'] = array('value' => '记得在下个工作日及时取回水果哦，还能分享给好友，一起开启健康生活！', 'color' => '#000000');
                     $weObj->sendTemplateMessage($message);
 
                     // 销毁代金券
@@ -124,15 +124,15 @@ class WxpayController extends Controller {
                         unset($message);
                         $message['touser'] = $order['openId'];
                         $message['template_id'] = '2W160vGYDJmucz17GtSs-wTTXnXghpmGQCmx5RCTCgI';
-                        $message['url'] = 'http://mp.weixin.qq.com/s?__biz=MzAwODAzMTAwMg==&mid=200805974&idx=1&sn=36f55c2d0a9a9051bba2065f3ec4ce4b#rd';
+                        $message['url'] = 'http://www.meirixianguo.com/wechat/wxpay/order?showwxpaytitle=1';
                         $message['topcolor'] = '#00FF00';
-                        $message['data']['first'] = array('value' => '您好，你使用了一张果大侠代金券！', 'color' => '#000000');
+                        $message['data']['first'] = array('value' => '您已经成功消费了一个果大侠代金券！', 'color' => '#000000');
                         $message['data']['keyword1'] = array('value' => 100000 + $order['id'], 'color' => '#000000');
                         $message['data']['keyword2'] = array('value' => ($data['total_fee'] / 100).'元', 'color' => '#000000');
-                        $message['data']['keyword3'] = array('value' => '果大侠代金券', 'color' => '#000000');
+                        $message['data']['keyword3'] = array('value' => '果大侠4.89元代金券', 'color' => '#000000');
                         $message['data']['keyword4'] = array('value' => 100000 + $data['attach'], 'color' => '#000000');
                         $message['data']['keyword5'] = array('value' => date('Y-m-d'), 'color' => '#000000');
-                        $message['data']['remark'] = array('value' => '代金券在购买果大侠产品时自动减免相应金额，果大侠具有永久解释权', 'color' => '#000000');
+                        $message['data']['remark'] = array('value' => '急需预定水果，还能分享给好友，一起开启健康生活！', 'color' => '#000000');
                         $weObj->sendTemplateMessage($message);
                     }
                 }
@@ -195,14 +195,14 @@ class WxpayController extends Controller {
                 $weObj = new \Org\Wechat\Wechat(C('WECHAT'));
                 $message['touser'] = $openId;
                 $message['template_id'] = 'ftB_fcU7tcQkx5he06K51e_DnB3ue_jrHF-pXywR-lw';
-                $message['url'] = 'http://mp.weixin.qq.com/s?__biz=MzAwODAzMTAwMg==&mid=200805974&idx=1&sn=36f55c2d0a9a9051bba2065f3ec4ce4b#rd';
+                $message['url'] = 'http://www.meirixianguo.com/wechat/wxpay/order?showwxpaytitle=1';
                 $message['topcolor'] = '#00FF00';
-                $message['data']['first'] = array('value' => '您好，你已获得果大侠代金券一张！', 'color' => '#000000');
-                $message['data']['keyword1'] = array('value' => '果大侠代金券', 'color' => '#000000');
+                $message['data']['first'] = array('value' => '您已经成功领取了一个果大侠代金券', 'color' => '#000000');
+                $message['data']['keyword1'] = array('value' => '果大侠代金券-金额4.89元', 'color' => '#000000');
                 $message['data']['keyword2'] = array('value' => 100000 + $id, 'color' => '#000000');
                 $message['data']['keyword3'] = array('value' => date('Y-m-d'), 'color' => '#000000');
                 $message['data']['keyword4'] = array('value' => '永久', 'color' => '#000000');
-                $message['data']['remark'] = array('value' => '代金券在购买果大侠产品时自动减免相应金额，果大侠具有永久解释权', 'color' => '#000000');
+                $message['data']['remark'] = array('value' => '现在就去定水果，还能分享给好友，一起开启健康生活！', 'color' => '#000000');
                 $weObj->sendTemplateMessage($message);
                 $result['success'] = true;
                 $result['message'] = $voucher['description'];

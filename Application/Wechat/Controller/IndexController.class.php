@@ -22,7 +22,7 @@ class IndexController extends Controller {
                 $message = D('Text')->getText(9);
                 $this->weObj->text($message)->reply();
             } else {
-                $this->weObj->text(D('Text')->getText(1))->reply();
+                //$this->weObj->text(D('Text')->getText(1))->reply();
             }
             break;
         case \Org\Wechat\Wechat::MSGTYPE_EVENT:
@@ -41,9 +41,9 @@ class IndexController extends Controller {
                         $this->weObj->text(D('Text')->getText(13))->reply();
                     }
                     if($add_or_update) {
-                        $this->weObj->text(D('Text')->getText(1))->reply();
+                        $this->weObj->text(D('Text')->getText(13))->reply();
                     } else {
-                        $this->weObj->text(D('Text')->getText(2))->reply();
+                        $this->weObj->text(D('Text')->getText(13))->reply();
                     }
                     break;
                 case 'unsubscribe':
@@ -70,7 +70,7 @@ class IndexController extends Controller {
                         /* } */
                         $this->weObj->text(D('Text')->getText(13))->reply();
                     } else {
-                        $this->weObj->text(D('Text')->getText(4))->reply();
+                        $this->weObj->text(D('Text')->getText(13))->reply();
                     }
                     break;
                 case 'click':
@@ -81,6 +81,10 @@ class IndexController extends Controller {
                         break;
                     case 'MENU_KEY_COMPANY':
                         $news = D('News')->getNews(array(2));
+                        $this->weObj->news($news)->reply();
+                        break;
+                    case 'MENU_KEY_INSTRUCTION':
+                        $news = D('News')->getNews(array(4));
                         $this->weObj->news($news)->reply();
                         break;
                     case 'MENU_KEY_ORDER':
