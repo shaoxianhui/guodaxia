@@ -21,17 +21,11 @@
   <body role="document">
     <div class="container-fluid theme-showcase" role="main">
 		<div class="row text-center">
-			<div class="panel panel-success">
+			<div class="panel panel-default">
 				<div class="panel-heading">本周水果安排</div>
-				<div class="panel-body">
-                    周一：苹果</br>
-                    周二：橘子</br>
-                    周三：香蕉</br>
-                    周四：葡萄</br>
-                    周五：神秘水果</br>
-				</div>
+                <img style="height:auto;max-width:100%" src="__PUBLIC__/Wechat/images/fruit_menu1/{:date('w')}.png" />
 			</div>
-			<div class="panel panel-success">
+			<div class="panel panel-default">
 				<div class="panel-heading">选择取货地点</div>
 				<div class="panel-body">
 				   <select id="location" class="form-control">
@@ -41,21 +35,22 @@
 					</select>
 				</div>
 			</div>
-			<div class="panel panel-success">
+			<div class="panel panel-default">
 				<div class="panel-heading">个人信息</div>
 				<div class="panel-body">
 					<input id="name" type="text" class="form-control" style="margin:0px 0px 10px 0px" value="{$name|default=""}" placeholder="姓名">
                     <input id="phone" type="text" class="form-control" value="{$phone|default=""}" placeholder="手机号">
 				</div>
 			</div>
-			<div class="panel panel-success">
+			<div class="panel panel-default">
 				<div class="panel-heading">订单金额</div>
 				<div class="panel-body">
-                    {$money}
+                    订单金额：￥<font size="6" color="#4FA74F"><strong>{$money}</strong></font>元<font color="#FF8831">{$info}</font>
 				</div>
 			</div>
-			<button type="button" class="btn btn-success btn-lg btn-block"
-                onclick="callpay()">付款</button>
+            <div style="margin:10px 10px 10px 10px">
+                <button type="button" class="btn btn-success btn-lg btn-block" onclick="callpay()">提交订单</button>
+			</div>
 		</div>
     </div>
     <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
@@ -115,58 +110,6 @@
                 theme: 'future'
             }
             $('#location').val('{$locationId}');
-            wx.config({
-                debug: false,
-                appId: '{$signPackage.appId}',
-                timestamp: {$signPackage.timestamp},
-                nonceStr:  '{$signPackage.nonceStr}',
-                signature: '{$signPackage.signature}',
-                jsApiList: [
-                  'onMenuShareTimeline',
-                  'onMenuShareAppMessage'
-                ]
-            });
-            wx.ready(function () {
-                wx.checkJsApi({
-                jsApiList: [
-                  'onMenuShareTimeline',
-                  'onMenuShareAppMessage'
-                  ],
-                  success : function(res) {
-                  if(res.checkResult.onMenuShareTimeline == false ||
-                      res.checkResult.onMenuShareAppMessage == false)
-                      alert('请升级微信版本');
-                  }
-                });
-              var shareData = {
-                  title: '果大侠-办公室水果第一品牌',
-                  desc: '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。',
-                  link: 'http://mp.weixin.qq.com/s?__biz=MzAwODAzMTAwMg==&mid=200805974&idx=1&sn=36f55c2d0a9a9051bba2065f3ec4ce4b#rd',
-                  imgUrl: 'http://www.meirixianguo.com/Public/Wechat/images/logo_left.png',
-                  trigger: function (res) {
-                  },
-                  success: function (res) {
-                    $.post("{:U('Wechat/Wxpay/getVoucher')}", {
-                        openId : "{$openId}",
-                        voucherId : 1
-                        }, function(result) {
-                            Messenger().post(result.message);
-                            if(result.success == true) {
-                                window.location.href =
-                                "http://www.meirixianguo.com/wechat/wxpay/order";
-                            }
-                    });
-                  },
-                  cancel: function (res) {
-                  },
-                  fail: function (res) {
-                  }
-              };
-              wx.onMenuShareAppMessage(shareData);
-              wx.onMenuShareTimeline(shareData);
-              //wx.onMenuShareQQ(shareData);
-              //wx.onMenuShareWeibo(shareData);
-          });
         });
 	</script>
   </body>

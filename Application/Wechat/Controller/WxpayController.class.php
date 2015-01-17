@@ -22,8 +22,8 @@ class WxpayController extends Controller {
             $pay->setParameter("trade_type","JSAPI");
 
             // 计算价格
-            $moneys = array(25, 20, 15, 10, 5, 25, 25);
-            $money = $moneys[date('w')] * 100;
+            $moneys = array(5, 4, 3, 2, 1, 5, 5);
+            $money = $moneys[date('w')] * 4.9 * 100;
 
             // 查找代金券
             $where['openId'] = $openId;
@@ -36,11 +36,12 @@ class WxpayController extends Controller {
                 if($money <= 0) {
                     $money = 1;
                 }
-                $this->assign('money', ($money / 100).'元(使用了一张5元代金券)');
+                $this->assign('info', '（使用了一张代金券）');
             } else {
-                $this->assign('money', ($money / 100).'元');
+                $this->assign('info', '');
             }
             $pay->setParameter("total_fee","$money");
+            $this->assign('money', ($money / 100));
 
             // 获得支付ID
             $pay->getPrepayId();
@@ -73,11 +74,6 @@ class WxpayController extends Controller {
             // 填充地点信息
             $locations = M('Location')->where('valid=1')->select();
             $this->assign('locations', $locations);
-
-            // 支持JSSDK的验证签名
-            $jssdk = new \Org\Wechat\JSSDK(C('WECHAT.appid'), C('WECHAT.appsecret'));
-            $signPackage = $jssdk->GetSignPackage();
-            $this->assign('signPackage', $signPackage);
 
             $this->display();
 		}
