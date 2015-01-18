@@ -40,7 +40,7 @@ class WxpayController extends Controller {
             } else {
                 $this->assign('info', '');
             }
-            $pay->setParameter("total_fee","1");
+            $pay->setParameter("total_fee","$money");
             $this->assign('money', ($money / 100));
 
             // 获得支付ID
