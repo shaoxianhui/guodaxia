@@ -24,6 +24,7 @@ class WxpayController extends Controller {
             // 计算价格
             $moneys = array(5, 4, 3, 2, 1, 5, 5);
             $money = $moneys[date('w')] * 4.9 * 100;
+            $this->assign('money', ($money / 100));
 
             // 查找代金券
             $where['openId'] = $openId;
@@ -41,7 +42,6 @@ class WxpayController extends Controller {
                 $this->assign('info', '');
             }
             $pay->setParameter("total_fee","$money");
-            $this->assign('money', ($money / 100));
 
             // 获得支付ID
             $pay->getPrepayId();
@@ -67,6 +67,7 @@ class WxpayController extends Controller {
                         $this->assign("locationId", $location['id']);
                     }
                 }
+                $this->assign('info', '（首次下单立减4.89元）');
             }
             $this->assign('openId', $openId);
             $this->assign('trade', $out_trade_no);
