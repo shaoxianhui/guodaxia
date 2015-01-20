@@ -53,6 +53,7 @@ class WxpayController extends Controller {
             // 查找用户手机号，名字，地点
             $this->assign("locationId", 1);
             $map['openId'] = $openId;
+            $map['payment'] = array('neq', 0);
             $order = M('UserOrder')->where($map)->order('ctime desc')->find();
             if($order != null) {
                 $this->assign("name", $order['name']);
