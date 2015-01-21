@@ -37,7 +37,7 @@ class WxpayController extends Controller {
                 if($money <= 0) {
                     $money = 1;
                 }
-                $this->assign('info', '（使用了一张代金券）');
+                $this->assign('info', '（代金券立减4.89元）');
             } else {
                 $this->assign('info', '');
             }
