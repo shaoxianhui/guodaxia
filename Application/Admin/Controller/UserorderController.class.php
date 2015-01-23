@@ -9,7 +9,7 @@ class UserorderController extends Controller {
         $column = $order[0]['column'];
         $order_name = $columns[$column]['data'];
         $dir = $order[0]['dir'];
-        $orders = D('Wechat/UserOrderItem')->getUserOrderItem($date, $locationId);
+        $orders = D('Wechat/UserOrderItem')->getUserOrderItem($date, $locationId, $start, $length);
         $data['draw'] = $draw;
         $data['recordsTotal'] = D('Wechat/UserOrderItem')->getCount($date, $locationId);
         $data['recordsFiltered'] = $data['recordsTotal'];
