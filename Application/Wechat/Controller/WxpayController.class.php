@@ -109,6 +109,7 @@ class WxpayController extends Controller {
                     /* $message['msgtype'] = 'text'; */
                     /* $message['text'] = array('content' => "您已预定水果成功"); */
                     /* $weObj->sendCustomMessage($message); */
+                    $location = M('Location')->find($order['locationId']);
                     $message['touser'] = $order['openId'];
                     $message['template_id'] = 'gEdLfypbMwa-c3mLb2-aCxOFMz9OGI-565k718QGt0c';
                     $message['url'] = 'http://www.meirixianguo.com/wechat/wxpay/order?showwxpaytitle=1';
@@ -117,7 +118,7 @@ class WxpayController extends Controller {
                     $message['data']['product'] = array('value' => '果大侠整果', 'color' => '#000000');
                     $message['data']['price'] = array('value' => ($order['payment'] / 100).'元', 'color' => '#000000');
                     $message['data']['time'] = array('value' => $order['cdate'], 'color' => '#000000');
-                    $message['data']['remark'] = array('value' => urlencode('\\n记得在下个工作日及时取回水果哦，还能分享给好友，一起开启健康生活！'), 'color' => '#FF8715');
+                    $message['data']['remark'] = array('value' => urlencode('\\n记得在下个工作日及时取回水果哦，还能分享给好友，一起开启健康生活！\\n取货地点：'.$location['name']), 'color' => '#FF8715');
                     $weObj->sendTemplateMessage($message);
 
                     // 销毁代金券
@@ -143,7 +144,7 @@ class WxpayController extends Controller {
         echo $returnXml;
     }
 
-    public function success($openId) {
+    public function successPay($openId) {
         // 支持JSSDK的验证签名
         $jssdk = new \Org\Wechat\JSSDK(C('WECHAT.appid'), C('WECHAT.appsecret'));
         $signPackage = $jssdk->GetSignPackage();
