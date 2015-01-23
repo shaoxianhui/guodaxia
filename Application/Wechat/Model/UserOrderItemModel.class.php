@@ -25,12 +25,13 @@ class UserOrderItemModel extends RelationModel {
     /*     return $this->where($where)->count(); */
     /* } */
 
-    public function getUserOrderItem($paydate = null, $locationId = 1) {
+    public function getUserOrderItem($paydate = null, $locationId = 1, $start, $length) {
+        $page = $start / $length + 1;
         if($paydate == null)
             $paydate = date('Y-m-d');
         $where['paydate'] = $paydate;
         $where['locationId'] = $locationId;
-        $items = $this->relation(true)->where($where)->select();
+        $items = $this->relation(true)->where($where)->page($page.','.$length)->select();
         if($items == null)
             $items = array();
         return $items;
