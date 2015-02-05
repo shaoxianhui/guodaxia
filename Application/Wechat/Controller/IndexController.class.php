@@ -187,11 +187,9 @@ class IndexController extends Controller {
     }
 
     public function test($openId = 'oGulKs0s3IAdDEF9sd0Nki7MoYp8') {
-        dump(D('UserOrderItem')->relation(true)->find(1));
-        dump(D('UserOrder')->relation(true)->find(4));
         //D('Prizer')->convert();
-        /* dump($this->weObj->getGroup()); */
         /* @\Common\Library\PhpQrCode\TQrCode::png('http://www.meirixianguo.com', false, 'H', 20); */
+        @\Common\Library\Weimi\WeimiSMS::sendSMS('18045473092', '【微米】尊敬的用户，您的手机验证码是：fgrwah，3分钟内有效。请不要把此验证码泄露给任何人，以便您能安全使用。');
     }
 
     public function OAuth() {
