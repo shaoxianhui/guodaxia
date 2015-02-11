@@ -41,7 +41,7 @@ class WeimiSMS{
         最终发送内容：
         【微米】您的验证码是：610912，3分钟内有效。如非您本人操作，可忽略本消息。
     */
-    public static function sendTemplateSMS($phone, $cid, $ps) {
+    public static function sendTemplateSMS($phones, $cid, $ps) {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "http://api.weimi.cc/2/sms/send.html");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
@@ -49,7 +49,6 @@ class WeimiSMS{
         $ps_str = '';
         foreach($ps as $key => $value) {
             $ps_str .= "&$key=$value"; 
-
         }
         curl_setopt($ch, CURLOPT_POSTFIELDS, 'uid='.self::$uid.'&pas='.self::$uidpass."&mob=$phones&cid=$cid$ps_str&type=json");
         $res = curl_exec( $ch );
