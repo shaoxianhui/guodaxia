@@ -23,7 +23,8 @@ class WxpayController extends Controller {
 
             // 计算价格
             $moneys = array(5, 4, 3, 2, 1, 5, 5);
-            $money = $moneys[date('w')] * 4.9 * 100;
+            $money_n = $moneys[date('w')];
+            $money = $money_n * 4.9 * 100;
             $this->assign('money', ($money / 100));
 
             // 查找代金券
@@ -76,6 +77,13 @@ class WxpayController extends Controller {
             // 填充地点信息
             $locations = M('Location')->where('valid=1')->select();
             $this->assign('locations', $locations);
+
+            // 填充本周或者下周
+            if($money_n == 5) {
+                $this->assign('current_or_next', '下周');
+            } else {
+                $this->assign('current_or_next', '本周');
+            }
 
             $this->display();
 		}
