@@ -17,8 +17,9 @@ class UserOrderModel extends RelationModel {
         $start = array(1, 1, 1, 1, 1, 3, 2);
         $count = array(5, 4, 3, 2, 1, 5, 5);
         $data = array();
-        for($c = 0; $c < $count[date('w')]; $c++) {
-            $para = '+'.($start[date('w')] + $c).' day';
+        $week = date('w', strtotime($userOrder['cdate']));
+        for($c = 0; $c < $count[$week]; $c++) {
+            $para = $userOrder['cdate'].' +'.($start[$week] + $c).' day';
             $item['orderId'] = $userOrder['id'];
             $item['paydate'] = date('Y-m-d', strtotime($para));
             $item['locationId'] = $userOrder['locationId'];

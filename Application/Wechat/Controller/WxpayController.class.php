@@ -23,7 +23,10 @@ class WxpayController extends Controller {
 
             // 计算价格
             $moneys = array(5, 4, 3, 2, 1, 5, 5);
-            $money_n = $moneys[date('w')];
+            /* $money_n = $moneys[date('w')]; */
+            $week = date('w');
+            $this->assign('week', $week);
+            $money_n = $moneys[$week];
             $money = $money_n * 4.9 * 100;
             $this->assign('money', ($money / 100));
 
@@ -42,7 +45,7 @@ class WxpayController extends Controller {
             } else {
                 $this->assign('info', '');
             }
-            $pay->setParameter("total_fee","$money");
+            $pay->setParameter("total_fee",$money);
 
             // 获得支付ID
             $pay->getPrepayId();
