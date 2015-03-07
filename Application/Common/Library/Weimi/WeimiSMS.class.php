@@ -67,4 +67,25 @@ class WeimiSMS{
         echo($res);
     }
 
+    public static function sendNotifySMS($locationId) {
+        $location = M('Location')->find($locationId);
+        if($location != null) {
+            $where['paydate'] = date('Y-m-d');
+            $where['locationId'] = $locationId;
+            $orders = D('UserOrderItem')->relation(true)->where($where)->select();
+            $phones = array();
+            foreach($orders as $order) {
+                if(preg_match("/1[3458]{1}\d{9}$/", $order['order']['phone'])) {
+                    array_push($phones, $order['order']['phone']);
+                }
+            }
+            if(!empty($phones)) {
+                self::sendTemplateSMS(implode(',', array_unique($phones)), 'vRR3M7qfxSmE', array('p1' => $location['name'], 'p2' => $location['paytime']));
+                return $location['name']." 通知短信发送成功，发送个数：".count($phones);
+            } else {
+                return $location['name']." 通知短信发送失败，发送个数：".count($phones);
+            }
+        }
+        return "通知短信地址错误！";
+    }
 }
