@@ -45,7 +45,7 @@ class WxpayController extends Controller {
             } else {
                 $this->assign('info', '');
             }
-            $pay->setParameter("total_fee",$money);
+            $pay->setParameter("total_fee",floor($money));
 
             // 获得支付ID
             $pay->getPrepayId();
@@ -95,7 +95,6 @@ class WxpayController extends Controller {
     public function notify() {
 		$notify = new \Org\Wechat\WxPay();
         $xml = $GLOBALS['HTTP_RAW_POST_DATA'];	
-        Log::write($xml, Log::INFO);
         $notify->saveData($xml);
         
         if($notify->checkSign() == FALSE){
@@ -111,7 +110,7 @@ class WxpayController extends Controller {
                 // 确认收款
                 $map['trade'] = $data['out_trade_no'];
                 $order = M('UserOrder')->where($map)->find();
-                if($order != null) {
+                if($order != null && $order['payment'] == 0) {
                     $order['payment'] = $data['total_fee'];
                     M('UserOrder')->save($order);
                     D('UserOrder')->createOrderItem($order);
