@@ -48,6 +48,26 @@ class SmsController extends Controller {
                         $result = @\Common\Library\Weimi\WeimiSMS::sendNotifySMS(3);
                         $this->weObj->text($result)->reply();
                         break;
+                    case 'SMS_QP6':
+                        $result = @\Common\Library\Weimi\WeimiSMS::sendNotifySMS(4);
+                        $this->weObj->text($result)->reply();
+                        break;
+                    case 'SMS_JS450':
+                        $result = @\Common\Library\Weimi\WeimiSMS::sendNotifySMS(5);
+                        $this->weObj->text($result)->reply();
+                        break;
+                    case 'SMS_HY':
+                        $result = @\Common\Library\Weimi\WeimiSMS::sendNotifySMS(6);
+                        $this->weObj->text($result)->reply();
+                        break;
+                    case 'SMS_SZSM10':
+                        $result = @\Common\Library\Weimi\WeimiSMS::sendNotifySMS(7);
+                        $this->weObj->text($result)->reply();
+                        break;
+                    case 'SMS_SZSM16':
+                        $result = @\Common\Library\Weimi\WeimiSMS::sendNotifySMS(8);
+                        $this->weObj->text($result)->reply();
+                        break;
                     case 'SMS_YX':
                         $this->weObj->text('hello YX!')->reply();
                         break;

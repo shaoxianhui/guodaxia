@@ -4,8 +4,7 @@ use Think\Controller;
 use Think\Log;
 class PrizeController extends Controller {
     private $weObj;
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $options = array(
             'token'=>'meirixianguo',

@@ -91,7 +91,7 @@ class IndexController extends Controller {
                         $this->weObj->text(D('Text')->getText(11))->reply();
                         break;
                     case 'MENU_KEY_PRIZE':
-                        $news = D('News')->getNews(array(3));
+                        $news = D('News')->getNews(array(5));
                         $this->weObj->news($news)->reply();
                         break;
                     case 'MENU_KEY_SERVICE':
@@ -189,10 +189,16 @@ class IndexController extends Controller {
     public function test($openId = 'oGulKs0s3IAdDEF9sd0Nki7MoYp8') {
         //D('Prizer')->convert();
         /* @\Common\Library\PhpQrCode\TQrCode::png('http://www.meirixianguo.com', false, 'H', 20); */
-        @\Common\Library\Weimi\WeimiSMS::sendSMS('18045473092', '【微米】尊敬的用户，您的手机验证码是：fgrwah，3分钟内有效。请不要把此验证码泄露给任何人，以便您能安全使用。');
+        /* $count = @\Common\Library\Weimi\WeimiSMS::sendNotifySMS(1); */
+        /* echo $count; */
+        /* echo date('w', strtotime('2015-1-2 +1 day')); */
     }
 
-    public function OAuth() {
+    public function OAuth($code = null) {
+        if($code == null) {
+            $url = $this->weObj->getOauthRedirect("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", '', 'snsapi_base');
+            Header("Location: $url");
+        }
         $access_token = $this->weObj->getOauthAccessToken();
         if($access_token) {
             dump($access_token);

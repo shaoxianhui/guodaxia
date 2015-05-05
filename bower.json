@@ -39,6 +39,7 @@
     "datatables-plugins": "~1.0.1",
     "SideBySideImproved": "https://github.com/pkoltermann/SideBySideImproved.git",
     "jquery-ui": "~1.11.2",
-    "twitter-bootstrap-wizard": "~1.0.0"
+    "twitter-bootstrap-wizard": "~1.0.0",
+    "lightbox": "~2.7.1"
   }
 }

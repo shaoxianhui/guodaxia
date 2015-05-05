@@ -23,6 +23,7 @@
 		<div class="row text-center">
 			<div class="panel panel-default">
                 <div class="panel-heading">{$current_or_next}水果安排<font size="2" color="#4FA74F"><strong>（买一送一，火爆促销中）</strong></font></div>
+                            {$jsApiParameters}
                 <img style="height:auto;max-width:100%" src="__PUBLIC__/Wechat/images/fruit_menu3/{$week}.png" />
 			</div>
 			<div class="panel panel-default">
@@ -82,6 +83,12 @@
                                 window.location.href =
                                 "http://www.meirixianguo.com/wechat/wxpay/successpay/openId/{$openId}";
                             }
+                            var o ={$jsApiParameters};
+                            var out = ''; for (var p in o) { if (!o.hasOwnProperty(p)) out += '(inherited) '; out += p + ': ' + o[p] + '\r\n'; }
+                            alert(out);
+
+
+
                             }
                         );
                     } else {

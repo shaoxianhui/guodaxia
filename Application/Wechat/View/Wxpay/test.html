@@ -22,11 +22,14 @@
     <div class="container-fluid theme-showcase" role="main">
 		<div class="row text-center">
 			<div class="panel panel-default">
-                <div class="panel-heading">{$current_or_next}水果安排<font size="2" color="#4FA74F"><strong>（买一送一，火爆促销中）</strong></font></div>
-                <img style="height:auto;max-width:100%" src="__PUBLIC__/Wechat/images/fruit_menu3/{$week}.png" />
+                <div class="panel-heading">本周水果安排<font size="2"
+                        color="#4FA74F"><strong>（买一送一，火爆促销中）</strong></font></div>
+				<div class="panel-body">
+                    <img style="height:auto;max-width:100%" src="__PUBLIC__/Wechat/images/fruit_menu1/1.png" />
+				</div>
 			</div>
 			<div class="panel panel-default">
-                <div class="panel-heading">选择取货地点<small>(配送仅限于以下地址)</small></div>
+				<div class="panel-heading">选择取货地点</div>
 				<div class="panel-body">
 				   <select id="location" class="form-control">
                        <volist name="locations" id="location">
@@ -45,12 +48,12 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">订单金额</div>
 				<div class="panel-body">
-                    订单金额：￥<font size="6" color="#4FA74F"><strong>{$money}</strong></font>元<font color="#FF8831">{$info}</font>
+                    订单金额：￥<font size="6" color="#4FA74F"><strong>299.00</strong></font>元<font color="#FF8831">（使用了一张代金券）</font>
 				</div>
 			</div>
             <div style="margin:10px 10px 10px 10px">
                 <button type="button" class="btn btn-success btn-lg btn-block" onclick="callpay()">提交订单</button>
-			</div>
+            </div>
 		</div>
     </div>
     <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
@@ -80,8 +83,9 @@
                             function(res){
                             if(res.err_msg == 'get_brand_wcpay_request:ok') {
                                 window.location.href =
-                                "http://www.meirixianguo.com/wechat/wxpay/successpay/openId/{$openId}";
+                                "http://www.meirixianguo.com/wechat/wxpay/success/openId/{$openId}";
                             }
+                            //alert(res.err_code + res.err_desc+res.err_msg);
                             }
                         );
                     } else {
