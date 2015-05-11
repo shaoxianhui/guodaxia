@@ -42,7 +42,12 @@
                                 <div class="swiper-slide">
                                     <div class="pages_container">
                                         <div class="menu">
-                                            {:dump($ca)}
+                                            <volist name="ps" id="weekps">
+                                                {$key} </br>
+                                                <volist name="weekps" id="ps">
+                                                    {$ps.name} </br>
+                                                </volist>
+                                            </volist>
                                         </div>
                                     </div>
                                 </div>

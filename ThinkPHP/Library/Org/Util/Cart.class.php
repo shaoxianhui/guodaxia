@@ -6,7 +6,7 @@ class Cart {
         $this->product = D('Product');
         if(!session('?openId')) {
             session('openId', $openId);
-			session('cart', array('googs_list'=>array(), 'total_num'=>0, 'total_price'=>0.00));
+			session('cart', array('products_list'=>array(), 'total_num'=>0, 'total_price'=>0.00));
         }
 	}
 
@@ -14,12 +14,12 @@ class Cart {
         $p = $this->product->find($product_id);
         if($p !== null) {
             $cart = session('cart');
-            if(!$cart['goods_list'][$p['id']]) {
+            if(!$cart['products_list'][$p['id']]) {
                 $p['count'] = 1;
             } else {
-                $p['count'] = $cart['goods_list'][$p['id']]['count'] + 1;
+                $p['count'] = $cart['products_list'][$p['id']]['count'] + 1;
             }
-            $cart['goods_list'][$p['id']] = $p;
+            $cart['products_list'][$p['id']] = $p;
             $cart['total_price'] = $cart['total_price'] + $p['price'];
             $cart['total_num'] = $cart['total_num'] + 1;
             session('cart', $cart);
@@ -33,9 +33,9 @@ class Cart {
         $p = $this->product->find($product_id);
         if($p !== null) {
             $cart = session('cart');
-            if($cart['goods_list'][$p['id']] && $cart['goods_list'][$p['id']]['count'] > 1) {
-                $p['count'] = $cart['goods_list'][$p['id']]['count'] - 1;
-                $cart['goods_list'][$p['id']] = $p;
+            if($cart['products_list'][$p['id']] && $cart['products_list'][$p['id']]['count'] > 1) {
+                $p['count'] = $cart['products_list'][$p['id']]['count'] - 1;
+                $cart['products_list'][$p['id']] = $p;
                 $cart['total_price'] = $cart['total_price'] - $p['price'];
                 $cart['total_num'] = $cart['total_num'] - 1;
                 session('cart', $cart);
@@ -52,10 +52,10 @@ class Cart {
         $p = $this->product->find($product_id);
         if($p !== null) {
             $cart = session('cart');
-            if($cart['goods_list'][$p['id']]) {
-				$cart['total_price'] = $cart['total_price'] - $cart['goods_list'][$p['id']]['count'] * $p['price'];
-				$cart['total_num'] = $cart['total_num'] - $cart['goods_list'][$p['id']]['count'];
-				unset($cart['goods_list'][$product_id]);
+            if($cart['products_list'][$p['id']]) {
+				$cart['total_price'] = $cart['total_price'] - $cart['products_list'][$p['id']]['count'] * $p['price'];
+				$cart['total_num'] = $cart['total_num'] - $cart['products_list'][$p['id']]['count'];
+				unset($cart['products_list'][$product_id]);
                 session('cart', $cart);
 				return array('state_code' => 0,'state_message' => '商品删除成功!');
 			} else {

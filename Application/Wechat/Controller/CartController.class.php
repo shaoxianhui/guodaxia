@@ -4,24 +4,24 @@ use Think\Controller;
 use Think\Log;
 class CartController extends Controller {
     public function index($code = null) {
-		$pay = new \Org\Wechat\WxPay();
-		if ($code == null) {
-			$url = $pay->createOauthUrlForCode("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
-            Header("Location: $url");
-		} else {
-			$openId = $pay->getOpenId($code);
-            $this->assign('openId', $openId);
+		/* $pay = new \Org\Wechat\WxPay(); */
+		/* if ($code == null) { */
+		/* 	$url = $pay->createOauthUrlForCode("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"); */
+            /* Header("Location: $url"); */
+		/* } else { */
+		/* 	$openId = $pay->getOpenId($code); */
+            /* $this->assign('openId', $openId); */
         $start = array(1, 1, 1, 1, 1, 3, 2);
         $count = array(5, 4, 3, 2, 1, 5, 5);
-        $week = 0;//date('w');
+        $week = date('w');
         $data = array();
         for($c = 0; $c < $count[$week]; $c++) {
             $nextdate  = date('n.d', strtotime("+".($c + $start[$week])." day"));
-            $nextday = $week + $c + $start[$week];
-            $map['week'] = $nextday;
+            $nextweek  = date('w', strtotime("+".($c + $start[$week])." day"));
+            $map['week'] = $nextweek;
             $ps = M('Product')->where($map)->select();
             if($ps !== null) {
-                $data[$nextdate] = array('week' => $nextday, 'ps'=>$ps);
+                $data[$nextdate] = array('week' => $nextweek, 'ps'=>$ps);
             }
         }
 
@@ -29,12 +29,21 @@ class CartController extends Controller {
         $this->assign('weekname', array('周日','周一','周二','周三','周四','周五','周六'));
             $cart = new \Org\Util\Cart($openId);
             $this->display();
-        }
+        /* } */
     }
-    public function debug($openId = null) {
+    public function order_submit($openId = null) {
 		$cart = new \Org\Util\Cart($openId);
         $this->assign('openId', $openId);
-        $this->assign('ca', $cart->get_cart_info());
+        $info = $cart->get_cart_info();
+        $ps = array();
+        foreach($info['products_list'] as $p) {
+            if(!isset($ps[$p['week']]))
+                $ps[$p['week']] = array();
+            array_push($ps[$p['week']], $p);
+        }
+        ksort($ps);
+        $this->assign('ps', $ps);
+        $this->assign('money', $info['total_price']);
         $this->display();
     }
     public function add($openId = null, $product_id = null) {
@@ -43,12 +52,12 @@ class CartController extends Controller {
     }
     public function dec($openId = null, $product_id = null) {
 		$cart = new \Org\Util\Cart('openId');
-        echo $cart->dec_product($product_id);
+        $this->ajaxReturn($cart->dec_product($product_id));
 
     }
     public function del($openId = null, $product_id = null) {
 		$cart = new \Org\Util\Cart('openId');
-        echo $cart->delete_product($product_id);
+        $this->ajaxReturn($cart->delete_product($product_id));
 
     }
     public function clear() {

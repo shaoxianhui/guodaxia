@@ -35,7 +35,7 @@ a:hover
 h1
 {
     color: #888;
-    font-size: 26px;
+    font-size: 18px;
     margin: 15px 0px;
     position: relative;
     text-align: center;
@@ -167,24 +167,12 @@ img
 {
     position: relative;
     display: block;
-    width: 100%;
+
     height: auto;
     margin: 0;
 }
 
-input
-{
-    float: left;
-    width: 92%;
-    padding: 10px 2%;
-    margin: 6px 2%;
-    font-size: 16px;
-    border-radius: 2px;
-    border: 0;
-    border-bottom: 1px solid #DDD;
-    background-color: #FFF;
-    color: #666;
-}
+
 
 textarea
 {
@@ -327,8 +315,7 @@ header
     border-bottom: 2px solid #65C933;
     position: absolute;
     z-index: 99999;
-    text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.2);
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+
     margin: 0;
     top: 0;
     left: 0px;
@@ -383,7 +370,7 @@ footer h1
     width: 50px;
     height: 50px;
     background: center center no-repeat transparent;
-    background-image: url('../ke01_img/menu_bars.png');
+    background-image: url('../images/menu_bars.png');
     box-shadow: none;
     position: absolute;
     top: 0;
@@ -548,7 +535,7 @@ img
     background-color: transparent;
     background-repeat: no-repeat;
     background-position: 0px 0px;
-    background-image: url('../ke01_img/ico-box_icons.png');
+    background-image: url('../images/ico-box_icons.png');
 }
 
 .st-content .ico-box .new
@@ -888,7 +875,7 @@ img
 {
     background-position: 0px 0px;
     background-repeat: no-repeat;
-    /*background-image: url('../ke01_img/menu_icons.png'); */
+    /*background-image: url('../images/menu_icons.png'); */
 }
 
 .st-menu .search
@@ -1241,7 +1228,7 @@ sizes, pagination, etc.
 
 .swiper-container img
 {
-    width: 100%;
+    
     height: auto;
     display: block;
 }
@@ -1349,12 +1336,12 @@ div.ps-zoom-pan-rotate *
 
 div.ps-carousel-item-loading
 {
-    background: url(../ke01_img/photoswipe_loader.gif) no-repeat center center;
+    background: url(../images/photoswipe_loader.gif) no-repeat center center;
 }
 
 div.ps-carousel-item-error
 {
-    background: url(../ke01_img/photoswipe_error.gif) no-repeat center center;
+    background: url(../images/photoswipe_error.gif) no-repeat center center;
 }
 
 
@@ -1428,7 +1415,7 @@ div.ps-toolbar div div.ps-toolbar-content
     width: 44px;
     height: 44px;
     margin: 0 auto 0;
-    background-image: url(../ke01_img/photoswipe_icons.png);
+    background-image: url(../images/photoswipe_icons.png);
     background-repeat: no-repeat;
 }
 
@@ -1475,7 +1462,7 @@ div.ps-toolbar-play div.ps-toolbar-content
         -o-background-size: 176px 88px;
         -webkit-background-size: 176px 88px;
         background-size: 176px 88px;
-        background-image: url(../ke01_img/photoswipe_icons@2x.png);
+        background-image: url(../images/photoswipe_icons@2x.png);
     }
 
 }
