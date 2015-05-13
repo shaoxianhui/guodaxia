@@ -19,9 +19,9 @@
                     <!-- Top Navigation -->
                     <header>
                     <div>
-                        <a class="menu-left1" href="index.html">放弃</a></div>
+                        <a class="menu-left1" href="{:U("Wechat/Cart/profile", array("openId"=>$openId))}">放弃</a></div>
 	                    <h1>编辑资料</h1><div>
-                        <a class="menu-right1" href="profile.html">保存</a></div>
+                        <a class="menu-right1" href="javascript:void()" onclick="update()">保存</a></div>
                     </header>
                     <div>
                         <div class="swiper-container swiper-nested">
@@ -43,36 +43,55 @@
                                                     <dl>
                                                         <dt>姓名</dt>
                                                         <dd>
-                                                            <input id="txtPassword" name="txtPassword" value="张三" class="input txt input_color1" type="text"
+                                                            <input id="name"
+                                                            name="txtPassword"
+                                                            value="{$profile.name}" class="input txt input_color1" type="text"
                                                                 maxlength="50" /></dd>
                                                     </dl>
                                                     <dl>
                                                         <dt>性别</dt>
                                                         <dd>
-                                                            <input id="Text1" name="txtPassword" class="select txt input_color1" value="保密" type="text" maxlength="50" /></dd>
+                                                            <input id="sex"
+                                                            name="txtPassword"
+                                                            class="select txt
+                                                            input_color1"
+                                                            value="{$profile.sex}" type="text" maxlength="50" /></dd>
                                                     </dl>
                                                     <dl>
                                                         <dt>联系方式</dt>
                                                         <dd>
-                                                            <input id="Text2" name="txtPassword" class="input txt input_color2" value="格式有误，请重新输入 " type="text"
+                                                            <input id="phone"
+                                                            name="txtPassword"
+                                                            class="input txt input_color2"
+                                                            value="{$profile.phone}" type="text"
                                                                 maxlength="50" /></dd>
                                                     </dl>
                                                     <dl>
                                                         <dt>出生日期</dt>
                                                         <dd>
-                                                            <input id="Text3" name="txtPassword" class="select txt input_color1" value="1990-2-8" type="text"
+                                                            <input id="birthday"
+                                                            name="txtPassword"
+                                                            class="select txt
+                                                            input_color1"
+                                                            value="{$profile.birthday}" type="text"
                                                                 maxlength="50" /></dd>
                                                     </dl>
                                                     <dl>
                                                         <dt>邮箱</dt>
                                                         <dd>
-                                                            <input id="Text4" name="txtPassword" class="input txt input_color1" value="54178526@gmail.com" type="text"
+                                                            <input id="email"
+                                                            name="txtPassword"
+                                                            class="input txt input_color1"
+                                                            value="{$profile.email}" type="text"
                                                                 maxlength="50" /></dd>
                                                     </dl>
                                                     <dl>
                                                         <dt>收货地址</dt>
                                                         <dd>
-                                                            <input id="Text5" name="txtPassword" class="input txt input_color1" value="北京市海淀区搜狐网络大厦12楼 搜狐公司 " type="text"
+                                                            <input id="location"
+                                                            name="txtPassword"
+                                                            class="input txt input_color1"
+                                                            value="{$profile.location}" type="text"
                                                                 maxlength="50" /></dd>
                                                     </dl>
                                                     </form>
@@ -105,41 +124,24 @@
     <script src="__PUBLIC__/Wechat/js/custom.js"></script>
     <script src="__PUBLIC__/Wechat/js/code.js" type="text/javascript"></script>
     <script type="text/javascript">
-        $(function () {
-            //获得文本框对象
-            var t = $("#text_box");
-            //数量增加操作
-            $("#add").click(function () {
-                t.val(parseInt(t.val()) + 1)
-                if (parseInt(t.val()) != 1) {
-                    $('#min').attr('disabled', false);
-                }
-                setTotal();
-            })
-            //数量减少操作
-            $("#min").click(function () {
-                t.val(parseInt(t.val()) - 1);
-                if (parseInt(t.val()) == 1) {
-                    $('#min').attr('disabled', true);
-                }
-                setTotal();
-            })
-            //计算操作
-            function setTotal() {
-                $("#total").html((parseInt(t.val()) * 3.95).toFixed(2)); //toFixed()是保留小数点的函数很实用哦
-            }
-            //初始化
-            setTotal();
-        });
-
-        function edit_address() {
-            $("#edit_address").css("display", "block");
-            $("#address").css("display", "none");
-        }
-        function save_address() {
-            $("#address").css("display", "block");
-            $("#edit_address").css("display", "none");
-        }
+function update() {
+                $.post("{:U('Wechat/Cart/updateProfile')}", {
+                        openId : "{$openId}",
+                        name : $('#name').val(),
+                        sex : $('#sex').val(),
+                        birthday : $('#birthday').val(),
+                        phone : $('#phone').val(),
+                        location : $('#location').val(),
+                        email : $('#email').val()
+                        }, function(result) {
+                        if(result.success == true){
+                                window.location.href =
+                                "http://www.meirixianguo.com/wechat/cart/profile/openId/{$openId}";
+                        } else {
+                        alert('no');
+                        }
+                });
+}
     </script>
 </body>
 </html>

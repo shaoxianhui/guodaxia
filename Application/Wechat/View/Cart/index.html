@@ -16,8 +16,8 @@
         <nav class="st-menu st-effect-4">
 			<ul>
 			  <li><a class="ico userlogo" href=""><img src="__PUBLIC__/Wechat/images/sidebar_01.png" />47841248</a></li>
-			  <li><a class="ico userinfo" href="profile.html"><img src="__PUBLIC__/Wechat/images/sidebar_02.png" /></a></li>
-			  <li><a class="ico userinfo" href="order.html"><img src="__PUBLIC__/Wechat/images/sidebar_03.png" /></a></li>
+			  <li><a class="ico userinfo" href="{:U("Wechat/Cart/profile", array("openId"=>$openId))}"><img src="__PUBLIC__/Wechat/images/sidebar_02.png" /></a></li>
+			  <li><a class="ico userinfo" href="{:U("Wechat/Cart/order", array("openId"=>$openId))}"><img src="__PUBLIC__/Wechat/images/sidebar_03.png" /></a></li>
               <li><a class="ico userinfo" href=""><img src="__PUBLIC__/Wechat/images/sidebar_04.png" /></a></li>
 		  </ul>
 		</nav>
@@ -52,7 +52,13 @@
                                              <li class="fu li{$p.week}" style="display:none">
                                          </eq>
                                                     <div class="mask">
-                                                        <span class="left_maskbar"></span><span class="right_maskbar"></span>
+                                                        <span class="left_maskbar"
+                                                            style="display:none"></span>
+                                                    <eq name="p1.isAtCart" value="true">
+                                                    <span id="right{$p1.id}" class="right_maskbar"></span>
+                                                    <else/>
+                                                        <span id="right{$p1.id}" class="right_maskbar" style="display:none"></span>
+                                                    </eq>
                                                     </div>
                                          <a href="javascript:" onclick="add({$p1.id})">
                                                     <img src="__PUBLIC__/Wechat/images/{$p1.picUrl}" alt="" title="" /><span>{$p1.name}</span><span>
@@ -110,6 +116,7 @@ function add(id) {
             if(result.state_code == 0) {
             $('#total_num').html(parseInt($('#total_num').html()) + 1);
             $('#btn'+id).attr('disabled', true);
+            $('#right'+id).show();
             }
             });
 }

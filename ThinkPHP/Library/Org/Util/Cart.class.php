@@ -39,7 +39,7 @@ class Cart {
                 $cart['total_price'] = $cart['total_price'] - $p['price'];
                 $cart['total_num'] = $cart['total_num'] - 1;
                 session('cart', $cart);
-                return array('state_code' => 0,'state_message' => '减少商品数量成功!');
+                return array('state_code' => 0,'state_message' => '减少商品数量成功!', 'total_price' => $cart['total_price']);
             } else {
                 return array('state_code' => 0,'state_message' => '在购物车中没有找到该商品或商品数量已经为1!');
             }
@@ -57,7 +57,7 @@ class Cart {
 				$cart['total_num'] = $cart['total_num'] - $cart['products_list'][$p['id']]['count'];
 				unset($cart['products_list'][$product_id]);
                 session('cart', $cart);
-				return array('state_code' => 0,'state_message' => '商品删除成功!');
+				return array('state_code' => 0,'state_message' => '商品删除成功!', 'total_price' => $cart['total_price']);
 			} else {
 				return array('state_code' => 1,'state_message' => '在购物车中没有找到该商品!');
 			}

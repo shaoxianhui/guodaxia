@@ -3,13 +3,14 @@ namespace Wechat\Controller;
 use Think\Controller;
 use Think\Log;
 class CartController extends Controller {
-    public function index($code = null) {
-		$pay = new \Org\Wechat\WxPay();
-		if ($code == null) {
-			$url = $pay->createOauthUrlForCode("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
-            Header("Location: $url");
-		} else {
-			$openId = $pay->getOpenId($code);
+    public function index($code = null, $openId = null) {
+		/* $pay = new \Org\Wechat\WxPay(); */
+		/* if ($code == null) { */
+		/* 	$url = $pay->createOauthUrlForCode("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"); */
+            /* Header("Location: $url"); */
+		/* } else { */
+		/* 	$openId = $pay->getOpenId($code); */
+        $openId = "1234";
 		$cart = new \Org\Util\Cart($openId);
             $this->assign('openId', $openId);
         $start = array(1, 1, 1, 1, 1, 3, 2);
@@ -33,7 +34,7 @@ class CartController extends Controller {
         $this->assign('weekname', array('周日','周一','周二','周三','周四','周五','周六'));
             $cart = new \Org\Util\Cart($openId);
             $this->display();
-        }
+        /* } */
     }
     public function order_submit($openId = null) {
 		$cart = new \Org\Util\Cart($openId);
@@ -96,6 +97,24 @@ class CartController extends Controller {
         $data['ctime'] = time();
         $id = M('Order')->data($data)->add();
 
+        $week = date('w');
+        $min = array(1, 2, 3, 4, 5, 1, 1);
+        $jiange = array(0, 0, 0, 0, 0, 5, 6);
+        $items = array();
+        foreach($info['products_list'] as $p) {
+            if($p['week'] < $min[$week]) {
+                continue;
+            }
+            $item['orderId'] = $id;
+            $item['productId'] = $p['id'];
+            $item['quantity'] = $p['count'];
+            $item['paymentDate'] = date('Y-m-d', strtotime("+".($p['week'] - $week + $jiange[$week])." day"));
+            $item['status'] = 0;
+            
+            array_push($items, $item);
+        }
+        M('OrderItem')->addAll($items);
+
         // 填充已知数据
         $pay->setParameter("openid","$openId");
         $pay->setParameter("body","办公室水果预约");
@@ -138,19 +157,60 @@ class CartController extends Controller {
                 if($order != null && $order['payment'] == 0) {
                     $order['payment'] = $data['total_fee'];
                     M('Order')->save($order);
+                    M('OrderItem')->where('orderId='.$order['id'])->setField(array('status'=>1));
                 }
             }
         }
         echo $returnXml;
     }
 
-    public function order($openId = 123) {
+    public function order($openId = null) {
         if($openId !== null) {
-            $cart = new \Org\Util\Cart($openId);
-            $this->assign('openId', $openId);
-            $this->assign('info', $cart->get_cart_info());
-            $this->assign('date', date('Y-n-d'));
             $this->display();
+        } else {
+            echo "error";
         }
+    }
+
+    public function profile($openId = null) {
+        if($openId !== null) {
+            $Profile = M('Profile');
+            $map['openId'] = $openId;
+            $profile = $Profile->where($map)->find();
+            $this->assign('profile', $profile);
+            $this->assign('openId', $openId);
+            $this->display();
+        } else {
+            echo "error";
+        }
+    }
+
+    public function profile_edit($openId = null) {
+        if($openId !== null) {
+            $Profile = M('Profile');
+            $map['openId'] = $openId;
+            $profile = $Profile->where($map)->find();
+            $this->assign('profile', $profile);
+            $this->assign('openId', $openId);
+            $this->display();
+        } else {
+            echo "error";
+        }
+    }
+
+    public function updateProfile($openId , $name , $sex , $birthday , $phone , $email , $location ) {
+        $Profile = M('Profile');
+        $map['openId'] = $openId;
+        $profile = $Profile->where($map)->find();
+        $Profile->create();
+        if($profile == null) {
+            $Profile->add();
+        } else {
+            $Profile->id = $profile['id'];
+            $Profile->save();
+        }
+        $result['success'] = true;
+        $result['smessage'] = '更新成功';
+        $this->ajaxReturn($result);
     }
 }

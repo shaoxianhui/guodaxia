@@ -19,9 +19,9 @@
                     <!-- Top Navigation -->
                     <header>
                     <div>
-                        <a class="menu-left" href="index.html"></a></div>
+                        <a class="menu-left" href="{:U("Wechat/Cart/index")}"></a></div>
 	                    <h1>个人资料</h1><div>
-                        <a class="menu-right" href="profile_edit.html"></a></div>
+                            <a class="menu-right" href="{:U("Wechat/Cart/profile_edit", array("openId"=>$openId))}"></a></div>
                     </header>
                     <div>
                         <div class="swiper-container swiper-nested">
@@ -43,37 +43,46 @@
                                                     <dl>
                                                         <dt>姓名</dt>
                                                         <dd>
-                                                            <input id="txtPassword" name="txtPassword" value="张三" class="input txt" type="text"
+                                                            <input id="txtPassword"
+                                                            name="txtPassword"
+                                                            value="{$profile.name|default="匿名"}" class="input txt" type="text"
                                                                 maxlength="50" /></dd>
                                                     </dl>
                                                     <dl>
                                                         <dt>性别</dt>
                                                         <dd>
-                                                            <input id="Text1" name="txtPassword" class="input txt" value="保密" type="text" maxlength="50" /></dd>
+                                                            <input id="Text1"
+                                                            name="txtPassword"
+                                                            class="input txt"
+                                                            value="{$profile.sex|default="保密"}" type="text" maxlength="50" /></dd>
                                                     </dl>
                                                     <dl>
                                                         <dt>联系方式</dt>
                                                         <dd>
                                                             <input id="Text2" name="txtPassword" class="input txt" placeholder="请填写联系方式" type="text"
-                                                                maxlength="50" /></dd>
+                                                                maxlength="50"
+                                                                value="{$profile.phone|default="保密"}"/></dd>
                                                     </dl>
                                                     <dl>
                                                         <dt>出生日期</dt>
                                                         <dd>
                                                             <input id="Text3" name="txtPassword" class="input txt" placeholder="请填写出生日期" type="text"
-                                                                maxlength="50" /></dd>
+                                                                maxlength="50"
+                                                                value="{$profile.birthday|default="保密"}"/></dd>
                                                     </dl>
                                                     <dl>
                                                         <dt>邮箱</dt>
                                                         <dd>
                                                             <input id="Text4" name="txtPassword" class="input txt" placeholder="请填写邮箱" type="text"
-                                                                maxlength="50" /></dd>
+                                                                maxlength="50"
+                                                                value="{$profile.email|default="保密"}"/></dd>
                                                     </dl>
                                                     <dl>
                                                         <dt>收货地址</dt>
                                                         <dd>
                                                             <input id="Text5" name="txtPassword" class="input txt" placeholder="请填写收货地址" type="text"
-                                                                maxlength="50" /></dd>
+                                                                maxlength="50"
+                                                                value="{$profile.location|default="保密"}"/></dd>
                                                     </dl>
                                                     </form>
                                                     <div id="msgtips">

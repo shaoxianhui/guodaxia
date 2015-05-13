@@ -157,15 +157,15 @@
             $(".add").click(function () {
                 var t = $(this).prev();
                 
-                t.val(parseInt(t.val()) + 1)
-                if (parseInt(t.val()) != 1) {
-                    $(this).prev().prev().attr('disabled', false);
-                }
                 $.post("{:U('Wechat/Cart/add')}", {
                         openId : "{$openId}",
                         product_id : $(this).attr('data-id')
                         }, function(result) {
                         if(result.state_code == 0){
+                t.val(parseInt(t.val()) + 1)
+                if (parseInt(t.val()) != 1) {
+                    t.prev().attr('disabled', false);
+                }
                             $("#total").html(result.total_price); //toFixed()是保留小数点的函数很实用哦
                         } else {
                         }
@@ -175,33 +175,36 @@
             $(".min").click(function () {
                 //获得文本框对象
                 var t = $(this).next();
-                t.val(parseInt(t.val()) - 1);
-                if (parseInt(t.val()) == 1) {
-                    $(this).attr('disabled', true);
-                }
                 $.post("{:U('Wechat/Cart/dec')}", {
                         openId : "{$openId}",
                         product_id : $(this).attr('data-id')
                         }, function(result) {
                         if(result.state_code == 0){
+                t.val(parseInt(t.val()) - 1);
+                if (parseInt(t.val()) == 1) {
+                    t.prev().attr('disabled', true);
+                }
+                            $("#total").html(result.total_price); //toFixed()是保留小数点的函数很实用哦
                         } else {
                         }
                 });
             })
             $(".del").click(function () {
-                    var bb = $(this).parent().parent().siblings().length;
-                    if(bb == 0) {
-                        $(this).parentsUntil('.tb1').remove();
-
-                    } else {
-                        var id=$(this).attr('data-id');
-                        $('#ps'+id).remove();
-                    }
+                    var t = $(this);
                 $.post("{:U('Wechat/Cart/del')}", {
                         openId : "{$openId}",
                         product_id : $(this).attr('data-id')
                         }, function(result) {
                         if(result.state_code == 0){
+                    var bb = t.parent().parent().siblings().length;
+                    if(bb == 0) {
+                        t.parentsUntil('.tb1').remove();
+
+                    } else {
+                        var id=t.attr('data-id');
+                        $('#ps'+id).remove();
+                    }
+                            $("#total").html(result.total_price); //toFixed()是保留小数点的函数很实用哦
                         } else {
                         }
                 });
