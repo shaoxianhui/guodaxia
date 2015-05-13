@@ -19,7 +19,7 @@
                     <!-- Top Navigation -->
                     <header>
                     <div>
-                        <a class="menu-left" href="order.html"></a></div>
+                        <a class="menu-left" href="{:U('Wechat/Cart/index')}"></a></div>
 	                    <h1>提交订单</h1><a href="#"></a>
                     </header>
                     <div class="">
@@ -38,18 +38,18 @@
                                                         <tr>
                                                             <td class="tb1-td1">
                                                                 <div class="order-time">
-                                                                    {$key}<br />
-                                                                    3.9</div>
+                                                                    {$weekname[$key]}<br />
+                                                                    {$weekps.day}</div>
                                                             </td>
                                                             <td class="tb1-td2">
                                                                 <table class="sss" data-test="sd">
-                                                                    <volist name="weekps" id="ps">
+                                                                    <volist name="weekps.ps" id="ps">
                                                                     <tr class="tr1" id="ps{$ps.id}" data-test="dsdsdsd">
                                                                         <td class="td1 td_bottom">
-                                                                            <img src="__PUBLIC__/Wechat/images/order_01.png" alt="" title="" />
+                                                                            <img src="__PUBLIC__/Wechat/images/{$ps.picUrl}" alt="" title="" />
                                                                         </td>
                                                                         <td class="td2 td_bottom td_padding">
-                                                                            <span>{$ps.name}</span><br /><tt>￥3.00 </tt>
+                                                                            <span>{$ps.name}</span><br/><tt>￥{$ps.price} </tt>
                                                                             <div>
                                                                                 <input name="" type="button" value="-" class="min btn_box" data-id="{$ps.id}"/>
                                                                                 <input id="text_box" name="" type="text" value="{$ps.count}" class="text_box" />
@@ -125,8 +125,8 @@
                                             <div class="order_b_btn">
                                                 <div class="order_s_price">
                                                     商品总额：<span class="color1">￥110.00</span><br />
-                                                    应付金额：<span class="color2">￥{$money}</span></div>
-                                                <a href="javascript:void()" class="button10 green2 radius6">提交订单</a>
+                                                    应付金额：<span class="color2" id="total">￥{$money}</span></div>
+                                                <a href="javascript:void(0);" onclick="callpay()" class="button10 green2 radius6">提交订单</a>
                                             </div>
                                             <div class="clearfix">
                                             </div>
@@ -166,6 +166,7 @@
                         product_id : $(this).attr('data-id')
                         }, function(result) {
                         if(result.state_code == 0){
+                            $("#total").html(result.total_price); //toFixed()是保留小数点的函数很实用哦
                         } else {
                         }
                 });
@@ -205,12 +206,6 @@
                         }
                 });
                     })
-            //计算操作
-            function setTotal() {
-                $("#total").html((parseInt(t.val()) * 3.95).toFixed(2)); //toFixed()是保留小数点的函数很实用哦
-            }
-            //初始化
-            setTotal();
         });
 
         function edit_address() {
@@ -242,7 +237,6 @@
                             'getBrandWCPayRequest',
                             result.jsApiParameters,
                             function(res){
-                            alert(res.err_msg);
                             if(res.err_msg == 'get_brand_wcpay_request:ok') {
                                 window.location.href =
                                 "http://www.meirixianguo.com/wechat/wxpay/successpay/openId/{$openId}";
@@ -250,7 +244,6 @@
                             }
                         );
                         } else {
-                        alert(result.message);
                         }
                 });
                 }

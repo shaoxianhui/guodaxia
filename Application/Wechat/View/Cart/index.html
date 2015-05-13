@@ -58,7 +58,11 @@
                                                     <img src="__PUBLIC__/Wechat/images/{$p1.picUrl}" alt="" title="" /><span>{$p1.name}</span><span>
                                                         <tt class="price1">￥{$p1.price}
                                                     </tt><tt class="weight1">（约{$p1.weight}g）</tt></span>
-                                                    <button class="button radius6"> 加入果篮</button></a> </li>
+                                                    <eq name="p1.isAtCart" value="true">
+                                                        <button id="btn{$p1.id}" class="button radius6" disabled="disabled"> 加入果篮</button></a> </li>
+                                                    <else/>
+                                                        <button id="btn{$p1.id}" class="button radius6"> 加入果篮</button></a> </li>
+                                                    </eq>
                                          </volist>
                                      </volist>
                                             </ul>
@@ -105,6 +109,7 @@ function add(id) {
 
             if(result.state_code == 0) {
             $('#total_num').html(parseInt($('#total_num').html()) + 1);
+            $('#btn'+id).attr('disabled', true);
             }
             });
 }

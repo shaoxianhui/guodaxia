@@ -23,7 +23,7 @@ class Cart {
             $cart['total_price'] = $cart['total_price'] + $p['price'];
             $cart['total_num'] = $cart['total_num'] + 1;
             session('cart', $cart);
-            return array('state_code' => 0,'state_message' => '加入购物车成功!');
+            return array('state_code' => 0,'state_message' => '加入购物车成功!', 'total_price' => $cart['total_price']);
         } else {
             return array('state_code' => 1,'state_message' => '商品已下架!');
         }
@@ -74,4 +74,9 @@ class Cart {
 	public function get_cart_info() {
 		return session('cart');
 	}
+
+    public function isAtCart($product_id) {
+        $cart = session('cart');
+        return isset($cart['products_list'][$product_id]);
+    }
 }
